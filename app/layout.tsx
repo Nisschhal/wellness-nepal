@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     siteName: "Wellness Nepal Gym",
     images: [
       {
-        url: "/wellness-dark.svg", // Create a 1200x630 image showing your best equipment
+        url: "/wellness-dark.png", // Create a 1200x630 image showing your best equipment
         width: 1200,
         height: 630,
         alt: "Wellness Nepal Gym Equipment Showroom",
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Wellness Nepal Gym",
     description: "Best Gym Equipment in Nepal",
-    images: ["/og-image.jpg"],
+    images: ["/wellness-dark.png"],
   },
 }
 
