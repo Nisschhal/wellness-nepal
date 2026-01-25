@@ -17,12 +17,15 @@ const montserrat = Montserrat({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://wellness-nepal.vercel.app/"),
   title: {
     default: "Wellness Nepal Gym | #1 Fitness Equipment Supplier in Nepal",
     template: "%s | Wellness Nepal Gym",
   },
   description:
     "Nepal’s leading distributor of commercial and home gym equipment. We provide high-quality treadmills, strength machines, and flooring for gyms nationwide.",
+  // This helps AI understand you are an e-commerce/supplier entity
+  category: "Fitness Equipment Supplier",
   icons: {
     icon: [
       { url: "/wellness-dark.svg" }, // Place in public folder
@@ -37,10 +40,6 @@ export const metadata: Metadata = {
     "commercial fitness machines Kathmandu",
     "buy gym weights Nepal",
   ],
-
-  metadataBase: new URL("https://wellnessnepalgym.com"),
-  // This helps AI understand you are an e-commerce/supplier entity
-  category: "Fitness Equipment Supplier",
 
   // For Open Graph and Twitter cards on Social Media shares
   openGraph: {
