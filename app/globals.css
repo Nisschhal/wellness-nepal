@@ -3,6 +3,7 @@
 :root {
   --brand-red: #e61e2a;
   --surface: #f8fafc;
+  --surface-darker: #f1f5f9; /* Added this */
   --surface-border: #cbd5e1;
   --surface-text: #0f172a;
   --surface-muted: #64748b;
@@ -10,41 +11,33 @@
 
 .dark {
   --surface: #09090b;
+  --surface-darker: #121215; /* Added this */
   --surface-border: #27272a;
   --surface-text: #ffffff;
   --surface-muted: #a1a1aa;
 }
 
-@theme inline {
-  /* Colors */
+@theme {
+  /* Use the --color- prefix so Tailwind generates text-*, bg-*, border-* */
   --color-brand-red: var(--brand-red);
   --color-surface: var(--surface);
+  --color-surface-darker: var(--surface-darker);
   --color-surface-border: var(--surface-border);
   --color-surface-text: var(--surface-text);
   --color-surface-muted: var(--surface-muted);
 
-  /* Fonts - Ensure these match layout.tsx */
   --font-bebas: var(--font-bebas);
   --font-montserrat: var(--font-montserrat);
 }
 
-/* 1. Fix for "Compactness" - Bebas Neue needs to be tight */
-h1,
-.font-bebas {
-  font-family: var(--font-bebas), sans-serif;
-  text-transform: uppercase;
-}
-
-/* 2. Utility for the grid texture */
+/* Custom Utilities */
 @utility bg-pattern {
   background-image:
     linear-gradient(var(--surface-border) 1px, transparent 1px),
     linear-gradient(90deg, var(--surface-border) 1px, transparent 1px);
   background-size: 50px 50px;
-  opacity: 0.15;
 }
 
-/* 3. Utility for the Skewed Button */
 @utility skew-button {
   transform: skewX(-12deg);
   display: inline-flex;
@@ -52,6 +45,11 @@ h1,
   & > * {
     transform: skewX(12deg);
   }
+}
+
+/* You were using this in the component but it wasn't defined here! */
+@utility industrial-border {
+  border: 1px solid var(--surface-border);
 }
 
 body {
