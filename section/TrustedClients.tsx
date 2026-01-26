@@ -41,7 +41,7 @@ const TrustedClients: React.FC = () => {
           className="flex gap-20 md:gap-32 whitespace-nowrap px-10 items-center"
           animate={{ x: [0, "-50%"] }} // Optimized for infinite loop
           transition={{
-            duration: isMobile ? 20 : 40, // Faster duration feels smoother for B2B
+            duration: isMobile ? 60 : 100, // Faster duration feels smoother for B2B
             repeat: Infinity,
             ease: "linear",
           }}
