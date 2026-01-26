@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Bebas_Neue, Montserrat } from "next/font/google" // Import the fonts
 
 import "./globals.css"
+import Navbar from "@/components/Navbar"
 const bebas = Bebas_Neue({
   weight: "400",
   subsets: ["latin"],
@@ -99,7 +100,10 @@ export default function RootLayout({
     <html lang="en" className="dark">
       {/* Add dark class here if you want dark mode by default */}
       <body className={`${bebas.variable} ${montserrat.variable} antialiased`}>
+        <Navbar />
+
         {/* Injecting the JSON-LD for AI Search Engines */}
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

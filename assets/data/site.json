@@ -1,0 +1,29 @@
+
+{
+  "brand": {
+    "name": "Wellness Nepal",
+    "fullName": "Wellness Fitness Center Pvt. Ltd.",
+    "slogan": "Dominating the Iron Landscape",
+    "address": "Ring Road, Ward 04, Kathmandu, Nepal",
+    "phone": "+977-9800000000",
+    "email": "sales@wellnessnepal.com",
+    "whatsapp": "https://wa.me/9779800000000"
+  },
+  "seo": {
+    "defaultTitle": "Wellness Nepal | #1 Premium Gym Equipment & Commercial Setup",
+    "defaultDescription": "Nepal's premier destination for industrial-grade commercial gym setups. Engineered with Shakti (शक्ति) precision for maximum ROI.",
+    "keywords": "Gym gear Nepal, Kathmandu fitness, Commercial gym setup Nepal, Shakti series gym, Industrial gym equipment"
+  },
+  "terms": [
+    "Prices quoted are exclusive of 13% VAT.",
+    "50% advance payment required for order processing.",
+    "Standard delivery lead time: 7-14 business days within Nepal.",
+    "10-year structural warranty on Shakti industrial frames.",
+    "Installation requires a prepared, level floor and specific power phases."
+  ],
+  "socials": {
+    "instagram": "https://instagram.com/wellnessnepal",
+    "facebook": "https://facebook.com/wellnessnepal",
+    "twitter": "https://twitter.com/wellnessnepal"
+  }
+}

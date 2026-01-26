@@ -1,0 +1,47 @@
+
+[
+  {
+    "id": "multi-station-x100",
+    "name": "Multi-Station X100",
+    "category": "Multi-Station",
+    "image": "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=800&auto=format&fit=crop",
+    "description": "The ultimate industrial-grade trainer for high-performance facilities in Nepal. Built with 12-gauge steel and precision bearings.",
+    "specs": {
+      "Frame": "12-Gauge Steel",
+      "Weight Stack": "2 x 100kg",
+      "Dimensions": "210cm x 150cm x 220cm",
+      "Warranty": "10 Years Frame"
+    },
+    "isFeatured": true,
+    "seo_keywords": "Multi station gym machine price Nepal, Industrial gym gear Kathmandu, Professional gym setup"
+  },
+  {
+    "id": "cardio-pro-t90",
+    "name": "Cardio Pro Treadmill T90",
+    "category": "Cardio",
+    "image": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=800&auto=format&fit=crop",
+    "description": "Commercial-grade treadmill engineered for Nepal's climate. Features advanced shock absorption and auto-incline for mountain simulation training.",
+    "specs": {
+      "Motor": "5.0 HP AC",
+      "Max Speed": "22 km/h",
+      "Incline": "0-15%",
+      "Max User Weight": "180kg"
+    },
+    "isFeatured": true,
+    "seo_keywords": "Best treadmill price in Nepal, Commercial treadmill Kathmandu, Buy cardio gear Nepal"
+  },
+  {
+    "id": "leg-press-45",
+    "name": "Plate Loaded Leg Press",
+    "category": "Strength",
+    "image": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fit=crop",
+    "description": "Heavy-duty 45-degree leg press. Ergonomic padding designed for maximum safety during heavy lifts.",
+    "specs": {
+      "Resistance": "Plate Loaded",
+      "Capacity": "450kg",
+      "Dimensions": "240cm x 160cm x 150cm"
+    },
+    "isFeatured": true,
+    "seo_keywords": "Leg press machine price Nepal, Strength equipment Kathmandu, Commercial gym gear"
+  }
+]

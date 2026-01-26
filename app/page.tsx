@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar"
+import TrustedClients from "@/components/TrustedClients"
 import Hero from "@/section/Hero"
 import { Metadata } from "next"
 
@@ -11,9 +12,9 @@ export const metadata: Metadata = {
 }
 export default function Home() {
   return (
-    <div className="font-montserrat ">
-      <Navbar />
+    <div className="flex flex-col min-h-screen bg-surface font-montserrat selection:bg-brand-red selection:text-white">
       <Hero />
+      <TrustedClients />
       <div className="h-100"></div>
     </div>
   )
