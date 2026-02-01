@@ -23,7 +23,7 @@ const SectionHeading: React.FC<Props> = ({ title, subtitle }) => {
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        className="font-bebas text-4xl sm:text-5xl md:text-7xl lg:text-8xl italic leading-[0.95] md:leading-[0.9] tracking-tighter text-surface-text"
+        className="font-bebas text-4xl sm:text-5xl md:text-7xl lg:text-8xl italic leading md:leading tracking-tighter text-surface-text"
       >
         {title.split(" ").map((word, i) => (
           <span

@@ -3,22 +3,27 @@
 :root {
   --brand-red: #e61e2a;
   --surface: #f8fafc;
-  --surface-darker: #f1f5f9; /* Added this */
+  --surface-darker: #f1f5f9;
   --surface-border: #cbd5e1;
   --surface-text: #0f172a;
   --surface-muted: #64748b;
+  --grid-opacity: 0.18;
+
+  /* Missing Font Variables - Must match your Next.js font setup or Google Font */
+  --font-bebas: "Bebas Neue", cursive;
+  --font-montserrat: "Montserrat", sans-serif;
 }
 
 .dark {
   --surface: #09090b;
-  --surface-darker: #121215; /* Added this */
+  --surface-darker: #121215;
   --surface-border: #27272a;
   --surface-text: #ffffff;
   --surface-muted: #a1a1aa;
+  --grid-opacity: 0.05;
 }
 
 @theme {
-  /* Use the --color- prefix so Tailwind generates text-*, bg-*, border-* */
   --color-brand-red: var(--brand-red);
   --color-surface: var(--surface);
   --color-surface-darker: var(--surface-darker);
@@ -30,24 +35,26 @@
   --font-montserrat: var(--font-montserrat);
 }
 
-/* Custom Utilities */
+/* Updated Pattern to match original exactly (60px, 1.2px lines, dynamic opacity) */
 @utility bg-pattern {
   background-image:
-    linear-gradient(var(--surface-border) 1px, transparent 1px),
-    linear-gradient(90deg, var(--surface-border) 1px, transparent 1px);
-  background-size: 50px 50px;
+    linear-gradient(var(--surface-border) 1.2px, transparent 1.2px),
+    linear-gradient(90deg, var(--surface-border) 1.2px, transparent 1.2px);
+  background-size: 60px 60px;
+  opacity: var(--grid-opacity);
 }
 
 @utility skew-button {
   transform: skewX(-12deg);
   display: inline-flex;
+  align-items: center;
+  justify-content: center;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   & > * {
     transform: skewX(12deg);
   }
 }
 
-/* You were using this in the component but it wasn't defined here! */
 @utility industrial-border {
   border: 1px solid var(--surface-border);
 }
@@ -55,5 +62,8 @@
 body {
   background-color: var(--surface);
   color: var(--surface-text);
-  font-family: var(--font-montserrat), sans-serif;
+  font-family: var(--font-montserrat);
+  transition:
+    background-color 0.4s ease,
+    border-color 0.4s ease;
 }
