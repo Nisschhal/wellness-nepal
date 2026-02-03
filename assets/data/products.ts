@@ -33,7 +33,7 @@ export const PRODUCTS_DATA = [
       "https://images.unsplash.com/photo-1594381898411-846e7d193883?q=80&w=800&auto=format&fit=crop",
       "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fit=crop",
     ],
-    price: 195000,
+    price: null,
     description:
       "Counter-balanced bar system for maximum safety during heavy squats and presses. Built for 24/7 high-volume use.",
     specs: {
@@ -77,7 +77,7 @@ export const PRODUCTS_DATA = [
       "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=800&auto=format&fit=crop",
       "https://images.unsplash.com/photo-1574673130244-c49cd54263f6?q=80&w=800&auto=format&fit=crop",
     ],
-    price: 325000,
+    price: null,
     description:
       "Engineered for the aggressive demands of Kathmandu's top fitness clubs. AC Motor ensures 12+ hours of non-stop daily usage.",
     specs: {
@@ -99,7 +99,7 @@ export const PRODUCTS_DATA = [
       "https://images.unsplash.com/photo-1590239098509-e011f8e5c3df?q=80&w=800&auto=format&fit=crop",
       "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fit=crop",
     ],
-    price: 85000,
+    price: null,
     description:
       "Silent, maintenance-free magnetic resistance. Perfect for high-end spin studios and hotel gyms.",
     specs: {
@@ -120,7 +120,7 @@ export const PRODUCTS_DATA = [
       "https://images.unsplash.com/photo-1538805060514-97d9cc17730c?q=80&w=800&auto=format&fit=crop",
       "https://images.unsplash.com/photo-1597452485669-2c7bb5fef90d?q=80&w=800&auto=format&fit=crop",
     ],
-    price: 245000,
+    price: null,
     description:
       "Rear-drive professional cross-trainer. Mimics natural human running gait with zero impact on joints.",
     specs: {
@@ -140,7 +140,7 @@ export const PRODUCTS_DATA = [
     images: [
       "https://images.unsplash.com/photo-1578762560072-46ef1525b4ea?q=80&w=800&auto=format&fit=crop",
     ],
-    price: 285000,
+    price: null,
     description:
       "The ultimate HIIT tool. Powered by the runner. Burns 30% more calories than traditional treadmills.",
     specs: {
@@ -183,7 +183,7 @@ export const PRODUCTS_DATA = [
       "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fit=crop",
       "https://images.unsplash.com/photo-1521804906057-1df8fdb718b7?q=80&w=800&auto=format&fit=crop",
     ],
-    price: 185000,
+    price: null,
     description:
       "Engineered for raw power. Heavy-duty linear bearings provide a frictionless travel path regardless of the load.",
     specs: {
@@ -203,7 +203,7 @@ export const PRODUCTS_DATA = [
     images: [
       "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=800&auto=format&fit=crop",
     ],
-    price: 165000,
+    price: null,
     description:
       "Isolate the quads with surgical precision. Ergonomically angled to protect the lumbar spine during max effort.",
     specs: {
@@ -223,7 +223,7 @@ export const PRODUCTS_DATA = [
     images: [
       "https://images.unsplash.com/photo-1594882645126-14020914d58d?q=80&w=800&auto=format&fit=crop",
     ],
-    price: 145000,
+    price: null,
     description:
       "Selectorized stack machine. Converging arms follow the natural biomechanics of the human body.",
     specs: {
@@ -243,7 +243,7 @@ export const PRODUCTS_DATA = [
     images: [
       "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fit=crop",
     ],
-    price: 155000,
+    price: null,
     description:
       "Space-saving dual function machine. Switch between pull and row in seconds.",
     specs: {
@@ -286,7 +286,7 @@ export const PRODUCTS_DATA = [
     images: [
       "https://images.unsplash.com/photo-1538805060514-97d9cc17730c?q=80&w=800&auto=format&fit=crop",
     ],
-    price: 95000,
+    price: null,
     description:
       "The ultimate lung burner. Infinite resistance provided by the steel fan. Chain-driven for maximum durability.",
     specs: {
@@ -306,7 +306,7 @@ export const PRODUCTS_DATA = [
     images: [
       "https://images.unsplash.com/photo-1599058917232-d750c1859d7c?q=80&w=800&auto=format&fit=crop",
     ],
-    price: 32000,
+    price: null,
     description:
       "Heavy-duty push/pull sled for functional conditioning. Built to slide on turf, rubber, or concrete.",
     specs: {
@@ -349,7 +349,7 @@ export const PRODUCTS_DATA = [
     images: [
       "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=800&auto=format&fit=crop",
     ],
-    price: 28000,
+    price: null,
     description:
       "20kg, 215k PSI tensile strength bar with 8 needle bearings. Built for professional lifting.",
     specs: { PSI: "215,000", Bearings: "8 Needle", Knurl: "IWF Standard" },
@@ -387,7 +387,7 @@ export const PRODUCTS_DATA = [
     images: [
       "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fit=crop",
     ],
-    price: 35000,
+    price: null,
     description:
       "Flat, Incline, Decline. Built with a 1000lb capacity. Heavy-duty wheels for easy transport.",
     specs: { Capacity: "450kg", Adjust: "8 Back, 3 Seat", Wheels: "Included" },
@@ -403,7 +403,7 @@ export const PRODUCTS_DATA = [
     images: [
       "https://images.unsplash.com/photo-1586401100295-7a8096fd231a?q=80&w=800&auto=format&fit=crop",
     ],
-    price: 42000,
+    price: null,
     description:
       "Industrial storage for up to 15 pairs of dumbbells. Space-efficient and extremely stable.",
     specs: {

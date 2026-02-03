@@ -150,7 +150,7 @@ function CategoryContent() {
                     className="group bg-surface-darker industrial-border overflow-hidden hover:border-brand-red transition-all"
                   >
                     <Link
-                      href={`/product/${p.id}`}
+                      href={`/products/${p.id}`}
                       className="block relative aspect-square bg-zinc-800 overflow-hidden"
                     >
                       <img

@@ -3,6 +3,8 @@ import { Bebas_Neue, Montserrat } from "next/font/google" // Import the fonts
 
 import "./globals.css"
 import Navbar from "@/components/Navbar"
+import { ChatStoreProvider } from "@/lib/store/chat-store-provider"
+import { ChatSheet } from "@/section/ChatSheet"
 const bebas = Bebas_Neue({
   weight: "400",
   subsets: ["latin"],
@@ -100,15 +102,18 @@ export default function RootLayout({
     <html lang="en" className="dark">
       {/* Add dark class here if you want dark mode by default */}
       <body className={`${bebas.variable} ${montserrat.variable} antialiased`}>
-        <Navbar />
+        <ChatStoreProvider>
+          <Navbar />
 
-        {/* Injecting the JSON-LD for AI Search Engines */}
+          {/* Injecting the JSON-LD for AI Search Engines */}
 
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-        {children}
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          />
+          {children}
+          <ChatSheet />
+        </ChatStoreProvider>
       </body>
     </html>
   )
