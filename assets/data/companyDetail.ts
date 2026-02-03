@@ -1,3 +1,4 @@
+// Client details
 export const COMPANY_DETAILS = {
   brand: {
     name: "Wellness Nepal",
