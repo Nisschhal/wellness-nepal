@@ -4,29 +4,26 @@ import { z } from "zod"
 
 export const getCompanyInfoTool = tool({
   description:
-    "Get contact, location, and business details for Wellness Nepal.",
-  inputSchema: z.object({
-    topic: z
-      .enum(["contact", "about", "terms", "socials", "all"])
-      .default("all")
-      .describe("The specific info the user is looking for"),
-  }),
+    "Get Wellness Nepal location, contact, warranty terms, and company pillars.",
+  inputSchema: z
+    .object({
+      topic: z
+        .enum(["contact", "terms", "about", "all"])
+        .optional()
+        .default("all"),
+    })
+    .passthrough(),
   execute: async ({ topic }) => {
-    const data = COMPANY_DETAILS
-    switch (topic) {
-      case "contact":
-        return {
-          address: data.brand.address,
-          phone: data.brand.phone,
-          whatsapp: data.brand.whatsapp,
-        }
-      case "about":
-        return {
-          manifesto: "Nepal's premium fitness provider.",
-          pillars: data.pillars,
-        }
-      default:
-        return data
+    const d = COMPANY_DETAILS
+    return {
+      success: true,
+      brand: d.brand,
+      socials: d.socials,
+      pillars: d.pillars,
+      terms: d.terms,
+      whatsapp: d.brand.whatsapp,
+      showroom:
+        "Visit us at Traffic Chowk, Butwal or our Kathmandu partner facility.",
     }
   },
 })
