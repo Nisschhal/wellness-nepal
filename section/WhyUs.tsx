@@ -40,6 +40,8 @@ const WhyUs = () => {
 
   return (
     <section className="py-20 md:py-32 bg-surface relative z-10 border-b border-surface-border overflow-hidden">
+      <div className="absolute inset-0 bg-pattern pointer-events-none z-0"></div>
+
       <div className="container mx-auto px-6">
         <SectionHeading
           title="THE NEPALESE STANDARD"

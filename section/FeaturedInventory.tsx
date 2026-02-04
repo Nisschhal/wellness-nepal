@@ -13,6 +13,8 @@ const FeaturedInventory = () => {
 
   return (
     <section className="py-24 md:py-40 bg-surface relative z-10">
+      <div className="absolute inset-0 bg-pattern pointer-events-none z-0"></div>
+
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-20 gap-6">
           <SectionHeading title="IRON ARSENAL" subtitle="SELECT YOUR WEAPONS" />

@@ -25,7 +25,8 @@ export default function PortfolioPage() {
   )
 
   return (
-    <div className="bg-surface min-h-screen pt-32 pb-24 transition-colors duration-300">
+    <div className="bg-surface min-h-screen pt-32 pb-24 transition-colors duration-300 relative">
+      <div className="absolute inset-0 bg-pattern pointer-events-none z-0"></div>
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <SectionHeading

@@ -90,7 +90,7 @@ const BluePrint = () => {
         <div className="mt-20 text-center">
           <Link
             href="/contact"
-            className="skew-button bg-brand-red px-10 md:px-20 py-5 md:py-8 font-bebas text-xl md:text-3xl text-white hover:bg-surface-text transition-all italic tracking-widest group shadow-2xl"
+            className="shadow-brand-red/50  skew-button bg-brand-red px-10 md:px-20 py-5 md:py-8 font-bebas text-xl md:text-3xl text-white hover:bg-surface-text transition-all italic tracking-widest group shadow-2xl"
           >
             <span>GET PROJECT QUOTE</span>
             <ArrowRight

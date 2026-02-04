@@ -26,7 +26,7 @@ const FinalCTA = () => {
   if (!hasMounted) return null
 
   return (
-    <section className="py-32 md:py-64 bg-surface relative z-10 text-center">
+    <section className="py-24 md:py-40 bg-surface relative z-10 text-center">
       <div className="container mx-auto px-6 max-w-6xl">
         <div className="w-20 md:w-32 h-0.5 bg-brand-red mx-auto mb-12 md:mb-16 opacity-60 shadow-[0_0_15px_#E61E2A]"></div>
 

@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Menu, X, Sun, Moon, MessageCircle, Dumbbell } from "lucide-react"
+import { Menu, X, Sun, Moon, Dumbbell, Sparkles, Cpu } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useIsChatOpen, useChatActions } from "@/lib/store/chat-store-provider"
 
@@ -14,13 +14,13 @@ const Navbar: React.FC = () => {
   const [isDark, setIsDark] = useState(true)
   const pathname = usePathname()
 
-  // Chat store hooks
   const isChatOpen = useIsChatOpen()
   const { closeChat, openChat } = useChatActions()
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20)
     window.addEventListener("scroll", handleScroll)
+    // Check initial theme
     setIsDark(document.documentElement.classList.contains("dark"))
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
@@ -28,131 +28,105 @@ const Navbar: React.FC = () => {
   const toggleTheme = () => {
     const newDark = !isDark
     setIsDark(newDark)
-    if (newDark) {
-      document.documentElement.classList.add("dark")
-    } else {
-      document.documentElement.classList.remove("dark")
-    }
+    document.documentElement.classList.toggle("dark")
   }
 
-  const toggleChat = () => {
-    if (isChatOpen) {
-      closeChat()
-    } else {
-      openChat()
-    }
-  }
+  const toggleChat = () => (isChatOpen ? closeChat() : openChat())
 
   const navLinks = [
-    { name: "Home", path: "/" },
-    { name: "Equipment", path: "/category" },
-    { name: "About", path: "/about" },
+    { name: "Iron Arsenal", path: "/category" },
     { name: "Portfolio", path: "/portfolio" },
-    { name: "Contact", path: "/contact" },
+    { name: "Blueprint", path: "/about" },
   ]
 
   return (
     <nav
-      className={`fixed top-0 w-full z-[60] transition-all duration-300 ${
+      className={`fixed top-0 w-full z-[100] transition-all duration-500 ${
         isScrolled
-          ? "bg-surface/95 backdrop-blur-xl border-b border-surface-border py-2"
+          ? "bg-surface/80 backdrop-blur-xl border-b border-surface-border py-3"
           : "bg-transparent py-6"
       }`}
     >
       <div className="container mx-auto px-6 flex justify-between items-center">
-        {/* LOGO SECTION */}
-        <Link href="/" className="flex items-center">
-          <div className="relative h-12 w-48 md:h-16 md:w-56 transition-transform hover:scale-105">
-            {isDark ? (
-              <Image
-                src="/wellness-dark.svg"
-                alt="Wellness Nepal Logo"
-                fill
-                className="object-contain"
-                priority
-              />
-            ) : (
-              <Image
-                src="/wellness-light.svg"
-                alt="Wellness Nepal Logo"
-                fill
-                className="object-contain"
-                priority
-              />
-            )}
+        {/* LOGO */}
+        <Link href="/" className="flex items-center shrink-0">
+          <div className="relative h-10 w-40 md:h-14 md:w-52 transition-transform hover:scale-105 active:scale-95">
+            <Image
+              src={isDark ? "/wellness-dark.svg" : "/wellness-light.svg"}
+              alt="Wellness Nepal"
+              fill
+              className="object-contain"
+              priority
+            />
           </div>
         </Link>
 
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-10">
+        {/* DESKTOP NAV (Hidden on Tablet/Mobile) */}
+        <div className="hidden lg:flex items-center gap-8">
           {navLinks.map((link) => (
             <Link
               key={link.path}
               href={link.path}
-              className={`font-bebas text-lg tracking-widest transition-colors hover:text-brand-red relative group ${
+              className={`font-bebas text-xl tracking-[0.1em] transition-all hover:text-brand-red uppercase italic ${
                 pathname === link.path ? "text-brand-red" : "text-surface-text"
               }`}
             >
               {link.name}
-              {pathname === link.path && (
-                <motion.div
-                  layoutId="active"
-                  className="absolute -bottom-2 left-0 right-0 h-0.5 bg-brand-red"
-                  transition={{ type: "spring", bounce: 0.3 }}
-                />
-              )}
             </Link>
           ))}
 
-          {/* AI Chat Button - DESKTOP */}
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+          {/* AI BUTTON - DESKTOP */}
+          <button
             onClick={toggleChat}
-            className="group relative flex items-center gap-2 px-6 py-2 font-bebas uppercase tracking-widest text-sm bg-surface-darker/50 hover:bg-brand-red/90 hover:text-white border border-surface-border/50 hover:border-brand-red/50 rounded-xl shadow-lg hover:shadow-brand-red/20 transition-all duration-300"
+            className="relative flex items-center gap-3 px-6 py-2 font-bebas italic uppercase tracking-wider text-lg bg-surface-darker border-2 border-surface-border hover:border-brand-red transition-all group overflow-hidden skew-x-[-12deg]"
           >
-            <Dumbbell className="w-4 h-4 group-hover:rotate-12 transition-transform" />
-            <span>Ask Shakti</span>
-            <div className="absolute inset-0 bg-brand-red/20 -skew-x-12 group-hover:opacity-100 opacity-0 rounded-xl transition-all blur-xl" />
-          </motion.button>
+            <div className="flex items-center gap-2 skew-x-[12deg] relative z-10">
+              <div className="relative">
+                <Dumbbell className="w-5 h-5 group-hover:rotate-45 transition-transform duration-500" />
+                <Sparkles className="w-3 h-3 absolute -top-1 -right-1 text-brand-red animate-pulse" />
+              </div>
+              <span className="group-hover:text-brand-red">SHAKTI AI</span>
+            </div>
+            {/* Hover Glitch Effect Background */}
+            <div className="absolute inset-0 bg-brand-red/10 translate-x-full group-hover:translate-x-0 transition-transform duration-300" />
+          </button>
 
+          {/* THEME TOGGLE */}
           <button
             onClick={toggleTheme}
-            className="p-2 border border-surface-border hover:border-brand-red transition-all duration-300 hover:rotate-180 text-surface-text cursor-pointer hover:bg-brand-red/10 rounded-xl"
+            className="p-2 border border-surface-border hover:border-brand-red text-surface-text transition-colors rounded-lg bg-surface-darker/50"
           >
             {isDark ? <Sun size={20} /> : <Moon size={20} />}
           </button>
 
+          {/* CTA */}
           <Link
             href="/contact"
-            className="skew-button bg-brand-red px-8 py-2 text-white font-bold hover:bg-surface-text hover:text-surface transition-all shadow-lg shadow-brand-red/20 hover:shadow-xl hover:-skew-x-6 group"
+            className="skew-button bg-brand-red px-8 py-2.5 text-white font-bold text-xl uppercase tracking-widest hover:bg-surface-text hover:text-surface transition-all shadow-xl shadow-brand-red/20"
           >
-            <span className="skew-x-12 group-hover:skew-x-0 transition-transform">
-              INQUIRE
-            </span>
+            <span>INQUIRE</span>
           </Link>
         </div>
 
-        {/* Mobile menu toggle */}
-        <div className="flex items-center gap-2 md:hidden">
-          {/* AI Chat Button - MOBILE */}
-          <motion.button
-            whileTap={{ scale: 0.95 }}
+        {/* TABLET/MOBILE ACTIONS */}
+        <div className="flex lg:hidden items-center gap-3">
+          {/* AI MINI BUTTON */}
+          <button
             onClick={toggleChat}
-            className="p-2 bg-brand-red/10 hover:bg-brand-red/20 border border-brand-red/30 rounded-xl text-brand-red hover:text-brand-red transition-all group"
+            className="p-2.5 bg-brand-red text-white rounded-lg shadow-lg relative active:scale-90 transition-transform"
           >
-            <MessageCircle className="w-5 h-5 group-hover:scale-110" />
-          </motion.button>
+            <Sparkles className="w-5 h-5 animate-pulse" />
+          </button>
 
           <button
             onClick={toggleTheme}
-            className="p-2 text-surface-text hover:bg-surface-darker/50 rounded-xl"
+            className="p-2.5 border border-surface-border text-surface-text rounded-lg"
           >
             {isDark ? <Sun size={20} /> : <Moon size={20} />}
           </button>
 
           <button
-            className="text-surface-text p-2 hover:bg-surface-darker/50 rounded-xl md:hidden"
+            className="p-2.5 bg-surface-darker border border-surface-border text-surface-text rounded-lg"
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -160,42 +134,58 @@ const Navbar: React.FC = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* MOBILE MENU OVERLAY */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="md:hidden bg-surface/95 backdrop-blur-xl border-b border-surface-border p-6 flex flex-col gap-6 shadow-2xl"
+            initial={{ opacity: 0, x: "100%" }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: "100%" }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            className="fixed inset-0 top-[73px] md:top-[89px] bg-surface/98 backdrop-blur-2xl z-50 p-8 flex flex-col gap-8 lg:hidden"
           >
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                href={link.path}
-                className={`font-bebas text-xl py-3 px-4 rounded-xl transition-all ${
-                  pathname === link.path
-                    ? "bg-brand-red/10 text-brand-red border border-brand-red/30"
-                    : "hover:bg-surface-darker/50 text-surface-text"
-                }`}
-                onClick={() => setIsOpen(false)}
-              >
-                {link.name}
-              </Link>
-            ))}
+            <div className="flex flex-col gap-4">
+              <p className="text-surface-muted font-black text-[10px] tracking-[0.5em] uppercase border-b border-surface-border pb-2">
+                Navigation Arsenal
+              </p>
+              {navLinks.map((link) => (
+                <Link
+                  key={link.path}
+                  href={link.path}
+                  className={`font-bebas text-4xl italic tracking-widest transition-all ${
+                    pathname === link.path
+                      ? "text-brand-red pl-4"
+                      : "text-surface-text hover:pl-4 hover:text-brand-red"
+                  }`}
+                  onClick={() => setIsOpen(false)}
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </div>
 
-            {/* Mobile AI Button */}
-            <motion.button
-              whileTap={{ scale: 0.98 }}
-              onClick={() => {
-                toggleChat()
-                setIsOpen(false)
-              }}
-              className="font-bebas text-lg py-4 px-6 bg-gradient-to-r from-brand-red to-red-700 text-white rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all border border-brand-red/50 flex items-center gap-3"
-            >
-              <Dumbbell className="w-6 h-6" />
-              Ask Shakti AI
-            </motion.button>
+            <div className="mt-auto space-y-4">
+              <button
+                onClick={() => {
+                  toggleChat()
+                  setIsOpen(false)
+                }}
+                className="w-full flex items-center justify-center gap-4 py-6 bg-brand-red text-white font-bebas text-3xl italic tracking-widest skew-x-[-6deg]"
+              >
+                <div className="skew-x-[6deg] flex items-center gap-3">
+                  <Sparkles size={24} />
+                  <span>CONSULT SHAKTI AI</span>
+                </div>
+              </button>
+
+              <Link
+                href="/contact"
+                onClick={() => setIsOpen(false)}
+                className="w-full flex items-center justify-center py-6 border-2 border-surface-text text-surface-text font-bebas text-3xl italic tracking-widest skew-x-[-6deg]"
+              >
+                <span className="skew-x-[6deg]">GET PROJECT QUOTE</span>
+              </Link>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

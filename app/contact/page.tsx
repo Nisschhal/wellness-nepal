@@ -654,7 +654,7 @@ function ContactContent() {
                     GENERAL INQUIRY
                   </p>
                   <p
-                    className={`text-[10px] md:text-sm font-bold uppercase mt-2 md:mt-4 tracking-widest italic ${enquiryMode === "specific" ? "text-white/70" : "text-surface-muted/60"}`}
+                    className={`text-[10px] md:text-sm font-bold uppercase mt-2 md:mt-4 tracking-widest italic ${enquiryMode === "general" ? "dark:text-white/70" : "dark:text-surface-muted/60"}`}
                   >
                     Consultancy & Service
                   </p>
@@ -670,7 +670,7 @@ function ContactContent() {
                     ITEM SPECIFIC
                   </p>
                   <p
-                    className={`text-[10px] md:text-sm font-bold uppercase mt-2 md:mt-4 tracking-widest italic ${enquiryMode === "specific" ? "text-white/70" : "text-surface-muted/60"}`}
+                    className={`text-[10px] md:text-sm font-bold uppercase mt-2 md:mt-4 tracking-widest italic ${enquiryMode === "specific" ? "dark:text-white/70" : "dark:text-surface-muted/60"}`}
                   >
                     Build Professional Quote
                   </p>
@@ -844,7 +844,7 @@ function ContactContent() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="skew-button w-full py-6 bg-brand-red text-white font-bold hover:bg-white hover:text-black transition-all text-2xl uppercase tracking-widest shadow-2xl disabled:opacity-50 flex items-center justify-center gap-4"
+                className="shadow-brand-red/50  skew-button w-full py-6 bg-brand-red text-white font-bold hover:bg-white hover:text-black transition-all text-2xl uppercase tracking-widest shadow-2xl disabled:opacity-50 flex items-center justify-center gap-4"
               >
                 {isSubmitting ? (
                   "GENERATING..."

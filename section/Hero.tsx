@@ -53,7 +53,7 @@ const Hero: React.FC = () => {
           <div className="flex flex-col sm:flex-row gap-4 md:gap-8">
             <Link
               href="/contact"
-              className="skew-button bg-brand-red px-8 md:px-14 py-5 md:py-8 text-white font-bold hover:bg-surface-text hover:text-surface transition-all shadow-xl text-xl md:text-3xl flex items-center justify-center gap-4 md:gap-6 group"
+              className="skew-button shadow-brand-red/50  bg-brand-red px-8 md:px-14 py-5 md:py-8 text-white font-bold hover:bg-surface-text hover:text-surface transition-all shadow-xl text-xl md:text-3xl flex items-center justify-center gap-4 md:gap-6 group"
             >
               <span>INQUIRE NOW</span>
               <TrendingUp
