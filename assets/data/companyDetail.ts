@@ -4,7 +4,7 @@ export const COMPANY_DETAILS = {
     name: "Wellness Nepal",
     fullName: "Wellness Fitness Center",
     slogan: "Premium Gym Solutions",
-    address: "Traffic, Chwok, Nepal",
+    address: "Traffic, Chwok, Butwal, Nepal",
     phone: "+977-9800000000",
     email: "sales@wellnessnepal.com",
     whatsapp: "https://wa.me/9779800000000",
@@ -20,7 +20,7 @@ export const COMPANY_DETAILS = {
   terms: [
     "Prices exclusive of 13% VAT.",
     "50% advance for confirmation.",
-    "Free delivery in Kathmandu Valley.",
+    "Free delivery in Kathmandu, Butwal Valley.",
     "10-year structural warranty on industrial frames.",
     "Quarterly maintenance visits for the first year.",
   ],
