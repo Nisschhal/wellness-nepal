@@ -5,6 +5,7 @@ import "./globals.css"
 import Navbar from "@/components/Navbar"
 import { ChatStoreProvider } from "@/lib/store/chat-store-provider"
 import { ChatSheet } from "@/section/ChatSheet"
+import Footer from "@/section/Footer"
 const bebas = Bebas_Neue({
   weight: "400",
   subsets: ["latin"],
@@ -114,6 +115,7 @@ export default function RootLayout({
           {children}
           <ChatSheet />
         </ChatStoreProvider>
+        <Footer />
       </body>
     </html>
   )

@@ -7,6 +7,7 @@ import FeaturedInventory from "@/section/FeaturedInventory"
 import BluePrint from "@/section/BluePrint"
 import Testimonials from "@/section/Testimonials"
 import FinalCTA from "@/section/FinalCTA"
+import Footer from "@/section/Footer"
 
 export const metadata: Metadata = {
   title: {
@@ -25,7 +26,6 @@ export default function Home() {
       <FeaturedInventory />
       <Testimonials />
       <FinalCTA />
-      <div className="h-100"></div>
     </div>
   )
 }

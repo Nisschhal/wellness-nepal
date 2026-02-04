@@ -4,11 +4,13 @@ export const COMPANY_DETAILS = {
     name: "Wellness Nepal",
     fullName: "Wellness Fitness Center",
     slogan: "Premium Gym Solutions",
-    address: "Ring Road, Ward 04, Kathmandu, Nepal",
+    address: "Traffic, Chwok, Nepal",
     phone: "+977-9800000000",
     email: "sales@wellnessnepal.com",
     whatsapp: "https://wa.me/9779800000000",
     founded: 2015,
+    vat: "601234567", // Added for trust
+    reg: "2078/123/ABC", // Added for trust
   },
   socials: {
     instagram: "https://instagram.com/wellnessnepal",
