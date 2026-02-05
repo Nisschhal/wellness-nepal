@@ -11,7 +11,7 @@ import { useIsChatOpen, useChatActions } from "@/lib/store/chat-store-provider"
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
-  const [isDark, setIsDark] = useState(true)
+  const [isDark, setIsDark] = useState(false)
   const pathname = usePathname()
 
   const isChatOpen = useIsChatOpen()

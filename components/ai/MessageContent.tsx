@@ -3,7 +3,7 @@ import React from "react"
 import Link from "next/link"
 import Markdown from "react-markdown"
 import remarkGfm from "remark-gfm"
-import { ChevronDown, Dumbbell, Link as LinkIcon } from "lucide-react"
+import { ChevronDown, Dumbbell } from "lucide-react"
 
 interface MessageContentProps {
   content: string
@@ -25,14 +25,11 @@ export function MessageContent({
       <Markdown
         remarkPlugins={[remarkGfm]}
         components={{
-          // Use theme variables for text and spacing
           p: ({ children }) => (
             <div className="mb-4 last:mb-0 leading-relaxed font-medium text-surface-text/90">
               {children}
             </div>
           ),
-
-          // H2: The Collapsible Plate (Uses brand-red and surface-darker)
           h2: ({ children }) => (
             <details className="group mb-4 border border-brand-red/20 rounded-lg overflow-hidden bg-surface/30">
               <summary className="flex items-center justify-between p-3 cursor-pointer list-none bg-brand-red/5 hover:bg-brand-red/10 transition-colors">
@@ -52,8 +49,6 @@ export function MessageContent({
               </div>
             </details>
           ),
-
-          // H3: The Anchor Header
           h3: ({ children }) => (
             <div className="flex items-center gap-2 mb-3 mt-6 group">
               <div className="h-px flex-1 bg-surface-border" />
@@ -63,8 +58,6 @@ export function MessageContent({
               <div className="h-px w-8 bg-surface-border" />
             </div>
           ),
-
-          // TABLE: Fully Theme Responsive
           table: ({ children }) => (
             <div className="my-4 overflow-x-auto rounded-xl border border-surface-border bg-surface-darker/40">
               <table className="w-full text-left text-xs border-collapse">
@@ -82,8 +75,6 @@ export function MessageContent({
               {children}
             </td>
           ),
-
-          // IMAGE: With Industrial Frame
           img: ({ src, alt }) => (
             <div className="my-6 overflow-hidden rounded-xl border-2 border-brand-red/20 bg-surface-darker shadow-2xl">
               <img
@@ -102,8 +93,6 @@ export function MessageContent({
               )}
             </div>
           ),
-
-          // Links and Code
           a: ({ href, children }) => {
             if (!href) return <span>{children}</span>
             const classes = `font-bold underline underline-offset-4 decoration-brand-red/40 transition-all hover:text-brand-red`
@@ -124,7 +113,6 @@ export function MessageContent({
               </a>
             )
           },
-
           code: ({ children, className }) => {
             const isInline = !className
             return isInline ? (
@@ -137,7 +125,6 @@ export function MessageContent({
               </code>
             )
           },
-
           strong: ({ children }) => (
             <strong className="font-black text-brand-red tracking-tight">
               {children}

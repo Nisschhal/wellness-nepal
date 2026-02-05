@@ -3,14 +3,17 @@ import { useState, useRef, useEffect, useCallback } from "react"
 import {
   Dumbbell,
   Send,
-  Loader2,
   X,
   AlertCircle,
-  Flame,
+  Square,
+  RotateCcw,
   Sparkles,
-  ShieldCheck,
   Truck,
-  Warehouse,
+  ShieldCheck,
+  Flame,
+  Info,
+  Search,
+  MapPin,
 } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import {
@@ -26,6 +29,33 @@ interface Message {
   content: string
 }
 
+const QUICK_ACTIONS = [
+  {
+    label: "Product Specs",
+    sub: "Technical gear data",
+    icon: Search,
+    text: "Show me 2 detailed specifications for your professional gym gear.",
+  },
+  {
+    label: "HQ Location",
+    sub: "Visit Butwal office",
+    icon: MapPin,
+    text: "Where is the SHAKTI HQ located and what are your operating hours?",
+  },
+  {
+    label: "Shipping Info",
+    sub: "Logistics & Delivery",
+    icon: Truck,
+    text: "What are your delivery terms and shipping policies for Nepal?",
+  },
+  {
+    label: "About Shakti",
+    sub: "Company Mission",
+    icon: Info,
+    text: "Tell me more about SHAKTI's history and manufacturing mission.",
+  },
+]
+
 export function ChatSheet() {
   const isOpen = useIsChatOpen()
   const { closeChat, clearPendingMessage } = useChatActions()
@@ -34,20 +64,42 @@ export function ChatSheet() {
   const [input, setInput] = useState("")
   const [messages, setMessages] = useState<Message[]>([])
   const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const scrollRef = useRef<HTMLDivElement>(null)
   const [streamingBuffer, setStreamingBuffer] = useState("")
   const [activeId, setActiveId] = useState<string | number | null>(null)
+  const abortControllerRef = useRef<AbortController | null>(null)
 
-  // 1. One-time scroll when new bubbles are added
+  // AI is active if fetching OR dripping text
+  const isAIActive = isLoading || streamingBuffer.length > 0
+
+  // Scroll to bottom
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight
     }
-  }, [messages.length])
+  }, [messages, streamingBuffer])
 
-  // 2. Smooth "Dripping" Animation
+  const stopStreaming = useCallback(() => {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort()
+      abortControllerRef.current = null
+    }
+    setIsLoading(false)
+    setStreamingBuffer("")
+    setActiveId(null)
+
+    setMessages((prev) =>
+      prev.map((m) =>
+        m.id === activeId && m.content === ""
+          ? { ...m, content: "*Transmission Interrupted.*" }
+          : m,
+      ),
+    )
+  }, [activeId])
+
+  // Typing animation drip
   useEffect(() => {
     if (streamingBuffer.length > 0 && activeId) {
       const timeout = setTimeout(() => {
@@ -58,15 +110,18 @@ export function ChatSheet() {
           ),
         )
         setStreamingBuffer((prev) => prev.substring(1))
-      }, 5) // Ultra-fast drip for industrial feel
+      }, 5)
       return () => clearTimeout(timeout)
     }
   }, [streamingBuffer, activeId])
 
   const sendMessage = useCallback(
     async (text: string) => {
-      if (!text.trim() || isLoading) return
-      setError(false)
+      if (!text.trim() || isAIActive) return
+
+      setError(null)
+      abortControllerRef.current = new AbortController()
+
       const userMsgId = Date.now()
       const assistantId = Date.now() + 1
 
@@ -83,8 +138,13 @@ export function ChatSheet() {
       try {
         const response = await fetch("/api/chat", {
           method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ message: text, threadId: "shakti-v1" }),
+          signal: abortControllerRef.current.signal,
         })
+
+        if (!response.ok) throw new Error("Logistical server unreachable.")
+
         const reader = response.body?.getReader()
         const decoder = new TextDecoder()
 
@@ -97,29 +157,47 @@ export function ChatSheet() {
             if (!line.startsWith("data: ")) continue
             const data = line.replace("data: ", "")
             if (data === "[DONE]") break
+
             const parsed = JSON.parse(data)
             if (parsed.type === "token")
               setStreamingBuffer((prev) => prev + parsed.content)
+            if (parsed.type === "error") throw new Error(parsed.content)
           }
         }
-      } catch (e) {
-        setError(true)
+      } catch (e: any) {
+        if (e.name !== "AbortError") {
+          setError(e.message || "CONNECTION SEVERED: HQ malfunction.")
+          setMessages((prev) =>
+            prev.filter((m) => !(m.id === assistantId && m.content === "")),
+          )
+        }
+      } finally {
         setIsLoading(false)
+        abortControllerRef.current = null
       }
     },
-    [isLoading],
+    [isAIActive],
   )
 
-  useEffect(() => {
-    if (streamingBuffer.length === 0 && isLoading) setIsLoading(false)
-  }, [streamingBuffer, isLoading])
+  const handleRetry = () => {
+    const lastUserMsg = [...messages].reverse().find((m) => m.role === "user")
+    if (lastUserMsg) {
+      setMessages((prev) => {
+        const filtered = [...prev]
+        if (filtered[filtered.length - 1].role === "assistant") filtered.pop()
+        return filtered
+      })
+      setError(null)
+      sendMessage(lastUserMsg.content)
+    }
+  }
 
   useEffect(() => {
-    if (isOpen && pendingMessage && !isLoading) {
+    if (isOpen && pendingMessage && !isAIActive) {
       sendMessage(pendingMessage)
       clearPendingMessage()
     }
-  }, [isOpen, pendingMessage, isLoading, sendMessage, clearPendingMessage])
+  }, [isOpen, pendingMessage, isAIActive, sendMessage, clearPendingMessage])
 
   return (
     <AnimatePresence>
@@ -137,135 +215,149 @@ export function ChatSheet() {
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
-            transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed top-0 right-0 z-[100] flex h-full w-full flex-col border-l border-surface-border bg-surface sm:w-[450px]"
+            transition={{ type: "spring", damping: 25, stiffness: 220 }}
+            className="fixed top-0 right-0 z-[100] flex h-full w-full flex-col border-l border-surface-border bg-surface sm:w-[450px] shadow-[-20px_0_50px_rgba(0,0,0,0.5)]"
           >
+            {/* HEADER */}
             <header className="shrink-0 border-b-4 border-brand-red px-6 h-24 flex items-center justify-between bg-surface-darker shadow-2xl">
               <div className="flex items-center gap-4">
                 <div className="bg-brand-red p-2.5 -skew-x-12">
                   <Dumbbell className="h-7 w-7 text-white skew-x-12" />
                 </div>
-                <div className="flex flex-col">
-                  <span className="font-bebas text-3xl uppercase italic tracking-tighter text-surface-text">
+                <div className="flex flex-col text-surface-text">
+                  <span className="font-bebas text-3xl uppercase italic tracking-tighter">
                     SHAKTI <span className="text-brand-red">AI</span>
                   </span>
-                  <span className="text-[10px] font-black text-surface-muted uppercase tracking-[0.2em]">
-                    Senior Gear Consultant
+                  <span className="text-[10px] font-black uppercase tracking-[0.2em] opacity-50">
+                    Industrial Gear Consultant
                   </span>
                 </div>
               </div>
               <button
                 onClick={closeChat}
-                className="p-2 hover:text-brand-red hover:rotate-90 transition-all duration-300"
+                className="p-2 text-surface-muted hover:text-brand-red transition-colors"
               >
                 <X size={28} />
               </button>
             </header>
 
+            {/* CHAT AREA / DASHBOARD */}
             <div
               ref={scrollRef}
-              className="flex-1 overflow-y-auto relative px-4 py-8 space-y-8 custom-scrollbar"
+              className="flex-1 overflow-y-auto px-4 py-8 space-y-8 custom-scrollbar"
             >
               {messages.length === 0 ? (
-                <div className="flex flex-col items-center justify-center min-h-full space-y-10 px-4">
+                /* NEW DASHBOARD EMPTY STATE */
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex flex-col items-center justify-center min-h-full space-y-8 "
+                >
                   <div className="text-center space-y-2">
-                    <h2 className="font-bebas text-5xl uppercase italic text-surface-text leading-none">
-                      BUILD YOUR{" "}
-                      <span className="text-brand-red underline decoration-wavy underline-offset-8">
-                        EMPIRE
-                      </span>
+                    <div className="flex justify-center mb-4">
+                      <div className="p-4  bg-brand-red/10 -skew-x-12 border border-brand-red/20 animate-pulse">
+                        <Sparkles className="text-brand-red h-8 w-8 " />
+                      </div>
+                    </div>
+                    <h2 className="font-bebas text-5xl uppercase italic text-surface-text leading-tight">
+                      Build Your{" "}
+                      <span className="text-brand-red underline">Empire</span>
                     </h2>
-                    <p className="text-[10px] font-black uppercase tracking-[0.4em] text-surface-muted">
-                      Shakti Industrial Database // v1.0.4
+                    <p className="font-montserrat text-[10px] font-black uppercase tracking-[0.3em] text-surface-muted opacity-60">
+                      Select Specs to Begin Uplink
                     </p>
                   </div>
 
-                  <div className="grid grid-cols-1 gap-4 w-full max-w-sm">
-                    {[
-                      {
-                        icon: <Flame className="text-brand-red" />,
-                        text: "Setup Full Commercial Gym",
-                        query:
-                          "Hajur, show me a complete commercial gym setup guide.",
-                      },
-                      {
-                        icon: <Dumbbell className="text-brand-red" />,
-                        text: "Explore Strength Equipment",
-                        query:
-                          "Show me heavy-duty strength and multi-station machines hajur.",
-                      },
-                      {
-                        icon: <Truck className="text-brand-red" />,
-                        text: "Check Delivery & VAT Policy",
-                        query:
-                          "What is your delivery policy and VAT terms hajur?",
-                      },
-                      {
-                        icon: <ShieldCheck className="text-brand-red" />,
-                        text: "Warranty & Maintenance",
-                        query:
-                          "Tell me about the Shakti structural warranty hajur.",
-                      },
-                    ].map((item) => (
+                  <div className="grid grid-cols-1 gap-3 w-full max-w-sm px-4">
+                    {QUICK_ACTIONS.map((action, idx) => (
                       <button
-                        key={item.text}
-                        className="group flex items-center gap-4 p-4 bg-surface-darker border border-surface-border hover:border-brand-red transition-all -skew-x-12 shadow-lg"
-                        onClick={() => sendMessage(item.query)}
+                        key={idx}
+                        disabled={isAIActive}
+                        onClick={() => sendMessage(action.text)}
+                        className="group relative flex items-center gap-4 p-4 bg-surface-darker border border-surface-border hover:border-brand-red transition-all -skew-x-12 hover:bg-brand-red/5 text-left"
                       >
                         <div className="skew-x-12 bg-surface p-2 border border-surface-border group-hover:border-brand-red transition-colors">
-                          {item.icon}
+                          <action.icon className="h-4 w-4 text-brand-red" />
                         </div>
-                        <span className="skew-x-12 font-bebas text-lg uppercase italic tracking-wider text-surface-text">
-                          {item.text}
+                        <span className="skew-x-12 font-bebas text-lg uppercase italic text-surface-text tracking-wide group-hover:text-brand-red transition-colors">
+                          {action.label}
                         </span>
                       </button>
                     ))}
                   </div>
-
-                  <div className="p-4 bg-brand-red/5 border-l-2 border-brand-red text-[10px] font-medium italic text-surface-muted">
-                    Namaste! I am the SHAKTI AI Consultant. Please select a
-                    logistical directive or ask me about industrial iron
-                    specifications hajur.
-                  </div>
-                </div>
+                </motion.div>
               ) : (
-                <div className="space-y-10 pb-6">
+                <div className="relative space-y-10 pb-10">
                   {messages.map((m) => (
                     <MessageBubble
                       key={m.id}
                       role={m.role}
                       content={m.content}
                       closeChat={closeChat}
+                      isThinking={
+                        isLoading && m.id === activeId && m.content === ""
+                      }
                     />
                   ))}
 
-                  {/* INDUSTRIAL LOADING STATE */}
-                  {isLoading &&
-                    messages[messages.length - 1].content === "" && (
-                      <div className="flex flex-col gap-3 animate-in fade-in duration-500">
-                        <div className="flex gap-4 items-center">
-                          <div className="h-10 w-10 bg-brand-red/10 border border-brand-red/20 flex items-center justify-center -skew-x-12 animate-spin-slow">
-                            <Dumbbell className="h-5 w-5 text-brand-red skew-x-12" />
+                  {/* ERROR UI */}
+                  <AnimatePresence>
+                    {error && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.95 }}
+                        className="p-6 bg-brand-red/10 border-2 border-brand-red/30 rounded-2xl space-y-6 mx-2"
+                      >
+                        <div className="flex items-center gap-4 text-brand-red">
+                          <div className="p-2 bg-brand-red text-white -skew-x-12">
+                            <AlertCircle size={24} className="skew-x-12" />
                           </div>
                           <div className="flex flex-col">
-                            <span className="font-bebas text-xl text-brand-red italic tracking-widest uppercase">
-                              Analyzing Iron Specs...
+                            <span className="font-bebas text-2xl uppercase italic tracking-wider leading-none">
+                              Consultant Busy
                             </span>
-                            <span className="text-[8px] font-black uppercase text-surface-muted tracking-[0.3em] animate-pulse">
-                              Establishing Industrial Uplink // Traffic Chowk
-                              Butwal
+                            <span className="text-[10px] font-black uppercase tracking-[0.2em] opacity-50 mt-1">
+                              Status: Connection Unstable
                             </span>
                           </div>
                         </div>
-                        <div className="h-1 w-32 bg-surface-border overflow-hidden rounded-full">
-                          <div className="h-full bg-brand-red animate-loading-bar" />
+
+                        <p className="text-xs text-surface-text font-bold uppercase italic opacity-70 leading-relaxed">
+                          The gear specialist is currently offline or handling
+                          high-volume logistics. Uplink is not available at the
+                          moment, hajur.
+                        </p>
+
+                        <div className="flex flex-col gap-3">
+                          <button
+                            onClick={handleRetry}
+                            className="w-full py-4 bg-brand-red text-white font-bebas text-xl uppercase italic tracking-[0.2em] flex items-center justify-center gap-2 hover:bg-surface-text transition-all shadow-lg -skew-x-12 group"
+                          >
+                            <RotateCcw
+                              size={20}
+                              className="skew-x-12 group-hover:rotate-180 transition-transform duration-500"
+                            />
+                            <span className="skew-x-12">Retry Connection</span>
+                          </button>
+                          <button
+                            onClick={() => {
+                              setError(null)
+                              closeChat()
+                            }}
+                            className="w-full py-3 border-2 border-surface-border text-surface-muted font-bebas text-lg uppercase italic tracking-widest hover:bg-surface-darker transition-all -skew-x-12"
+                          >
+                            <span className="skew-x-12">Close Terminal</span>
+                          </button>
                         </div>
-                      </div>
+                      </motion.div>
                     )}
+                  </AnimatePresence>
                 </div>
               )}
             </div>
 
+            {/* INPUT BAR */}
             <div className="p-6 border-t border-surface-border bg-surface-darker">
               <form
                 onSubmit={(e) => {
@@ -277,22 +369,35 @@ export function ChatSheet() {
                 <input
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder="ASK INDUSTRIAL SPECIALIST..."
-                  disabled={isLoading}
-                  className="w-full h-16 pl-6 pr-20 bg-surface border-2 border-surface-border text-surface-text font-bebas text-xl tracking-widest uppercase italic focus:border-brand-red outline-none shadow-inner"
+                  placeholder={
+                    isAIActive ? "SHAKTI IS ANALYZING..." : "ASK SPECIALIST..."
+                  }
+                  disabled={isAIActive || error !== null}
+                  className="w-full h-16 pl-6 pr-20 bg-surface border-2 border-surface-border text-surface-text font-bebas text-xl uppercase italic focus:border-brand-red outline-none shadow-inner disabled:opacity-50 transition-all"
                 />
-                <button
-                  type="submit"
-                  disabled={isLoading || !input.trim()}
-                  className="absolute right-3 h-12 w-12 bg-brand-red hover:bg-white hover:text-brand-red text-white flex items-center justify-center -skew-x-12 transition-all shadow-xl shadow-brand-red/20"
-                >
-                  {isLoading ? (
-                    <Loader2 className="animate-spin" />
+                <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                  {isAIActive ? (
+                    <button
+                      type="button"
+                      onClick={stopStreaming}
+                      className="h-12 w-12 bg-brand-red text-white flex items-center justify-center -skew-x-12 shadow-lg hover:bg-surface-text transition-colors"
+                    >
+                      <Square className="h-5 w-5 fill-current skew-x-12" />
+                    </button>
                   ) : (
-                    <Send size={20} className="skew-x-12" />
+                    <button
+                      type="submit"
+                      disabled={!input.trim() || error !== null}
+                      className="h-12 w-12 bg-brand-red text-white flex items-center justify-center -skew-x-12 shadow-lg transition-all disabled:bg-surface-muted/20 disabled:text-surface-muted"
+                    >
+                      <Send className="h-5 w-5 skew-x-12" />
+                    </button>
                   )}
-                </button>
+                </div>
               </form>
+              <p className="text-[8px] text-center mt-4 text-surface-muted font-black uppercase tracking-[0.4em] opacity-30">
+                Logistical Intel // Butwal HQ 🏔️
+              </p>
             </div>
           </motion.div>
         </>

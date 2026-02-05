@@ -15,6 +15,7 @@ import { ToolNode } from "@langchain/langgraph/prebuilt"
 import { ChatOpenAI } from "@langchain/openai"
 import { NextRequest } from "next/server"
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai"
+import { ChatGroq } from "@langchain/groq"
 
 /**
  * ======================================================
@@ -41,6 +42,12 @@ const model = new ChatGoogleGenerativeAI({
   maxOutputTokens: 2048,
   temperature: 0,
 })
+
+// const model = new ChatGroq({
+//   apiKey: process.env.GROQ_API_KEY,
+//   model: "qwen-2.5-coder-32b",
+//   temperature: 0.7,
+// })
 
 // The Agent Node: The "Logic" step
 const agentNode = async (state: typeof MessagesAnnotation.State) => {
@@ -118,18 +125,30 @@ const agentNode = async (state: typeof MessagesAnnotation.State) => {
 You MUST extract data from tool JSON. NEVER use placeholder URLs or make up specs.
 
 ### A. THE PRODUCT CARD (For specific items):
-1. **Title (H2)**: ## [{{name}}](https://wellness-nepal.vercel.app/products/{{PRODUCT_ID}})
+1. **Title (H2)**: [{{name}}](https://wellness-nepal.vercel.app/products/{{PRODUCT_ID}})
 2. **Hero Image**: ![{{PRODUCT_NAME}}]({{PRODUCT_IMAGE}}) 
-3. **The Steel Table**:
+3. **Description**: {{description}}
+4. **The Steel Table**:
    | Feature | Specification |
    | :--- | :--- |
    | **Category** | {{category}} |
    | (Map all keys from 'specs' object) | ... |
-4. **Logistics (H2)**: ## 🛡️ Warranty & Shipping
-   - **Warranty**: {{warranty}}
-   - **Shipping**: {{shipping}}
-5. **Commercials**: **Price: रू {{price}} + 13% VAT** 
-   *(If price is missing/null, say: "Price on Request. Please share your number for a formal quotation hajur.")*
+5. **Logistics & Support (H2)**: ## 🛡️ Logistics & Warranty
+   | Service | Policy Details |
+   | :--- | :--- |
+   | **Structural Warranty** | (Join 'warranty' array into one string) |
+   | **Logistics & Setup** | (Join 'shipping' array into one string) |
+   | **Installation** | Certified Shakti technician included hajur |
+
+#### **Commercials**: 
+   **Price: रू {{price}} + 13% VAT**
+   *(Logic: If 'price' is null or missing, strictly output: "Custom Quotation Required. Please share your contact details for a formal B2B proposal hajur.")*
+
+
+   ⚠️ **STRICT DATA FORMATTING RULES**:
+- **NO ARRAYS**: You are FORBIDDEN from showing brackets [ or quotes ' from the data. Convert ["A", "B"] into "A, B".
+- **H2 vs H3**: Use ## for the Title and Logistics section so the user can click them (interactive UI). Use ### for Specs.
+- **NEPLISH**: Keep the professional tone: "Technical specifications hajur-lai mail garum?"
 
 ### B. THE TRUST CARD (For trust/delivery queries):
 1. **Title (H2)**: ## 🏢 Wellness Nepal Logistics & Trust
@@ -152,6 +171,7 @@ You MUST extract data from tool JSON. NEVER use placeholder URLs or make up spec
 
 **CRITICAL**: Use EXACT 'image' for image url, not example.com/ dummy image for just to fill place use exact image found from tool product and 'id' from tools. Use H2 (##) to trigger the interactive UI. Stay professional, concise, and executive. 🦾🏔️
 `
+
   const modelWithTools = model.bindTools(tools)
   const messages = [new SystemMessage(systemPrompt), ...state.messages]
 
@@ -273,6 +293,8 @@ const app = workflow.compile({ checkpointer })
 //     })
 //   }
 // }
+// Import your 'app' / LangGraph instance here
+// import { app } from "@/lib/ai/graph";
 
 export async function POST(req: NextRequest) {
   const { message, threadId } = await req.json()
@@ -282,13 +304,15 @@ export async function POST(req: NextRequest) {
 
   const runGraph = async () => {
     try {
-      // We use streamEvents (v2) for token-level updates
       const eventStream = await app.streamEvents(
         { messages: [new HumanMessage(message)] },
         { configurable: { thread_id: threadId }, version: "v2" },
       )
 
       for await (const event of eventStream) {
+        // Stop if the frontend aborted the connection
+        if (req.signal.aborted) break
+
         if (event.event === "on_chat_model_stream") {
           const content = event.data.chunk.content
           if (content) {
@@ -300,19 +324,29 @@ export async function POST(req: NextRequest) {
           }
         }
       }
-    } catch (e) {
-      console.error(e)
+    } catch (e: any) {
+      if (!req.signal.aborted) {
+        const errorPayload = JSON.stringify({
+          type: "error",
+          content: "UPLINK ERROR",
+        })
+        await writer.write(encoder.encode(`data: ${errorPayload}\n\n`))
+      }
     } finally {
-      await writer.write(encoder.encode("data: [DONE]\n\n"))
+      if (!req.signal.aborted) {
+        await writer.write(encoder.encode("data: [DONE]\n\n"))
+      }
       writer.close()
     }
   }
 
   runGraph()
+
   return new Response(stream.readable, {
     headers: {
       "Content-Type": "text/event-stream",
       "Cache-Control": "no-cache",
+      Connection: "keep-alive",
     },
   })
 }
