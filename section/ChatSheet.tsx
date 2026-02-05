@@ -8,6 +8,9 @@ import {
   AlertCircle,
   Flame,
   Sparkles,
+  ShieldCheck,
+  Truck,
+  Warehouse,
 } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import {
@@ -37,16 +40,14 @@ export function ChatSheet() {
   const [streamingBuffer, setStreamingBuffer] = useState("")
   const [activeId, setActiveId] = useState<string | number | null>(null)
 
-  // --- 1. THE ONE-TIME SCROLL LOGIC ---
-  // This triggers ONLY when the number of message bubbles changes.
-  // It will NOT trigger while the AI is typing inside a bubble.
+  // 1. One-time scroll when new bubbles are added
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight
     }
-  }, [messages.length]) // Triggered only when a new message is added to the list
+  }, [messages.length])
 
-  // --- 2. SMOOTH CHARACTER DRIP (Sliding Animation) ---
+  // 2. Smooth "Dripping" Animation
   useEffect(() => {
     if (streamingBuffer.length > 0 && activeId) {
       const timeout = setTimeout(() => {
@@ -57,8 +58,7 @@ export function ChatSheet() {
           ),
         )
         setStreamingBuffer((prev) => prev.substring(1))
-        // NOTE: No scrolling happens here anymore!
-      }, 0) // Slightly faster drip
+      }, 5) // Ultra-fast drip for industrial feel
       return () => clearTimeout(timeout)
     }
   }, [streamingBuffer, activeId])
@@ -71,7 +71,6 @@ export function ChatSheet() {
       const assistantId = Date.now() + 1
 
       setActiveId(assistantId)
-      // Adding messages increases messages.length, which triggers the one-time scroll above
       setMessages((prev) => [
         ...prev,
         { id: userMsgId, role: "user", content: text },
@@ -133,6 +132,7 @@ export function ChatSheet() {
             className="fixed inset-0 z-[90] bg-surface/80 backdrop-blur-md lg:hidden"
             onClick={closeChat}
           />
+
           <motion.div
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
@@ -140,23 +140,23 @@ export function ChatSheet() {
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
             className="fixed top-0 right-0 z-[100] flex h-full w-full flex-col border-l border-surface-border bg-surface sm:w-[450px]"
           >
-            <header className="shrink-0 border-b-4 border-brand-red px-6 h-24 flex items-center justify-between bg-surface-darker">
+            <header className="shrink-0 border-b-4 border-brand-red px-6 h-24 flex items-center justify-between bg-surface-darker shadow-2xl">
               <div className="flex items-center gap-4">
-                <div className="bg-brand-red p-2.5 -skew-x-12 shadow-lg shadow-brand-red/20">
+                <div className="bg-brand-red p-2.5 -skew-x-12">
                   <Dumbbell className="h-7 w-7 text-white skew-x-12" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-bebas text-3xl uppercase italic tracking-tighter text-surface-text leading-none">
+                  <span className="font-bebas text-3xl uppercase italic tracking-tighter text-surface-text">
                     SHAKTI <span className="text-brand-red">AI</span>
                   </span>
-                  <span className="text-[10px] font-black text-surface-muted uppercase tracking-[0.2em] mt-1">
-                    Industrial Fitness Consultant
+                  <span className="text-[10px] font-black text-surface-muted uppercase tracking-[0.2em]">
+                    Senior Gear Consultant
                   </span>
                 </div>
               </div>
               <button
                 onClick={closeChat}
-                className="p-2 text-surface-muted hover:text-brand-red hover:rotate-90 transition-all duration-300"
+                className="p-2 hover:text-brand-red hover:rotate-90 transition-all duration-300"
               >
                 <X size={28} />
               </button>
@@ -166,37 +166,70 @@ export function ChatSheet() {
               ref={scrollRef}
               className="flex-1 overflow-y-auto relative px-4 py-8 space-y-8 custom-scrollbar"
             >
-              <div className="absolute inset-0 bg-pattern opacity-[0.03] pointer-events-none" />
-
               {messages.length === 0 ? (
-                <div className="relative z-10 flex flex-col items-center justify-center min-h-[70%] text-center space-y-8 px-4">
-                  <div className="space-y-3">
-                    <h2 className="font-bebas text-4xl uppercase italic text-surface-text leading-tight">
-                      Build Your <span className="text-brand-red">Empire</span>
+                <div className="flex flex-col items-center justify-center min-h-full space-y-10 px-4">
+                  <div className="text-center space-y-2">
+                    <h2 className="font-bebas text-5xl uppercase italic text-surface-text leading-none">
+                      BUILD YOUR{" "}
+                      <span className="text-brand-red underline decoration-wavy underline-offset-8">
+                        EMPIRE
+                      </span>
                     </h2>
-                    <p className="text-surface-muted text-sm max-w-[280px] font-medium italic">
-                      Nepal&apos;s iron database is at your command.
+                    <p className="text-[10px] font-black uppercase tracking-[0.4em] text-surface-muted">
+                      Shakti Industrial Database // v1.0.4
                     </p>
                   </div>
-                  <div className="grid grid-cols-1 gap-3 w-full max-w-xs">
+
+                  <div className="grid grid-cols-1 gap-4 w-full max-w-sm">
                     {[
-                      "Show industrial treadmills",
-                      "Equip home gym under 5L",
-                    ].map((s) => (
+                      {
+                        icon: <Flame className="text-brand-red" />,
+                        text: "Setup Full Commercial Gym",
+                        query:
+                          "Hajur, show me a complete commercial gym setup guide.",
+                      },
+                      {
+                        icon: <Dumbbell className="text-brand-red" />,
+                        text: "Explore Strength Equipment",
+                        query:
+                          "Show me heavy-duty strength and multi-station machines hajur.",
+                      },
+                      {
+                        icon: <Truck className="text-brand-red" />,
+                        text: "Check Delivery & VAT Policy",
+                        query:
+                          "What is your delivery policy and VAT terms hajur?",
+                      },
+                      {
+                        icon: <ShieldCheck className="text-brand-red" />,
+                        text: "Warranty & Maintenance",
+                        query:
+                          "Tell me about the Shakti structural warranty hajur.",
+                      },
+                    ].map((item) => (
                       <button
-                        key={s}
-                        className="p-4 bg-surface-darker border border-surface-border hover:border-brand-red text-left -skew-x-12 transition-all shadow-sm"
-                        onClick={() => sendMessage(s)}
+                        key={item.text}
+                        className="group flex items-center gap-4 p-4 bg-surface-darker border border-surface-border hover:border-brand-red transition-all -skew-x-12 shadow-lg"
+                        onClick={() => sendMessage(item.query)}
                       >
-                        <span className="skew-x-[12deg] block font-black text-[11px] uppercase tracking-widest text-surface-text">
-                          {s}
+                        <div className="skew-x-12 bg-surface p-2 border border-surface-border group-hover:border-brand-red transition-colors">
+                          {item.icon}
+                        </div>
+                        <span className="skew-x-12 font-bebas text-lg uppercase italic tracking-wider text-surface-text">
+                          {item.text}
                         </span>
                       </button>
                     ))}
                   </div>
+
+                  <div className="p-4 bg-brand-red/5 border-l-2 border-brand-red text-[10px] font-medium italic text-surface-muted">
+                    Namaste! I am the SHAKTI AI Consultant. Please select a
+                    logistical directive or ask me about industrial iron
+                    specifications hajur.
+                  </div>
                 </div>
               ) : (
-                <div className="relative z-10 space-y-10 pb-6">
+                <div className="space-y-10 pb-6">
                   {messages.map((m) => (
                     <MessageBubble
                       key={m.id}
@@ -205,15 +238,28 @@ export function ChatSheet() {
                       closeChat={closeChat}
                     />
                   ))}
+
+                  {/* INDUSTRIAL LOADING STATE */}
                   {isLoading &&
                     messages[messages.length - 1].content === "" && (
-                      <div className="flex gap-4 animate-pulse">
-                        <div className="bg-brand-red/20 p-2 -skew-x-12">
-                          <Dumbbell className="h-5 w-5 text-brand-red skew-x-12" />
+                      <div className="flex flex-col gap-3 animate-in fade-in duration-500">
+                        <div className="flex gap-4 items-center">
+                          <div className="h-10 w-10 bg-brand-red/10 border border-brand-red/20 flex items-center justify-center -skew-x-12 animate-spin-slow">
+                            <Dumbbell className="h-5 w-5 text-brand-red skew-x-12" />
+                          </div>
+                          <div className="flex flex-col">
+                            <span className="font-bebas text-xl text-brand-red italic tracking-widest uppercase">
+                              Analyzing Iron Specs...
+                            </span>
+                            <span className="text-[8px] font-black uppercase text-surface-muted tracking-[0.3em] animate-pulse">
+                              Establishing Industrial Uplink // Traffic Chowk
+                              Butwal
+                            </span>
+                          </div>
                         </div>
-                        <span className="font-bebas text-xl text-brand-red italic uppercase self-center">
-                          Consultant Analyzing...
-                        </span>
+                        <div className="h-1 w-32 bg-surface-border overflow-hidden rounded-full">
+                          <div className="h-full bg-brand-red animate-loading-bar" />
+                        </div>
                       </div>
                     )}
                 </div>
@@ -228,28 +274,24 @@ export function ChatSheet() {
                 }}
                 className="relative flex items-center"
               >
-                <div className="relative flex-1">
-                  <input
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    placeholder="ASK GEAR SPECIALIST..."
-                    disabled={isLoading}
-                    className="w-full h-16 pl-6 pr-20 bg-surface border-2 border-surface-border text-surface-text font-bebas text-xl tracking-widest uppercase italic focus:border-brand-red outline-none"
-                  />
-                  <div className="absolute right-3 top-1/2 -translate-y-1/2">
-                    <button
-                      type="submit"
-                      disabled={!input.trim() || isLoading}
-                      className="h-12 w-12 bg-brand-red hover:bg-surface-text text-white flex items-center justify-center -skew-x-12 shadow-xl group disabled:bg-surface-border"
-                    >
-                      {isLoading ? (
-                        <Loader2 className="h-5 w-5 animate-spin" />
-                      ) : (
-                        <Send className="h-5 w-5 skew-x-12 transition-transform" />
-                      )}
-                    </button>
-                  </div>
-                </div>
+                <input
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder="ASK INDUSTRIAL SPECIALIST..."
+                  disabled={isLoading}
+                  className="w-full h-16 pl-6 pr-20 bg-surface border-2 border-surface-border text-surface-text font-bebas text-xl tracking-widest uppercase italic focus:border-brand-red outline-none shadow-inner"
+                />
+                <button
+                  type="submit"
+                  disabled={isLoading || !input.trim()}
+                  className="absolute right-3 h-12 w-12 bg-brand-red hover:bg-white hover:text-brand-red text-white flex items-center justify-center -skew-x-12 transition-all shadow-xl shadow-brand-red/20"
+                >
+                  {isLoading ? (
+                    <Loader2 className="animate-spin" />
+                  ) : (
+                    <Send size={20} className="skew-x-12" />
+                  )}
+                </button>
               </form>
             </div>
           </motion.div>
