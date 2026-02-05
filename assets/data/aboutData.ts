@@ -1,4 +1,5 @@
 // data/aboutData.ts
+
 export const aboutData = {
   manifesto: {
     title: "OUR MANIFESTO",

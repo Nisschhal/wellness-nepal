@@ -1,4 +1,3 @@
-// MessageBubble.tsx - Gym Style
 import { User, Dumbbell } from "lucide-react"
 import { MessageContent } from "./MessageContent"
 
@@ -17,29 +16,30 @@ export function MessageBubble({
 
   return (
     <div className={`flex gap-3 ${isUser ? "flex-row-reverse" : "flex-row"}`}>
-      {/* Avatar - Gym Theme */}
+      {/* Avatar - SHAKTI Industrial Theme */}
       <div
-        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl shadow-sm ${
+        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg shadow-lg -skew-x-6 ${
           isUser
-            ? "bg-gradient-to-br from-gray-900 to-zinc-800 border-2 border-red-500/30"
-            : "bg-gradient-to-br from-red-500/10 to-red-400/10 border-2 border-red-500/20"
+            ? "bg-zinc-900 border border-brand-red/30"
+            : "bg-brand-red border border-white/20"
         }`}
       >
         {isUser ? (
-          <User className="h-5 w-5 text-white" />
+          <User className="h-5 w-5 text-white skew-x-6" />
         ) : (
-          <Dumbbell className="h-5 w-5 text-red-500" />
+          <Dumbbell className="h-5 w-5 text-white skew-x-6" />
         )}
       </div>
 
-      {/* Message Content */}
+      {/* Message Content Bubble */}
       <div
-        className={`max-w-[80%] rounded-2xl px-5 py-4 text-sm shadow-lg backdrop-blur-sm border ${
+        className={`max-w-[85%] rounded-xl px-4 py-3 text-sm shadow-xl backdrop-blur-md border ${
           isUser
-            ? "bg-gradient-to-r from-red-500/10 to-red-400/10 border-red-500/30"
-            : "bg-gradient-to-r from-gray-50/80 to-zinc-100/70 dark:from-zinc-900/50 dark:to-zinc-800/70 border-zinc-200/50 dark:border-zinc-700/50"
+            ? "bg-surface-darker/90 border-brand-red/20 text-surface-text"
+            : "bg-surface-darker/50 border-white/5 text-surface-text"
         }`}
       >
+        {/* We pass the raw string content directly now */}
         <MessageContent
           content={content}
           closeChat={closeChat}
