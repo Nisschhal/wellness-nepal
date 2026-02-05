@@ -34,7 +34,7 @@ const QUICK_ACTIONS = [
     label: "Product Specs",
     sub: "Technical gear data",
     icon: Search,
-    text: "Show me 2 detailed specifications for your professional gym gear.",
+    text: "Show me 2 detailed specifications for your professional gym gear. (only specs)",
   },
   {
     label: "HQ Location",
