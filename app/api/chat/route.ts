@@ -118,7 +118,7 @@ const agentNode = async (state: typeof MessagesAnnotation.State) => {
 You MUST extract data from tool JSON. NEVER use placeholder URLs or make up specs.
 
 ### A. THE PRODUCT CARD (For specific items):
-1. **Title (H2)**: ## [{{name}}](http://localhost:3000/products/{{PRODUCT_ID}})
+1. **Title (H2)**: ## [{{name}}](https://wellness-nepal.vercel.app/products/{{PRODUCT_ID}})
 2. **Hero Image**: ![{{PRODUCT_NAME}}]({{PRODUCT_IMAGE}}) 
 3. **The Steel Table**:
    | Feature | Specification |
