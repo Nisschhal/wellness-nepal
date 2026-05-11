@@ -1,6 +1,7 @@
 import { Metadata } from "next"
 import { PRODUCTS } from "@/assets/constants"
 import Category from "@/components/Category"
+import { absoluteUrl } from "@/lib/seo"
 
 // SEO Metadata
 export async function generateMetadata({
@@ -29,7 +30,12 @@ export async function generateMetadata({
     openGraph: {
       title,
       description: `Premium ${type} commercial gym gear. Built for high-volume use.`,
+      url: absoluteUrl("/category"),
       images: [PRODUCTS[0].image],
+    },
+    alternates: {
+      canonical:
+        type === "All" ? "/category" : `/category?type=${encodeURIComponent(type)}`,
     },
   }
 }
@@ -44,11 +50,13 @@ export default function Page() {
     itemListElement: PRODUCTS.map((p, i) => ({
       "@type": "ListItem",
       position: i + 1,
-      url: `https://wellnessnepal.com.np/product/${p.id}`,
+      url: absoluteUrl(`/products/${p.id}`),
       name: p.name,
       image: p.image,
     })),
   }
+  // TODO(catalog-migration): once catalog comes from Cloudinary/AWS/serverless storage,
+  // switch PRODUCTS to API-backed pagination and emit matching ItemList page URLs.
 
   return (
     <>

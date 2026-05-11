@@ -12,9 +12,9 @@ import {
   MemorySaver,
 } from "@langchain/langgraph"
 import { ToolNode } from "@langchain/langgraph/prebuilt"
-import { ChatOpenAI } from "@langchain/openai"
 import { NextRequest } from "next/server"
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai"
+import { ChatOpenAI } from "@langchain/openai"
 import { ChatGroq } from "@langchain/groq"
 
 /**
@@ -36,12 +36,48 @@ const toolNode = new ToolNode(tools)
 //   streaming: true, // This allows tokens to flow as they are generated
 // })
 
-const model = new ChatGoogleGenerativeAI({
-  apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY, // Ensure this is in your .env
-  model: "gemini-2.5-flash", // "gemini-1.5-flash" (Fast) or "gemini-1.5-pro" (Smart)
-  maxOutputTokens: 2048,
-  temperature: 0,
-})
+const googleApiKey =
+  process.env.GOOGLE_GENERATIVE_AI_API_KEY || process.env.GOOGLE_API_KEY
+const geminiModel = process.env.GEMINI_MODEL || "gemini-2.0-flash"
+const openAiApiKey = process.env.OPENAI_API_KEY
+const openAiModel = process.env.OPENAI_MODEL || "gpt-4o-mini"
+const groqApiKey = process.env.GROQ_API_KEY
+const groqModel = process.env.GROQ_MODEL || "llama-3.1-8b-instant"
+
+const requestedProvider = process.env.AI_PROVIDER?.toLowerCase()
+const aiProvider =
+  requestedProvider === "groq" ||
+  requestedProvider === "google" ||
+  requestedProvider === "openai"
+    ? requestedProvider
+    : groqApiKey
+      ? "groq"
+      : googleApiKey
+        ? "google"
+        : openAiApiKey
+          ? "openai"
+          : "none"
+
+const model =
+  aiProvider === "groq"
+    ? new ChatGroq({
+        apiKey: groqApiKey,
+        model: groqModel,
+        temperature: 0,
+      })
+    : aiProvider === "google"
+      ? new ChatGoogleGenerativeAI({
+          // Support both common env names to avoid silent misconfiguration.
+          apiKey: googleApiKey,
+          model: geminiModel,
+          maxOutputTokens: 2048,
+          temperature: 0,
+        })
+      : new ChatOpenAI({
+          apiKey: openAiApiKey,
+          model: openAiModel,
+          temperature: 0,
+        })
 
 // const model = new ChatGroq({
 //   apiKey: process.env.GROQ_API_KEY,
@@ -302,7 +338,60 @@ export async function POST(req: NextRequest) {
   const stream = new TransformStream()
   const writer = stream.writable.getWriter()
 
+  if (
+    (aiProvider === "groq" && !groqApiKey) ||
+    (aiProvider === "google" && !googleApiKey) ||
+    (aiProvider === "openai" && !openAiApiKey) ||
+    aiProvider === "none"
+  ) {
+    await writer.write(
+      encoder.encode(
+        `data: ${JSON.stringify({
+          type: "error",
+          content:
+            aiProvider === "groq"
+              ? "AI config missing. Set GROQ_API_KEY in environment."
+              : aiProvider === "google"
+                ? "AI config missing. Set GOOGLE_GENERATIVE_AI_API_KEY in environment."
+                : aiProvider === "openai"
+                  ? "AI config missing. Set OPENAI_API_KEY in environment."
+                  : "AI config missing. Set GROQ_API_KEY, GOOGLE_GENERATIVE_AI_API_KEY, or OPENAI_API_KEY.",
+        })}\n\n`,
+      ),
+    )
+    await writer.write(encoder.encode("data: [DONE]\n\n"))
+    writer.close()
+    return new Response(stream.readable, {
+      headers: {
+        "Content-Type": "text/event-stream",
+        "Cache-Control": "no-cache",
+        Connection: "keep-alive",
+      },
+    })
+  }
+
   const runGraph = async () => {
+    let streamClosed = false
+
+    const safeWrite = async (payload: string) => {
+      if (streamClosed) return
+      try {
+        await writer.write(encoder.encode(payload))
+      } catch {
+        streamClosed = true
+      }
+    }
+
+    const safeClose = () => {
+      if (streamClosed) return
+      streamClosed = true
+      try {
+        writer.close()
+      } catch {
+        // Stream may already be closed by runtime/abort.
+      }
+    }
+
     try {
       const eventStream = await app.streamEvents(
         { messages: [new HumanMessage(message)] },
@@ -316,27 +405,45 @@ export async function POST(req: NextRequest) {
         if (event.event === "on_chat_model_stream") {
           const content = event.data.chunk.content
           if (content) {
-            await writer.write(
-              encoder.encode(
-                `data: ${JSON.stringify({ type: "token", content })}\n\n`,
-              ),
+            await safeWrite(
+              `data: ${JSON.stringify({ type: "token", content })}\n\n`,
             )
           }
         }
       }
     } catch (e: any) {
+      const errText = e?.message || String(e)
+      console.error("[CHAT_UPLINK_ERROR]", errText)
       if (!req.signal.aborted) {
+        const content =
+          aiProvider === "groq"
+            ? errText.includes("401")
+              ? "Groq API key is invalid for this project."
+              : errText.includes("429")
+                ? "Groq quota/rate limit exceeded for this API key/project."
+                : "UPLINK ERROR"
+            : aiProvider === "openai"
+            ? errText.includes("401")
+              ? "OpenAI API key is invalid for this project."
+              : errText.includes("429")
+                ? "OpenAI quota/rate limit exceeded for this API key/project."
+                : "UPLINK ERROR"
+            : errText.includes("403")
+              ? "Gemini access denied for current API key/project. Check Google AI project permissions or use another key/model."
+              : errText.includes("429")
+                ? "Gemini quota exceeded for this API project. Enable billing or use a key/project with available quota."
+              : "UPLINK ERROR"
         const errorPayload = JSON.stringify({
           type: "error",
-          content: "UPLINK ERROR",
+          content,
         })
-        await writer.write(encoder.encode(`data: ${errorPayload}\n\n`))
+        await safeWrite(`data: ${errorPayload}\n\n`)
       }
     } finally {
       if (!req.signal.aborted) {
-        await writer.write(encoder.encode("data: [DONE]\n\n"))
+        await safeWrite("data: [DONE]\n\n")
       }
-      writer.close()
+      safeClose()
     }
   }
 

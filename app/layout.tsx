@@ -4,8 +4,14 @@ import { Bebas_Neue, Montserrat } from "next/font/google" // Import the fonts
 import "./globals.css"
 import Navbar from "@/components/Navbar"
 import { ChatStoreProvider } from "@/lib/store/chat-store-provider"
-import { ChatSheet } from "@/section/ChatSheet"
+import ChatSheetLazy from "@/components/ChatSheetLazy"
 import Footer from "@/section/Footer"
+import {
+  DEFAULT_KEYWORDS,
+  ORGANIZATION_JSON_LD,
+  SITE_URL,
+  WEBSITE_JSON_LD,
+} from "@/lib/seo"
 const bebas = Bebas_Neue({
   weight: "400",
   subsets: ["latin"],
@@ -21,78 +27,65 @@ const montserrat = Montserrat({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://wellness-nepal.vercel.app/"),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Wellness Nepal Gym | #1 Fitness Equipment Supplier in Nepal",
-    template: "%s | Wellness Nepal Gym",
+    default: "Wellness Nepal | Fitness Equipment Supplier in Nepal",
+    template: "%s | Wellness Nepal",
   },
   description:
-    "Nepal’s leading distributor of commercial and home gym equipment. We provide high-quality treadmills, strength machines, and flooring for gyms nationwide.",
-  // This helps AI understand you are an e-commerce/supplier entity
+    "Commercial and home gym equipment supplier in Nepal. Wellness Nepal offers planning, delivery, installation, and after-sales support nationwide.",
   category: "Fitness Equipment Supplier",
+  applicationName: "Wellness Nepal",
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   icons: {
     icon: [
-      { url: "/wellness-dark.svg" }, // Place in public folder
-      { url: "/wellness-dark.svg", type: "image/svg+xml" }, // Place in public folder
+      { url: "/wellness-dark.svg" },
+      { url: "/wellness-dark.svg", type: "image/svg+xml" },
     ],
-    apple: [
-      { url: "/wellness-dark.svg" }, // Place in public folder
-    ],
+    apple: [{ url: "/wellness-dark.svg" }],
   },
-  keywords: [
-    "gym equipment Nepal",
-    "commercial fitness machines Kathmandu",
-    "buy gym weights Nepal",
-  ],
+  keywords: DEFAULT_KEYWORDS,
 
-  // For Open Graph and Twitter cards on Social Media shares
   openGraph: {
-    title: "Wellness Nepal Gym | #1 Fitness Equipment Supplier",
+    title: "Wellness Nepal | Fitness Equipment Supplier in Nepal",
     description:
-      "Premium gym equipment delivery and installation across Nepal.",
-    url: "https://wellnessnepalgym.com",
-    siteName: "Wellness Nepal Gym",
+      "Commercial and home gym equipment with installation and support across Nepal.",
+    url: SITE_URL,
+    siteName: "Wellness Nepal",
     images: [
       {
-        url: "/wellness-dark.png", // Create a 1200x630 image showing your best equipment
+        url: "/wellness-dark.svg",
         width: 1200,
         height: 630,
-        alt: "Wellness Nepal Gym Equipment Showroom",
+        alt: "Wellness Nepal fitness equipment",
       },
     ],
-    locale: "en_US",
+    locale: "en_NP",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Wellness Nepal Gym",
-    description: "Best Gym Equipment in Nepal",
-    images: ["/wellness-dark.png"],
+    title: "Wellness Nepal",
+    description:
+      "Commercial and home fitness equipment supplier in Nepal with setup support.",
+    images: ["/wellness-dark.svg"],
   },
 }
 
-// AI-Search Schema (JSON-LD)
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Store", // Or "WholesaleStore"
-  name: "Wellness Nepal Gym",
-  image: "https://wellnessnepalgym.com/logo.png",
-  description:
-    "Nepal’s leading distributor of commercial and home gym equipment.",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "Your Street Name",
-    addressLocality: "Kathmandu",
-    addressCountry: "NP",
-  },
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: "YOUR_LAT", // Optional but good for local AI search
-    longitude: "YOUR_LONG",
-  },
-  url: "https://wellnessnepalgym.com",
-  telephone: "+977-XXXXXXXXXX",
-}
+const jsonLd = [ORGANIZATION_JSON_LD, WEBSITE_JSON_LD]
 
 export default function RootLayout({
   children,
@@ -106,14 +99,12 @@ export default function RootLayout({
         <ChatStoreProvider>
           <Navbar />
 
-          {/* Injecting the JSON-LD for AI Search Engines */}
-
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
           />
           {children}
-          <ChatSheet />
+          <ChatSheetLazy />
         </ChatStoreProvider>
         <Footer />
       </body>

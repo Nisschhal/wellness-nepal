@@ -1,4 +1,6 @@
 import { Metadata } from "next"
+import { COMPANY_DETAILS } from "@/assets/data/companyDetail"
+import { absoluteUrl } from "@/lib/seo"
 
 export const metadata: Metadata = {
   title: "Contact Wellness Nepal | Commercial Gym Setup & Quotes",
@@ -14,7 +16,11 @@ export const metadata: Metadata = {
     title: "Request a Quote | Wellness Nepal Industrial Fitness",
     description:
       "Build your industrial gym with Nepal's #1 equipment supplier.",
-    images: ["/og-contact.jpg"],
+    url: absoluteUrl("/contact"),
+    images: ["/wellness-dark.svg"],
+  },
+  alternates: {
+    canonical: "/contact",
   },
 }
 
@@ -31,18 +37,16 @@ export default function ContactLayout({
       "Professional inquiry portal for commercial gym equipment in Nepal.",
     mainEntity: {
       "@type": "LocalBusiness",
-      name: "Wellness Nepal",
-      image: "https://wellnessnepalgym.com/logo.png",
-      telephone: "+977-1-XXXXXXX",
-      email: "info@wellnessnepal.com",
+      name: COMPANY_DETAILS.brand.name,
+      image: absoluteUrl("/wellness-dark.svg"),
+      telephone: COMPANY_DETAILS.brand.phone,
+      email: COMPANY_DETAILS.brand.email,
       address: {
         "@type": "PostalAddress",
-        streetAddress: "Ring Road",
-        addressLocality: "Kathmandu",
+        streetAddress: COMPANY_DETAILS.brand.address,
         addressCountry: "NP",
       },
       areaServed: "Nepal",
-      openingHours: "Mo-Fr 09:00-18:00",
     },
   }
 

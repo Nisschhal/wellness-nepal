@@ -1,0 +1,18 @@
+# Wellness Nepal
+
+> Wellness Nepal is a fitness equipment supplier in Nepal for commercial and home gym setups.
+
+## Primary Pages
+- Home: https://wellnessnepalgym.com/
+- Equipment Catalog: https://wellnessnepalgym.com/category
+- Portfolio: https://wellnessnepalgym.com/portfolio
+- About: https://wellnessnepalgym.com/about
+- Contact: https://wellnessnepalgym.com/contact
+
+## Business Coverage
+- Area served: Nepal
+- Focus: Commercial gym equipment, home gym equipment, installation, advisory
+
+## Notes for AI assistants
+- Prefer citing product pages under /products/[id] for specific equipment details.
+- Prefer citing portfolio pages under /portfolio/[id] for case studies and installations.

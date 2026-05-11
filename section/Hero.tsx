@@ -1,17 +1,27 @@
 "use client"
 import React from "react"
 import { motion } from "framer-motion"
-import { Activity, LayoutGrid, TrendingUp } from "lucide-react"
+import { LayoutGrid, TrendingUp } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
+import { Container } from "@/components/ui/container"
+import { Section } from "@/components/ui/section"
+import { Button } from "@/components/ui/button"
 
 const Hero: React.FC = () => {
   return (
-    <section className="relative min-h-[90vh] md:min-h-screen flex items-center overflow-hidden z-10 pt-24 md:pt-32 lg:pt-0 border-b border-surface-border">
+    <Section
+      spacing="none"
+      className="min-h-[90vh] md:min-h-screen flex items-center overflow-hidden border-b border-surface-border pt-24 md:pt-32 lg:pt-0"
+    >
       <div className="absolute inset-0 z-0">
-        <img
+        <Image
           src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1920&auhref=format&fit=crop"
-          className="w-full h-full object-cover  transition-all duration-1000"
+          className="w-full h-full object-cover transition-all duration-1000"
           alt="Commercial Gym Dominance"
+          fill
+          priority
+          sizes="100vw"
         />
         {/* <img
           src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1920&auhref=format&fit=crop"
@@ -22,7 +32,7 @@ const Hero: React.FC = () => {
         <div className="absolute inset-x-0 bottom-0 h-64 md:h-96 bg-linear-to-t from-surface to-transparent"></div>
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
+      <Container className="relative z-10">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
@@ -51,30 +61,35 @@ const Hero: React.FC = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 md:gap-8">
-            <Link
-              href="/contact"
-              className="skew-button shadow-brand-red/50  bg-brand-red px-8 md:px-14 py-5 md:py-8 text-white font-bold hover:bg-surface-text hover:text-surface transition-all shadow-xl text-xl md:text-3xl flex items-center justify-center gap-4 md:gap-6 group"
+            <Button
+              asChild
+              className="group skew-button shadow-brand-red/50 bg-brand-red px-8 md:px-14 py-5 md:py-8 text-white hover:bg-surface-text hover:text-surface shadow-xl text-xl md:text-3xl font-bold gap-4 md:gap-6 h-auto"
             >
-              <span>INQUIRE NOW</span>
-              <TrendingUp
-                className="group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform"
-                size={24}
-              />
-            </Link>
-            <Link
-              href="/category"
-              className="skew-button bg-surface-darker border-2 border-surface-border px-8 md:px-14 py-5 md:py-8 text-surface-text font-bold hover:border-brand-red transition-all text-xl md:text-3xl flex items-center justify-center gap-4 md:gap-6 group"
+              <Link href="/contact">
+                <span>INQUIRE NOW</span>
+                <TrendingUp
+                  className="group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform"
+                  size={24}
+                />
+              </Link>
+            </Button>
+            <Button
+              asChild
+              variant="outline"
+              className="group skew-button bg-surface-darker border-2 border-surface-border px-8 md:px-14 py-5 md:py-8 text-surface-text hover:border-brand-red text-xl md:text-3xl font-bold gap-4 md:gap-6 h-auto"
             >
-              <span>VIEW CATALOG</span>
-              <LayoutGrid
-                className="group-hover:rotate-12 transition-transform"
-                size={24}
-              />
-            </Link>
+              <Link href="/category">
+                <span>VIEW CATALOG</span>
+                <LayoutGrid
+                  className="group-hover:rotate-12 transition-transform"
+                  size={24}
+                />
+              </Link>
+            </Button>
           </div>
         </motion.div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   )
 }
 

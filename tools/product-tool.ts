@@ -3,9 +3,11 @@ import { tool } from "@langchain/core/tools"
 import { z } from "zod"
 
 export const getProductsTool = tool(
-  async ({ number = "5" }: { number?: string }) => {
+  async ({ number = 5 }: { number?: number | string }) => {
     // 1. Calculate count
-    const count = Math.min(parseInt(number) || 5, 20)
+    const parsed =
+      typeof number === "number" ? number : Number.parseInt(number, 10)
+    const count = Math.min(parsed || 5, 20)
 
     // 2. Get the raw product objects
     const products = PRODUCTS_DATA.slice(0, count)
@@ -34,7 +36,7 @@ export const getProductsTool = tool(
       "Get featured products. Use 'number' for custom count (5, 10, 20)",
     schema: z.object({
       number: z
-        .string()
+        .union([z.number(), z.string()])
         .optional()
         .describe("Number of products to show (5, 10, 20). Default: 5"),
     }),

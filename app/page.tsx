@@ -1,13 +1,14 @@
-import Navbar from "@/components/Navbar"
-import TrustedClients from "@/section/TrustedClients"
-import Hero from "@/section/Hero"
 import { Metadata } from "next"
-import WhyUs from "@/section/WhyUs"
-import FeaturedInventory from "@/section/FeaturedInventory"
-import BluePrint from "@/section/BluePrint"
-import Testimonials from "@/section/Testimonials"
-import FinalCTA from "@/section/FinalCTA"
-import Footer from "@/section/Footer"
+import dynamic from "next/dynamic"
+import Hero from "@/section/Hero"
+import TrustedClients from "@/section/TrustedClients"
+import { absoluteUrl } from "@/lib/seo"
+
+const WhyUs = dynamic(() => import("@/section/WhyUs"))
+const BluePrint = dynamic(() => import("@/section/BluePrint"))
+const FeaturedInventory = dynamic(() => import("@/section/FeaturedInventory"))
+const Testimonials = dynamic(() => import("@/section/Testimonials"))
+const FinalCTA = dynamic(() => import("@/section/FinalCTA"))
 
 export const metadata: Metadata = {
   title: {
@@ -15,6 +16,17 @@ export const metadata: Metadata = {
   },
   description:
     "Shop professional-grade gym equipment at Wellness Nepal Gym. From home setups to full commercial gym installations, we offer delivery across Nepal, expert setup, and full warranty support.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Wellness Nepal | Premium Fitness Equipment",
+    description:
+      "Commercial and home fitness equipment with delivery, installation, and warranty support across Nepal.",
+    url: absoluteUrl("/"),
+    images: ["/wellness-dark.svg"],
+    type: "website",
+  },
 }
 export default function Home() {
   return (

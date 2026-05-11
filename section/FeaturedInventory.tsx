@@ -5,17 +5,18 @@ import SectionHeading from "@/components/SectionHeading"
 import { ArrowRight, MoveRight } from "lucide-react"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { useRouter } from "next/navigation"
+import Image from "next/image"
+import { Container } from "@/components/ui/container"
+import { Section } from "@/components/ui/section"
 
 const FeaturedInventory = () => {
-  const router = useRouter()
   const featuredProducts = PRODUCTS_DATA.slice(0, 3)
 
   return (
-    <section className="py-24 md:py-40 bg-surface relative z-10">
+    <Section className="py-24 md:py-40">
       <div className="absolute inset-0 bg-pattern pointer-events-none z-0"></div>
 
-      <div className="container mx-auto px-6">
+      <Container>
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-20 gap-6">
           <SectionHeading title="IRON ARSENAL" subtitle="SELECT YOUR WEAPONS" />
           <Link
@@ -44,7 +45,7 @@ const FeaturedInventory = () => {
             >
               {/* Image - fixed aspect */}
               <div className="aspect-square bg-zinc-800 overflow-hidden relative shrink-0">
-                <img
+                <Image
                   src={p.image}
                   alt={p.name}
                   className="
@@ -53,6 +54,8 @@ const FeaturedInventory = () => {
                     group-hover:grayscale-0 group-hover:scale-110
                     transition-all duration-700 ease-out
                   "
+                  fill
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                 />
                 <div
                   className="
@@ -92,8 +95,8 @@ const FeaturedInventory = () => {
                 <div className="flex-1" />
 
                 {/* Button always at bottom */}
-                <button
-                  onClick={() => router.push(`/product/${p.id}`)}
+                <Link
+                  href={`/products/${p.id}`}
                   className="
                     w-full bg-surface text-surface-text
                     border border-surface-border
@@ -105,13 +108,13 @@ const FeaturedInventory = () => {
                   "
                 >
                   DEPLOY TO FACILITY
-                </button>
+                </Link>
               </div>
             </motion.div>
           ))}
         </div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   )
 }
 

@@ -2,6 +2,7 @@ import { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { PRODUCTS } from "@/assets/constants"
 import ProductDetail from "@/components/ProductDetail"
+import { absoluteUrl } from "@/lib/seo"
 
 // 1. GENERATE STATIC PATHS (Makes them real HTML files at build time)
 export async function generateStaticParams() {
@@ -20,6 +21,8 @@ export async function generateMetadata({
   const product = PRODUCTS.find((p) => p.id === id)
 
   if (!product) return { title: "Product Not Found" }
+  // TODO(catalog-migration): enrich metadata with real fields from serverless catalog source:
+  // sku, gtin/mpn, brand, stock status, price range, and updatedAt.
 
   return {
     title: `${product.name} | Commercial Gym Equipment Nepal | Shakti Series`,
@@ -34,8 +37,12 @@ export async function generateMetadata({
     openGraph: {
       title: product.name,
       description: product.description,
+      url: absoluteUrl(`/products/${product.id}`),
       images: [{ url: product.image }],
       type: "website",
+    },
+    alternates: {
+      canonical: `/products/${product.id}`,
     },
   }
 }
@@ -54,6 +61,8 @@ export default async function Page({
   const jsonLd = {
     "@context": "https://schema.org/",
     "@type": "Product",
+    "@id": absoluteUrl(`/products/${product.id}#product`),
+    url: absoluteUrl(`/products/${product.id}`),
     name: product.name,
     image: product.image,
     description: product.description,
@@ -67,8 +76,11 @@ export default async function Page({
       price: product.price || "Contact for Price",
       availability: "https://schema.org/InStock",
       areaServed: "Nepal",
+      url: absoluteUrl(`/products/${product.id}`),
     },
   }
+  // TODO(aeo): when catalog backend is ready, include `aggregateRating` and `review` schema
+  // from verified customer/project feedback data.
 
   return (
     <>

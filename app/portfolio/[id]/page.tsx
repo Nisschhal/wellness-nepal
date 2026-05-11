@@ -5,6 +5,7 @@ import { Metadata } from "next"
 import { notFound } from "next/navigation"
 import SectionHeading from "@/components/SectionHeading"
 import { PRODUCTS } from "@/assets/constants"
+import { absoluteUrl } from "@/lib/seo"
 
 type Props = {
   params: Promise<{ id: string }>
@@ -24,6 +25,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       "commercial gym setup Kathmandu",
       "industrial fitness Pokhara",
     ],
+    alternates: {
+      canonical: `/portfolio/${project.id}`,
+    },
+    openGraph: {
+      title: `${project.title} | Wellness Nepal Portfolio`,
+      description: project.description,
+      url: absoluteUrl(`/portfolio/${project.id}`),
+      images: [{ url: project.image }],
+      type: "article",
+    },
   }
 }
 
@@ -37,6 +48,8 @@ export default async function ProjectDetailPage({ params }: Props) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "CaseStudy",
+    "@id": absoluteUrl(`/portfolio/${project.id}#case-study`),
+    url: absoluteUrl(`/portfolio/${project.id}`),
     name: project.title,
     description: project.description,
     image: project.image,
@@ -74,7 +87,7 @@ export default async function ProjectDetailPage({ params }: Props) {
       <div className="container mx-auto px-6 relative z-10">
         <nav className="mb-16">
           <Link
-            href="/gallery"
+            href="/portfolio"
             className="flex items-center gap-3 text-surface-muted hover:text-brand-red transition-colors font-bebas tracking-[0.2em] text-lg italic"
           >
             <ArrowLeft size={20} /> BACK TO FULL PORTFOLIO
@@ -198,7 +211,7 @@ export default async function ProjectDetailPage({ params }: Props) {
                         </div>
                         {matchedProduct && (
                           <Link
-                            href={`/product/${matchedProduct.id}`}
+                            href={`/products/${matchedProduct.id}`}
                             className="text-surface-muted hover:text-brand-red transition-colors"
                           >
                             <Activity size={24} />
