@@ -12,6 +12,18 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "images.unsplash.com",
       },
+      {
+        protocol: "https",
+        hostname: "picsum.photos",
+      },
+      {
+        protocol: "https",
+        hostname: "randomuser.me",
+      },
+      {
+        protocol: "https",
+        hostname: "i.pravatar.cc",
+      },
       // TODO(catalog-migration): when catalog is moved to Cloudinary/AWS/S3-compatible
       // storage, add the production image domains here.
       // Example:

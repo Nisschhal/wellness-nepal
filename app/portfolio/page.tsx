@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import PortfolioPageClient from "@/components/PortfolioPageClient"
 import { PROJECTS_DATA } from "@/assets/data/projects"
-import { absoluteUrl } from "@/lib/seo"
+import { absoluteUrl, breadcrumbJsonLd } from "@/lib/seo"
 
 export const metadata: Metadata = {
   title: "Portfolio | Gym Setup Projects Across Nepal",
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 }
 
 export default function PortfolioPage() {
-  const jsonLd = {
+  const itemListJsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
     name: "Wellness Nepal Portfolio",
@@ -31,6 +31,13 @@ export default function PortfolioPage() {
       name: project.title,
     })),
   }
+
+  const breadcrumbs = breadcrumbJsonLd([
+    { name: "Home", url: absoluteUrl("/") },
+    { name: "Portfolio" },
+  ])
+
+  const jsonLd = [itemListJsonLd, breadcrumbs]
 
   return (
     <>

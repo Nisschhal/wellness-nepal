@@ -4,11 +4,21 @@ import Hero from "@/section/Hero"
 import TrustedClients from "@/section/TrustedClients"
 import { absoluteUrl } from "@/lib/seo"
 
-const WhyUs = dynamic(() => import("@/section/WhyUs"))
-const BluePrint = dynamic(() => import("@/section/BluePrint"))
-const FeaturedInventory = dynamic(() => import("@/section/FeaturedInventory"))
-const Testimonials = dynamic(() => import("@/section/Testimonials"))
-const FinalCTA = dynamic(() => import("@/section/FinalCTA"))
+const WhyUs = dynamic(() => import("@/section/WhyUs"), {
+  loading: () => <div className="min-h-[400px]" />,
+})
+const BluePrint = dynamic(() => import("@/section/BluePrint"), {
+  loading: () => <div className="min-h-[400px]" />,
+})
+const FeaturedInventory = dynamic(() => import("@/section/FeaturedInventory"), {
+  loading: () => <div className="min-h-[500px]" />,
+})
+const Testimonials = dynamic(() => import("@/section/Testimonials"), {
+  loading: () => <div className="min-h-[400px]" />,
+})
+const FinalCTA = dynamic(() => import("@/section/FinalCTA"), {
+  loading: () => <div className="min-h-[300px]" />,
+})
 
 export const metadata: Metadata = {
   title: {

@@ -1,7 +1,7 @@
 // app/about/page.tsx
 import { Metadata } from "next"
 import AboutClient from "@/components/About"
-import { absoluteUrl } from "@/lib/seo"
+import { absoluteUrl, breadcrumbJsonLd, faqJsonLd } from "@/lib/seo"
 
 // This is great for SEO. Google will see this before the JavaScript even loads.
 export const metadata: Metadata = {
@@ -22,13 +22,37 @@ export const metadata: Metadata = {
 }
 
 export default function AboutPage() {
+  const breadcrumbs = breadcrumbJsonLd([
+    { name: "Home", url: absoluteUrl("/") },
+    { name: "About" },
+  ])
+
+  const faqs = faqJsonLd([
+    {
+      question: "When was Wellness Nepal founded?",
+      answer:
+        "Wellness Nepal was founded in 2015 in Kathmandu with a mission to bring industrial-grade fitness equipment to Nepal.",
+    },
+    {
+      question: "Does Wellness Nepal offer gym planning and consulting?",
+      answer:
+        "Yes, Wellness Nepal provides B2B consulting including gym layout planning, equipment selection, membership strategy, and ROI advisory.",
+    },
+    {
+      question: "What is the Shakti series?",
+      answer:
+        "The Shakti series is Wellness Nepal's proprietary line of commercial-grade gym equipment engineered with global metallurgical standards for durability under high-volume use.",
+    },
+  ])
+
+  const jsonLd = [breadcrumbs, faqs]
+
   return (
     <>
-      {/* 
-        By keeping text in the Client Component, it is still indexable, 
-        but the Server component ensures the 'metadata' is delivered 
-        instantly for social sharing and search ranking.
-      */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <AboutClient />
     </>
   )

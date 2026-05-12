@@ -1,7 +1,7 @@
 import { Metadata } from "next"
 import { PRODUCTS } from "@/assets/constants"
 import Category from "@/components/Category"
-import { absoluteUrl } from "@/lib/seo"
+import { absoluteUrl, breadcrumbJsonLd, faqJsonLd } from "@/lib/seo"
 
 // SEO Metadata
 export async function generateMetadata({
@@ -58,11 +58,36 @@ export default function Page() {
   // TODO(catalog-migration): once catalog comes from Cloudinary/AWS/serverless storage,
   // switch PRODUCTS to API-backed pagination and emit matching ItemList page URLs.
 
+  const breadcrumbs = breadcrumbJsonLd([
+    { name: "Home", url: absoluteUrl("/") },
+    { name: "Catalog" },
+  ])
+
+  const faqs = faqJsonLd([
+    {
+      question: "What types of gym equipment does Wellness Nepal sell?",
+      answer:
+        "Wellness Nepal offers commercial-grade cardio machines, strength equipment, multi-station units, crossfit gear, free weights, and accessories from the Shakti series.",
+    },
+    {
+      question: "Does Wellness Nepal deliver gym equipment outside Kathmandu?",
+      answer:
+        "Yes, Wellness Nepal delivers and installs gym equipment nationwide across all 77 districts of Nepal.",
+    },
+    {
+      question: "Can I get a bulk discount for commercial gym equipment?",
+      answer:
+        "Yes, Wellness Nepal offers B2B pricing and custom quotes for commercial gym setups. Contact our team for volume pricing.",
+    },
+  ])
+
+  const allJsonLd = [jsonLd, breadcrumbs, faqs]
+
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(allJsonLd) }}
       />
       <Category />
     </>

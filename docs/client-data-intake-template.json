@@ -1,0 +1,141 @@
+{
+  "company": {
+    "brand": {
+      "name": "TODO_BRAND_NAME",
+      "fullName": "TODO_LEGAL_COMPANY_NAME",
+      "slogan": "TODO_BRAND_SLOGAN",
+      "address": "TODO_FULL_ADDRESS",
+      "phone": "TODO_PRIMARY_PHONE",
+      "email": "TODO_PRIMARY_EMAIL",
+      "whatsapp": "https://wa.me/TODO_NUMBER_WITH_COUNTRY_CODE",
+      "founded": 2020,
+      "vat": "TODO_VAT_OR_PAN",
+      "reg": "TODO_COMPANY_REGISTRATION_NUMBER"
+    },
+    "socials": {
+      "instagram": "https://instagram.com/TODO_HANDLE",
+      "facebook": "https://facebook.com/TODO_PAGE",
+      "twitter": "https://x.com/TODO_HANDLE",
+      "youtube": "https://youtube.com/@TODO_CHANNEL",
+      "linkedin": "https://linkedin.com/company/TODO_COMPANY"
+    },
+    "terms": [
+      "TODO_TERM_1",
+      "TODO_TERM_2",
+      "TODO_TERM_3"
+    ],
+    "pillars": [
+      {
+        "title": "TODO_PILLAR_TITLE_1",
+        "desc": "TODO_PILLAR_DESCRIPTION_1"
+      },
+      {
+        "title": "TODO_PILLAR_TITLE_2",
+        "desc": "TODO_PILLAR_DESCRIPTION_2"
+      }
+    ],
+    "stats": {
+      "gymsBuilt": "TODO_NUMBER_OR_TEXT",
+      "certification": "TODO_CERTIFICATION_TEXT",
+      "serviceCoverage": "TODO_COVERAGE_TEXT"
+    }
+  },
+  "seo": {
+    "defaultTitle": "TODO_DEFAULT_SITE_TITLE",
+    "defaultDescription": "TODO_DEFAULT_SITE_DESCRIPTION",
+    "keywords": [
+      "TODO_KEYWORD_1",
+      "TODO_KEYWORD_2",
+      "TODO_KEYWORD_3"
+    ],
+    "targetCities": [
+      "Kathmandu",
+      "Butwal",
+      "Pokhara",
+      "Birtamode"
+    ],
+    "targetCountry": "Nepal"
+  },
+  "catalog": {
+    "allowedCategories": [
+      "Multi-Station",
+      "Cardio",
+      "Strength",
+      "Crossfit",
+      "Free Weights",
+      "Accessories"
+    ],
+    "newCategoryRequests": [],
+    "products": [
+      {
+        "id": "todo-product-slug-001",
+        "name": "TODO Product Name",
+        "category": "Cardio",
+        "image": "https://example.com/product-main.jpg",
+        "images": [
+          "https://example.com/product-main.jpg",
+          "https://example.com/product-angle-2.jpg"
+        ],
+        "price": null,
+        "description": "TODO product description",
+        "specs": {
+          "Motor": "TODO",
+          "Speed": "TODO",
+          "Max User": "TODO"
+        },
+        "warranty": [
+          "TODO warranty line 1",
+          "TODO warranty line 2"
+        ],
+        "shipping": [
+          "TODO shipping line 1",
+          "TODO shipping line 2"
+        ],
+        "isFeatured": false,
+        "seoTitle": "TODO optional product SEO title",
+        "seoDescription": "TODO optional product SEO description",
+        "tags": [
+          "TODO_TAG_1",
+          "TODO_TAG_2"
+        ],
+        "assetMeta": {
+          "assetProvider": "TODO_cloudinary_or_s3_or_other",
+          "assetPath": "TODO_ASSET_PATH_OR_PUBLIC_ID"
+        }
+      }
+    ]
+  },
+  "portfolioProjects": [
+    {
+      "id": "todo-project-slug",
+      "title": "TODO Project Name",
+      "location": "TODO area, city",
+      "geoDistrict": "TODO district",
+      "category": "Commercial Gyms",
+      "image": "https://example.com/project-cover.jpg",
+      "description": "TODO project summary",
+      "equipmentUsed": [
+        "TODO machine 1",
+        "TODO machine 2"
+      ],
+      "challenge": "TODO challenge",
+      "solution": "TODO solution",
+      "year": "2026"
+    }
+  ],
+  "testimonials": [
+    {
+      "id": "todo-client-name",
+      "name": "TODO Client Name",
+      "role": "TODO Role",
+      "quote": "TODO Testimonial quote",
+      "image": "https://example.com/client-photo.jpg"
+    }
+  ],
+  "submissionMeta": {
+    "submittedBy": "TODO name",
+    "submittedEmail": "TODO email",
+    "submittedDateISO": "2026-05-11",
+    "notes": "TODO any extra notes"
+  }
+}

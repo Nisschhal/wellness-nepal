@@ -71,3 +71,43 @@ export const WEBSITE_JSON_LD = {
     "query-input": "required name=search_term_string",
   },
 }
+
+// --- Reusable JSON-LD generators ---
+
+export interface BreadcrumbItem {
+  name: string
+  url?: string
+}
+
+export function breadcrumbJsonLd(items: BreadcrumbItem[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.name,
+      ...(item.url ? { item: item.url } : {}),
+    })),
+  }
+}
+
+export interface FaqItem {
+  question: string
+  answer: string
+}
+
+export function faqJsonLd(faqs: FaqItem[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  }
+}

@@ -1,6 +1,6 @@
 import { Metadata } from "next"
 import { COMPANY_DETAILS } from "@/assets/data/companyDetail"
-import { absoluteUrl } from "@/lib/seo"
+import { absoluteUrl, breadcrumbJsonLd, faqJsonLd } from "@/lib/seo"
 
 export const metadata: Metadata = {
   title: "Contact Wellness Nepal | Commercial Gym Setup & Quotes",
@@ -29,7 +29,7 @@ export default function ContactLayout({
 }: {
   children: React.ReactNode
 }) {
-  const jsonLd = {
+  const contactJsonLd = {
     "@context": "https://schema.org",
     "@type": "ContactPage",
     name: "Wellness Nepal Contact & Quote Request",
@@ -49,6 +49,31 @@ export default function ContactLayout({
       areaServed: "Nepal",
     },
   }
+
+  const breadcrumbs = breadcrumbJsonLd([
+    { name: "Home", url: absoluteUrl("/") },
+    { name: "Contact" },
+  ])
+
+  const faqs = faqJsonLd([
+    {
+      question: "How can I get a quote from Wellness Nepal?",
+      answer:
+        "You can request a quote by filling out the contact form on this page, calling us directly, or visiting our Kathmandu showroom. We respond within 24 hours.",
+    },
+    {
+      question: "Does Wellness Nepal offer installation services?",
+      answer:
+        "Yes, standard installation is included within the Kathmandu Valley. Nationwide installation and site assessment services are also available.",
+    },
+    {
+      question: "What are the payment terms for commercial gym orders?",
+      answer:
+        "For commercial/industrial orders, we require 50% advance payment. Prices are exclusive of 13% VAT. Quote validity is 7 days from generation.",
+    },
+  ])
+
+  const jsonLd = [contactJsonLd, breadcrumbs, faqs]
 
   return (
     <>

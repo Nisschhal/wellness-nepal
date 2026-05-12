@@ -1,11 +1,12 @@
 import { PROJECTS_DATA } from "@/assets/data/projects"
 import Link from "next/link"
+import Image from "next/image"
 import { ArrowLeft, CheckCircle, Activity, Dumbbell } from "lucide-react"
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
 import SectionHeading from "@/components/SectionHeading"
 import { PRODUCTS } from "@/assets/constants"
-import { absoluteUrl } from "@/lib/seo"
+import { absoluteUrl, breadcrumbJsonLd } from "@/lib/seo"
 
 type Props = {
   params: Promise<{ id: string }>
@@ -45,11 +46,12 @@ export default async function ProjectDetailPage({ params }: Props) {
   if (!project) notFound()
 
   // 2. AEO (JSON-LD) for AI Search Engines
-  const jsonLd = {
+  const articleJsonLd = {
     "@context": "https://schema.org",
-    "@type": "CaseStudy",
-    "@id": absoluteUrl(`/portfolio/${project.id}#case-study`),
+    "@type": "Article",
+    "@id": absoluteUrl(`/portfolio/${project.id}#article`),
     url: absoluteUrl(`/portfolio/${project.id}`),
+    headline: project.title,
     name: project.title,
     description: project.description,
     image: project.image,
@@ -60,6 +62,14 @@ export default async function ProjectDetailPage({ params }: Props) {
     },
     author: { "@type": "Organization", name: "Wellness Nepal" },
   }
+
+  const breadcrumbs = breadcrumbJsonLd([
+    { name: "Home", url: absoluteUrl("/") },
+    { name: "Portfolio", url: absoluteUrl("/portfolio") },
+    { name: project.title },
+  ])
+
+  const jsonLd = [articleJsonLd, breadcrumbs]
 
   if (!project)
     return (
@@ -96,10 +106,13 @@ export default async function ProjectDetailPage({ params }: Props) {
 
         {/* Hero Section - FIXED RESPONSIVENESS */}
         <div className="relative aspect-[16/9] md:aspect-video w-full industrial-border overflow-hidden mb-12 md:mb-24 shadow-2xl bg-zinc-950">
-          <img
+          <Image
             src={project.image}
             className="w-full h-full object-cover opacity-60 md:opacity-30 contrast-125"
             alt={project.title}
+            fill
+            sizes="100vw"
+            priority
           />
           <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/40 to-transparent"></div>
 
@@ -178,12 +191,14 @@ export default async function ProjectDetailPage({ params }: Props) {
                 {[1, 2, 3, 4, 5, 6].map((i) => (
                   <div
                     key={i}
-                    className="aspect-square bg-surface-darker industrial-border overflow-hidden [@media(hover:hover)]:grayscale hover:grayscale-0 transition-all group shadow-lg"
+                    className="aspect-square bg-surface-darker industrial-border overflow-hidden [@media(hover:hover)]:grayscale hover:grayscale-0 transition-all group shadow-lg relative"
                   >
-                    <img
+                    <Image
                       src={`https://picsum.photos/seed/gall-${project.id}-${i}/800/800`}
                       className="w-full h-full object-cover group-hover:scale-110 transition-all duration-1000"
-                      alt="Detail"
+                      alt={`${project.title} gym setup detail ${i}`}
+                      fill
+                      sizes="(min-width: 768px) 33vw, 50vw"
                     />
                   </div>
                 ))}

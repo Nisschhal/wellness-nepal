@@ -3,6 +3,7 @@ import { TESTIMONIALS_DATA } from "@/assets/data/testimonials"
 import SectionHeading from "@/components/SectionHeading"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react"
+import Image from "next/image"
 import { useEffect, useState } from "react"
 
 const Testimonials = () => {
@@ -85,11 +86,13 @@ const Testimonials = () => {
                   />
 
                   <div className="flex gap-6 md:gap-8 items-center mb-8 md:mb-10 relative z-10">
-                    <div className="w-16 h-16 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-brand-red [@media(hover:hover)]:grayscale group-hover:grayscale-0 transition-all shadow-lg shrink-0">
-                      <img
+                    <div className="w-16 h-16 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-brand-red [@media(hover:hover)]:grayscale group-hover:grayscale-0 transition-all shadow-lg shrink-0 relative">
+                      <Image
                         src={t.image}
                         alt={t.name}
-                        className="w-full h-full object-cover"
+                        fill
+                        sizes="96px"
+                        className="object-cover"
                       />
                     </div>
                     <div>

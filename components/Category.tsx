@@ -3,6 +3,7 @@
 import React, { useState, useEffect, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
+import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { Search, Filter, Plus } from "lucide-react"
 import SectionHeading from "@/components/SectionHeading"
@@ -153,11 +154,12 @@ function CategoryContent() {
                       href={`/products/${p.id}`}
                       className="block relative aspect-square bg-zinc-800 overflow-hidden"
                     >
-                      <img
+                      <Image
                         src={p.image}
-                        className="w-full h-full object-cover [@media(hover:hover)]:grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
+                        className="object-cover [@media(hover:hover)]:grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
                         alt={`${p.name} - Commercial Gym Equipment Nepal`}
-                        loading="lazy"
+                        fill
+                        sizes="(min-width: 1280px) 25vw, (min-width: 768px) 33vw, 100vw"
                       />
                     </Link>
                     <div className="p-6">

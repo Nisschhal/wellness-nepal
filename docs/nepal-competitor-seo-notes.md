@@ -45,8 +45,8 @@ Use this as the master TODO list to avoid missing any critical work.
 - [ ] Set production canonical domain in env: `NEXT_PUBLIC_SITE_URL`.
 - [ ] Add city landing pages: Kathmandu, Butwal, Pokhara, Birtamode (+ other major cities).
 - [ ] Add city-level schema (`LocalBusiness`/`Service`) with area-specific proof and FAQs.
-- [ ] Add `FAQPage` schema on high-intent category/product/service pages.
-- [ ] Add `BreadcrumbList` schema across category, product, and portfolio page templates.
+- [x] Add `FAQPage` schema on high-intent category/product/service pages.
+- [x] Add `BreadcrumbList` schema across category, product, and portfolio page templates.
 - [ ] Enrich `Product` schema with future catalog fields (SKU, GTIN/MPN, stock, price range, brand).
 - [ ] Add `aggregateRating` and `review` schema when verified review data is available.
 - [ ] Move sitemap `lastModified` to real content timestamps from catalog/CMS source.

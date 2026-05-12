@@ -2,6 +2,7 @@
 
 import React from "react"
 import { motion } from "framer-motion"
+import Image from "next/image"
 import {
   Shield,
   Zap,
@@ -170,10 +171,12 @@ const About: React.FC = () => {
 
           <div className="relative aspect-square max-w-lg mx-auto lg:max-w-none w-full">
             <div className="absolute inset-0 border-4 md:border-8 border-brand-red -translate-x-4 md:-translate-x-8 translate-y-4 md:translate-y-8 z-0 opacity-10"></div>
-            <img
+            <Image
               src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=800&auto=format&fit=crop"
-              className="w-full h-full object-cover relative z-10 [@media(hover:hover)]:grayscale border border-surface-border shadow-2xl transition-all duration-1000"
-              alt="Industrial Engineering"
+              className="object-cover relative z-10 [@media(hover:hover)]:grayscale border border-surface-border shadow-2xl transition-all duration-1000"
+              alt="Wellness Nepal industrial gym engineering workshop"
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
             />
             <div className="absolute -bottom-6 -right-6 md:-bottom-12 md:-right-12 bg-brand-red p-6 md:p-12 z-20 shadow-2xl -skew-x-12">
               <p className="font-bebas text-5xl md:text-7xl text-white italic leading-none skew-x-12">

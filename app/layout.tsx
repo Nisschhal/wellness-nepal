@@ -94,7 +94,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-      {/* Add dark class here if you want dark mode by default */}
+      <head>
+        <meta name="geo.region" content="NP" />
+        <meta name="geo.placename" content="Kathmandu" />
+      </head>
       <body className={`${bebas.variable} ${montserrat.variable} antialiased`}>
         <ChatStoreProvider>
           <Navbar />

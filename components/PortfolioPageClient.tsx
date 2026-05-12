@@ -3,6 +3,7 @@
 import React, { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
+import Image from "next/image"
 import { PROJECTS_DATA, ProjectCategory } from "@/assets/data/projects"
 import { ArrowUpRight } from "lucide-react"
 import SectionHeading from "@/components/SectionHeading"
@@ -62,11 +63,13 @@ export default function PortfolioPageClient() {
                 className="relative group overflow-hidden border border-surface-border bg-surface-darker"
               >
                 <Link href={`/portfolio/${proj.id}`} className="block">
-                  <div className="aspect-[4/3] overflow-hidden">
-                    <img
+                  <div className="aspect-[4/3] overflow-hidden relative">
+                    <Image
                       src={proj.image}
-                      alt={proj.title}
-                      className="w-full h-full object-cover [@media(hover:hover)]:grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
+                      alt={`${proj.title} - Gym Setup in ${proj.location}`}
+                      fill
+                      sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                      className="object-cover [@media(hover:hover)]:grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
                     />
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/10 to-transparent opacity-80 group-hover:opacity-100 transition-opacity"></div>
@@ -93,11 +96,13 @@ export default function PortfolioPageClient() {
                 animate={{ opacity: 1, y: 0 }}
                 className="relative group overflow-hidden border border-surface-border bg-surface-darker [@media(hover:hover)]:grayscale hover:grayscale-0 transition-all opacity-40 hover:opacity-100"
               >
-                <div className="aspect-[4/3] overflow-hidden">
-                  <img
+                <div className="aspect-[4/3] overflow-hidden relative">
+                  <Image
                     src={`https://picsum.photos/seed/gall-${i}/800/600`}
-                    alt="Project"
-                    className="w-full h-full object-cover"
+                    alt="Upcoming gym project"
+                    fill
+                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                    className="object-cover"
                   />
                 </div>
                 <div className="p-8">

@@ -214,6 +214,7 @@
 
 import React, { useState, useEffect, useCallback } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import {
@@ -282,17 +283,24 @@ export default function ProductClient({ product }: { product: any }) {
               {/* mode="wait" ensures one image fades out completely before next fades in, 
                   or remove it for a smoother overlapping cross-fade */}
               <AnimatePresence mode="wait">
-                <motion.img
+                <motion.div
                   key={selectedImage}
                   variants={fadeVariants}
                   initial="initial"
                   animate="enter"
                   exit="exit"
                   transition={{ duration: 0.8, ease: "easeInOut" }}
-                  src={images[selectedImage]}
-                  alt={product.name}
-                  className="absolute inset-0 w-full h-full object-cover [@media(hover:hover)]:grayscale group-hover:grayscale-0 transition-all duration-1000"
-                />
+                  className="absolute inset-0"
+                >
+                  <Image
+                    src={images[selectedImage]}
+                    alt={`${product.name} - Commercial Gym Equipment Nepal`}
+                    fill
+                    sizes="(min-width: 1024px) 50vw, 100vw"
+                    className="object-cover [@media(hover:hover)]:grayscale group-hover:grayscale-0 transition-all duration-1000"
+                    priority={selectedImage === 0}
+                  />
+                </motion.div>
               </AnimatePresence>
 
               {/* Navigation Arrows */}
@@ -336,10 +344,12 @@ export default function ProductClient({ product }: { product: any }) {
                         : "border-surface-border opacity-40 hover:opacity-100"
                     }`}
                   >
-                    <img
+                    <Image
                       src={img}
-                      className="w-full h-full object-cover"
-                      alt=""
+                      className="object-cover"
+                      alt={`${product.name} view ${idx + 1}`}
+                      fill
+                      sizes="96px"
                     />
                   </button>
                 ))}
