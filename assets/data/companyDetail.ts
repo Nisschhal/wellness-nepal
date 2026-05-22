@@ -5,9 +5,9 @@ export const COMPANY_DETAILS = {
     fullName: "Wellness Fitness Center",
     slogan: "Premium Gym Solutions",
     address: "Traffic, Chwok, Butwal, Nepal",
-    phone: "+977-9800000000",
+    phone: "+977-9804830607",
     email: "sales@wellnessnepal.com",
-    whatsapp: "https://wa.me/9779800000000",
+    whatsapp: "https://wa.me/9779804830607",
     founded: 2015,
     vat: "601234567", // Added for trust
     reg: "2078/123/ABC", // Added for trust

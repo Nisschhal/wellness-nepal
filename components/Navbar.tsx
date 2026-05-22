@@ -34,9 +34,9 @@ const Navbar: React.FC = () => {
   const toggleChat = () => (isChatOpen ? closeChat() : openChat())
 
   const navLinks = [
-    { name: "Iron Arsenal", path: "/category" },
-    { name: "Portfolio", path: "/portfolio" },
-    { name: "Blueprint", path: "/about" },
+    { name: "Products", path: "/category" },
+    { name: "Our Work", path: "/portfolio" },
+    { name: "About Us", path: "/about" },
   ]
 
   return (
@@ -104,7 +104,7 @@ const Navbar: React.FC = () => {
             href="/contact"
             className="skew-button bg-brand-red px-8 py-2.5 text-white font-bold text-xl uppercase tracking-widest hover:bg-surface-text hover:text-surface transition-all shadow-xl shadow-brand-red/20"
           >
-            <span>INQUIRE</span>
+            <span>CONTACT US</span>
           </Link>
         </div>
 
@@ -146,7 +146,7 @@ const Navbar: React.FC = () => {
           >
             <div className="flex flex-col gap-4">
               <p className="text-surface-muted font-black text-[10px] tracking-[0.5em] uppercase border-b border-surface-border pb-2">
-                Navigation Arsenal
+                Menu
               </p>
               {navLinks.map((link) => (
                 <Link
@@ -183,7 +183,7 @@ const Navbar: React.FC = () => {
                 onClick={() => setIsOpen(false)}
                 className="w-full flex items-center justify-center py-6 border-2 border-surface-text text-surface-text font-bebas text-3xl italic tracking-widest skew-x-[-6deg]"
               >
-                <span className="skew-x-[6deg]">GET PROJECT QUOTE</span>
+                <span className="skew-x-[6deg]">CONTACT US</span>
               </Link>
             </div>
           </motion.div>

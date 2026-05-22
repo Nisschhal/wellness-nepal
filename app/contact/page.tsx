@@ -21,7 +21,7 @@
 
 // const SITE_CONFIG = {
 //   brand: {
-//     phone: "+977-98XXXXXXXX", // Replace with actual
+//     phone: "+977-9804830607", // Replace with actual
 //     email: "info@wellnessnepal.com",
 //     address: "Kathmandu, Nepal",
 //   },
@@ -252,7 +252,7 @@
 //                     required
 //                     type="tel"
 //                     className="w-full bg-surface border border-surface-border p-5 font-bebas text-2xl text-surface-text focus:border-brand-red outline-none italic"
-//                     placeholder="98XXXXXXXX"
+//                     placeholder="9804830607"
 //                     value={formData.phone}
 //                     onChange={(e) =>
 //                       setFormData({ ...formData, phone: e.target.value })
@@ -467,7 +467,7 @@ import SectionHeading from "@/components/SectionHeading"
 
 const SITE_CONFIG = {
   brand: {
-    phone: "+977-98XXXXXXXX",
+    phone: "+977-9804830607",
     email: "info@wellnessnepal.com",
     address: "Kathmandu, Nepal",
   },
@@ -805,7 +805,7 @@ function ContactContent() {
                     required
                     type="tel"
                     className="w-full bg-surface border border-surface-border p-4 font-bebas text-xl text-surface-text focus:border-brand-red outline-none italic shadow-inner"
-                    placeholder="98XXXXXXXX"
+                    placeholder="9804830607"
                     value={formData.phone}
                     onChange={(e) =>
                       setFormData({ ...formData, phone: e.target.value })

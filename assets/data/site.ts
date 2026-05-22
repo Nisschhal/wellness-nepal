@@ -6,9 +6,9 @@ export const SITE_DATA = {
     "fullName": "Wellness Fitness Center",
     "slogan": "Premium Gym Solutions",
     "address": "Ring Road, Ward 04, Kathmandu, Nepal",
-    "phone": "+977-9800000000",
+    "phone": "+977-9804830607",
     "email": "sales@wellnessnepal.com",
-    "whatsapp": "https://wa.me/9779800000000"
+    "whatsapp": "https://wa.me/9779804830607"
   },
   "socials": {
     "instagram": "https://instagram.com/wellnessnepal",

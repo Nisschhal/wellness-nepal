@@ -99,7 +99,7 @@ const agentNode = async (state: typeof MessagesAnnotation.State) => {
   // - **USE EMOJI to be funny and legible and engaging**
 
   // 🏢 **WELLNESS NEPAL STATS**:
-  // - **📍 Location**: Traffic Chowk, Butwal, Nepal (HQ) | +977-9800000000
+  // - **📍 Location**: Traffic Chowk, Butwal, Nepal (HQ) | +977-9804830607
   // - **✅ Credentials**: SHAKTI CERTIFIED | 500+ commercial gyms built | Established 2015.
   // - **🛡️ Standards**: 11-12 gauge industrial steel | Biomechanical precision.
 
@@ -193,7 +193,7 @@ You MUST extract data from tool JSON. NEVER use placeholder URLs or make up spec
    | :--- | :--- |
    | **UNBREAKABLE** | 12-gauge cold-rolled steel. |
    | **LOGISTICS** | Every district of Nepal covered. |
-3. **WhatsApp**: [Connect with Sales Manager](https://wa.me/9779800000000) 📲
+3. **WhatsApp**: [Connect with Sales Manager](https://wa.me/9779804830607) 📲
 
 ## 🔧 TOOL ROUTING:
 - Specific machine/specs? → 'search_products({query: "keyword"})'
