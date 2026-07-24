@@ -376,7 +376,7 @@ export default function ProductClient({ product }: { product: any }) {
           <div className="space-y-12">
             <header>
               <span className="text-brand-red font-bebas tracking-[0.4em] text-xs block mb-4 uppercase">
-                SHAKTI SERIES // {product.category}
+                {product.series || product.category} // {product.category}
               </span>
               <h1 className="text-surface-text font-bebas text-7xl md:text-9xl italic leading-none tracking-tighter mb-8 uppercase">
                 {product.name}
@@ -437,21 +437,48 @@ export default function ProductClient({ product }: { product: any }) {
                     transition={{ duration: 0.3 }}
                   >
                     {activeTab === "specs" && (
-                      <div className="grid grid-cols-1 gap-2">
-                        {Object.entries(product.specs).map(
-                          ([key, value]: [string, any]) => (
-                            <div
-                              key={key}
-                              className="flex justify-between items-center py-4 border-b border-surface-border"
-                            >
-                              <span className="text-surface-muted font-bold tracking-[0.2em] text-[10px] uppercase italic">
-                                {key}
-                              </span>
-                              <span className="text-surface-text font-bebas text-xl">
-                                {value}
-                              </span>
-                            </div>
-                          ),
+                      <div className="space-y-2">
+                        {/* Key-Value Specs */}
+                        {Object.keys(product.specs || {}).length > 0 && (
+                          <div className="grid grid-cols-1 gap-2">
+                            {Object.entries(product.specs).map(
+                              ([key, value]: [string, any]) => (
+                                <div
+                                  key={key}
+                                  className="flex justify-between items-center py-4 border-b border-surface-border"
+                                >
+                                  <span className="text-surface-muted font-bold tracking-[0.2em] text-[10px] uppercase italic">
+                                    {key}
+                                  </span>
+                                  <span className="text-surface-text font-bebas text-xl">
+                                    {value}
+                                  </span>
+                                </div>
+                              ),
+                            )}
+                          </div>
+                        )}
+                        {/* Bullet Features */}
+                        {product.features?.length > 0 && (
+                          <ul className="space-y-4 mt-4">
+                            {product.features.map((f: string, i: number) => (
+                              <li
+                                key={i}
+                                className="flex items-start gap-4 py-2 border-b border-surface-border"
+                              >
+                                <Check size={16} className="text-brand-red shrink-0 mt-1" />
+                                <span className="text-surface-muted italic">
+                                  {f}
+                                </span>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                        {/* Empty state */}
+                        {Object.keys(product.specs || {}).length === 0 && (!product.features || product.features.length === 0) && (
+                          <p className="text-surface-muted italic py-8">
+                            Contact us for detailed specifications.
+                          </p>
                         )}
                       </div>
                     )}

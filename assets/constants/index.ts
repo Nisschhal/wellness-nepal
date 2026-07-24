@@ -1,10 +1,10 @@
 import { Product, Testimonial, Project } from "../types"
-import { PRODUCTS_DATA } from "../data/products"
+import cloudinaryProducts from "../data/cloudinary-products.json"
 import { TESTIMONIALS_DATA } from "../data/testimonials"
 import { PROJECTS_DATA } from "../data/projects"
 
-// Simulated API Service Layer
-export const PRODUCTS: Product[] = PRODUCTS_DATA as any
+// Product catalog from Cloudinary (static JSON, no API calls)
+export const PRODUCTS: Product[] = cloudinaryProducts as any
 export const TESTIMONIALS: Testimonial[] = TESTIMONIALS_DATA
 export const PROJECTS: Project[] = PROJECTS_DATA
 

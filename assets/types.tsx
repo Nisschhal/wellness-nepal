@@ -2,10 +2,14 @@ export interface Product {
   id: string
   name: string
   category: string
+  series?: string
   image: string
-  price: string
+  images?: string[]
+  price: number | null
   description: string
   specs: Record<string, string>
+  warranty?: string[]
+  shipping?: string[]
   isFeatured?: boolean
 }
 
@@ -29,10 +33,8 @@ export interface Project {
 }
 
 export enum Category {
-  MultiStation = "Multi-Station",
   Cardio = "Cardio",
   Strength = "Strength",
-  Crossfit = "Crossfit",
-  FreeWeights = "Free Weights",
-  Accessories = "Accessories",
+  FreeWeight = "Free Weight",
+  Benches = "Benches",
 }

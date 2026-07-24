@@ -4,6 +4,7 @@ export const PRODUCTS_DATA = [
     id: "shakti-functional-x1",
     name: "Shakti Functional Trainer X1",
     category: "Multi-Station",
+    series: "X-Series",
     image:
       "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=800&auto=format&fit=crop",
     images: [
@@ -27,6 +28,7 @@ export const PRODUCTS_DATA = [
     id: "shakti-smith-pro",
     name: "Shakti Industrial Smith Machine",
     category: "Multi-Station",
+    series: "Pro Series",
     image:
       "https://images.unsplash.com/photo-1594381898411-846e7d193883?q=80&w=800&auto=format&fit=crop",
     images: [
@@ -48,6 +50,7 @@ export const PRODUCTS_DATA = [
     id: "jungle-gym-4stack",
     name: "Shakti 4-Stack Jungle Gym",
     category: "Multi-Station",
+    series: "X-Series",
     image:
       "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fit=crop",
     images: [
@@ -71,6 +74,7 @@ export const PRODUCTS_DATA = [
     id: "treadmill-t90-pro",
     name: "Cardio Pro T90 AC Treadmill",
     category: "Cardio",
+    series: "T-Series",
     image:
       "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=800&auto=format&fit=crop",
     images: [
@@ -93,6 +97,7 @@ export const PRODUCTS_DATA = [
     id: "spin-s20-shakti",
     name: "Shakti Magnetic Spin S20",
     category: "Cardio",
+    series: "S-Series",
     image:
       "https://images.unsplash.com/photo-1590239098509-e011f8e5c3df?q=80&w=800&auto=format&fit=crop",
     images: [
@@ -114,6 +119,7 @@ export const PRODUCTS_DATA = [
     id: "elliptical-e5-pro",
     name: "Shakti Elliptical E5 Pro",
     category: "Cardio",
+    series: "E-Series",
     image:
       "https://images.unsplash.com/photo-1538805060514-97d9cc17730c?q=80&w=800&auto=format&fit=crop",
     images: [
@@ -135,6 +141,7 @@ export const PRODUCTS_DATA = [
     id: "curved-treadmill-c1",
     name: "Shakti Non-Motorized Curved",
     category: "Cardio",
+    series: "T-Series",
     image:
       "https://images.unsplash.com/photo-1578762560072-46ef1525b4ea?q=80&w=800&auto=format&fit=crop",
     images: [
@@ -155,6 +162,7 @@ export const PRODUCTS_DATA = [
     id: "shakti-stair-master",
     name: "Shakti Elite Stair Climber",
     category: "Cardio",
+    series: "S-Series",
     image:
       "https://images.unsplash.com/photo-1591940742878-13aba4b7a35e?q=80&w=800&auto=format&fit=crop",
     images: [
@@ -177,6 +185,7 @@ export const PRODUCTS_DATA = [
     id: "leg-press-45-shakti",
     name: "45-Degree Plate Loaded Press",
     category: "Strength",
+    series: "Plate Loaded",
     image:
       "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fit=crop",
     images: [
@@ -198,6 +207,7 @@ export const PRODUCTS_DATA = [
     id: "hack-squat-pro",
     name: "Shakti Linear Hack Squat",
     category: "Strength",
+    series: "Plate Loaded",
     image:
       "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=800&auto=format&fit=crop",
     images: [
@@ -218,6 +228,7 @@ export const PRODUCTS_DATA = [
     id: "chest-press-selectorized",
     name: "Shakti Converging Chest Press",
     category: "Strength",
+    series: "Selectorized",
     image:
       "https://images.unsplash.com/photo-1594882645126-14020914d58d?q=80&w=800&auto=format&fit=crop",
     images: [
@@ -238,6 +249,7 @@ export const PRODUCTS_DATA = [
     id: "lat-pulldown-lowrow",
     name: "Dual Lat & Low Row Combo",
     category: "Strength",
+    series: "Selectorized",
     image:
       "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fit=crop",
     images: [
