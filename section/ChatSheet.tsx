@@ -40,7 +40,7 @@ const QUICK_ACTIONS = [
     label: "HQ Location",
     sub: "Visit Butwal office",
     icon: MapPin,
-    text: "Where is the SHAKTI HQ located and what are your operating hours?",
+    text: "Where is your showroom and what are your opening hours?",
   },
   {
     label: "Shipping Info",
@@ -49,10 +49,10 @@ const QUICK_ACTIONS = [
     text: "What are your delivery terms and shipping policies for Nepal?",
   },
   {
-    label: "About Shakti",
+    label: "About WN Wellness",
     sub: "Company Mission",
     icon: Info,
-    text: "Tell me more about SHAKTI's history and manufacturing mission.",
+    text: "Tell me more about WN Wellness Gym Equipment Nepal.",
   },
 ]
 
@@ -226,7 +226,7 @@ export function ChatSheet() {
                 </div>
                 <div className="flex flex-col text-surface-text">
                   <span className="font-bebas text-3xl uppercase italic tracking-tighter">
-                    SHAKTI <span className="text-brand-red">AI</span>
+                    WN <span className="text-brand-red">AI</span>
                   </span>
                   <span className="text-[10px] font-black uppercase tracking-[0.2em] opacity-50">
                     Industrial Gear Consultant
@@ -370,7 +370,7 @@ export function ChatSheet() {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder={
-                    isAIActive ? "SHAKTI IS ANALYZING..." : "ASK SPECIALIST..."
+                    isAIActive ? "WN AI IS ANALYZING..." : "ASK SPECIALIST..."
                   }
                   disabled={isAIActive || error !== null}
                   className="w-full h-16 pl-6 pr-20 bg-surface border-2 border-surface-border text-surface-text font-bebas text-xl uppercase italic focus:border-brand-red outline-none shadow-inner disabled:opacity-50 transition-all"

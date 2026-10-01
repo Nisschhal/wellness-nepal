@@ -128,15 +128,15 @@ const About: React.FC = () => {
           >
             <SectionHeading
               title="OUR MANIFESTO"
-              subtitle="FORGED IN KATHMANDU"
+              subtitle="BASED IN BUTWAL"
             />
             <h3 className="font-bebas text-2xl md:text-4xl text-surface-text italic mb-6 md:mb-10 uppercase tracking-wide leading">
               WE DON'T JUST SELL GEAR. WE BUILD DESTINATIONS.
             </h3>
             <div className="space-y-6 md:space-y-8 text-surface-muted leading  text-lg md:text-xl font-normal italic">
               <p>
-                Founded in 2015, Wellness Nepal was born from a single
-                realization:{" "}
+                WN Wellness Gym Equipment Nepal was started in Sukhanagar,
+                Butwal from a single realization:{" "}
                 <span className="text-surface-text font-bold uppercase">
                   Nepal deserved better.
                 </span>{" "}
@@ -147,7 +147,7 @@ const About: React.FC = () => {
                 We engineered a new path. By merging global metallurgical
                 standards with local{" "}
                 <span className="text-brand-red font-bold italic tracking-widest uppercase underline decoration-2">
-                  SHAKTI
+                  WN WELLNESS
                 </span>{" "}
                 engineering.
               </p>
@@ -157,13 +157,13 @@ const About: React.FC = () => {
               <div className="flex items-center gap-4">
                 <Target className="text-brand-red" size={28} />
                 <span className="font-bebas text-xl md:text-2xl tracking-widest uppercase">
-                  500+ EMPIRES BUILT
+                  BUTWAL SHOWROOM
                 </span>
               </div>
               <div className="flex items-center gap-4">
                 <Award className="text-brand-red" size={28} />
                 <span className="font-bebas text-xl md:text-2xl tracking-widest uppercase">
-                  SHAKTI CERTIFIED
+                  DELIVERY ACROSS NEPAL
                 </span>
               </div>
             </div>
@@ -192,7 +192,7 @@ const About: React.FC = () => {
         {/* Pillars Section */}
         <div className="py-16 md:py-32 border-y border-surface-border bg-surface-darker/50 backdrop-blur-sm px-6 md:px-10">
           <SectionHeading
-            title="THE SHAKTI STANDARD"
+            title="THE WN STANDARD"
             subtitle="CORE COMPETENCIES"
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-16 mt-12 md:mt-20">

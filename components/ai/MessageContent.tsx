@@ -87,7 +87,7 @@ export function MessageContent({
                 <div className="bg-brand-red/10 p-3 text-[10px] uppercase font-black italic text-brand-red tracking-widest border-t border-brand-red/20 flex justify-between items-center">
                   <span>LOGISTICAL INTEL: {alt}</span>
                   <span className="px-2 py-0.5 border border-brand-red/30 rounded text-[8px] font-bebas">
-                    SHAKTI PRO
+                    WN WELLNESS
                   </span>
                 </div>
               )}

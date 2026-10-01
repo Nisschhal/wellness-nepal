@@ -6,10 +6,11 @@ import {
   MapPin,
   Instagram,
   Facebook,
-  Twitter,
+  Music2,
   ExternalLink,
   ShieldCheck,
   Clock,
+  Star,
 } from "lucide-react"
 import { COMPANY_DETAILS } from "@/assets/data/companyDetail"
 
@@ -21,35 +22,42 @@ const Footer: React.FC = () => {
           {/* Column 1: Authority & Trust */}
           <div className="space-y-8">
             <h3 className="font-bebas text-5xl text-surface-text tracking-widest italic uppercase">
-              WELLNESS <span className="text-brand-red">NEPAL</span>
+              WN WELLNESS <span className="text-brand-red">NEPAL</span>
             </h3>
             <p className="text-surface-muted leading-relaxed font-light italic text-lg">
-              The architects of Nepal&apos;s fitness landscape. Providing
-              industrial-grade iron and B2B success consulting from Mechi to
-              Mahakali.
+              We supply, install and service commercial and home gym equipment
+              across Nepal.
             </p>
+            <a
+              href={COMPANY_DETAILS.googleReviewUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-surface-text text-xs font-bold uppercase tracking-widest border border-surface-border px-4 py-3 hover:border-brand-red hover:text-brand-red transition-all"
+            >
+              <Star size={14} className="text-brand-red" /> Review us on Google
+            </a>
             <div className="space-y-2">
               <p className="text-surface-muted text-xs font-bold uppercase tracking-widest flex items-center gap-2">
-                <ShieldCheck size={14} className="text-brand-red" /> VAT REG:{" "}
-                {COMPANY_DETAILS.brand.vat}
+                <ShieldCheck size={14} className="text-brand-red" /> PAN/VAT:{" "}
+                {COMPANY_DETAILS.brand.pan}
               </p>
-              <p className="text-surface-muted text-xs font-bold uppercase tracking-widest flex items-center gap-2">
-                <ShieldCheck size={14} className="text-brand-red" /> REG NO:{" "}
-                {COMPANY_DETAILS.brand.reg}
+              <p className="text-surface-muted text-xs font-bold uppercase tracking-widest">
+                {COMPANY_DETAILS.brand.fullName}
               </p>
             </div>
             <div className="flex gap-4">
               {Object.entries(COMPANY_DETAILS.socials).map(([name, url]) => (
                 <a
                   key={name}
-                  href={url as string}
+                  href={url}
+                  aria-label={name}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-12 h-12 rounded-full border border-surface-border flex items-center justify-center text-surface-muted hover:border-brand-red hover:text-brand-red transition-all shadow-sm bg-surface-darker"
                 >
                   {name === "instagram" && <Instagram size={20} />}
                   {name === "facebook" && <Facebook size={20} />}
-                  {name === "twitter" && <Twitter size={20} />}
+                  {name === "tiktok" && <Music2 size={20} />}
                 </a>
               ))}
             </div>
@@ -137,21 +145,34 @@ const Footer: React.FC = () => {
               <li className="flex items-center gap-4">
                 <Clock className="text-brand-red shrink-0" size={20} />
                 <span className="text-surface-muted text-base font-medium italic">
-                  SUN - FRI: 09:00 - 18:00
+                  {COMPANY_DETAILS.brand.hours.label}
                 </span>
               </li>
               <li className="flex items-center gap-4">
                 <Phone className="text-brand-red shrink-0" size={20} />
-                <span className="text-surface-muted text-base font-medium italic">
-                  {COMPANY_DETAILS.brand.phone}
-                </span>
+                <div className="flex flex-col">
+                  {[
+                    COMPANY_DETAILS.brand.phone,
+                    ...COMPANY_DETAILS.brand.otherPhones,
+                  ].map((phone) => (
+                    <a
+                      key={phone}
+                      href={`tel:${phone}`}
+                      className="text-surface-muted text-base font-medium italic hover:text-brand-red transition-colors"
+                    >
+                      {phone}
+                    </a>
+                  ))}
+                </div>
               </li>
-              <li className="flex items-center gap-4">
-                <Mail className="text-brand-red shrink-0" size={20} />
-                <span className="text-surface-muted text-base font-medium italic truncate">
-                  {COMPANY_DETAILS.brand.email}
-                </span>
-              </li>
+              {COMPANY_DETAILS.brand.email && (
+                <li className="flex items-center gap-4">
+                  <Mail className="text-brand-red shrink-0" size={20} />
+                  <span className="text-surface-muted text-base font-medium italic truncate">
+                    {COMPANY_DETAILS.brand.email}
+                  </span>
+                </li>
+              )}
             </ul>
           </div>
         </div>
@@ -159,8 +180,8 @@ const Footer: React.FC = () => {
         {/* Bottom Bar */}
         <div className="border-t border-surface-border pt-10 flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-surface-muted text-[10px] font-bold uppercase tracking-[0.3em] opacity-60">
-            &copy; {new Date().getFullYear()} Wellness Fitness Center. SHAKTI
-            SERIES NEPAL. ALL RIGHTS RESERVED.
+            &copy; {new Date().getFullYear()} {COMPANY_DETAILS.brand.fullName}{" "}
+            ALL RIGHTS RESERVED.
           </p>
 
           {/* USER CREDIT */}

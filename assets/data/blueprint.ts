@@ -30,7 +30,7 @@ export const BLUEPRINT_STEPS: BlueprintStep[] = [
     title: "EQUIPMENT SELECTION",
     nepaliTitle: "छनोट",
     icon: Settings,
-    desc: "Selecting the right Shakti Series tools for your specific target audience, local climate, and investment budget.",
+    desc: "Selecting the right equipment for your specific target audience, local climate, and investment budget.",
   },
   {
     id: "04",

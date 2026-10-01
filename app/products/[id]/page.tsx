@@ -25,14 +25,13 @@ export async function generateMetadata({
   // sku, gtin/mpn, brand, stock status, price range, and updatedAt.
 
   return {
-    title: `${product.name} | Commercial Gym Equipment Nepal | Shakti Series`,
-    description: `Industrial-grade ${product.name}. ${product.description} Built for commercial durability in Nepal. View specs, warranty, and B2B pricing.`,
+    title: `${product.name} Price in Nepal`,
+    description: `${product.name} (${product.category.toLowerCase()} gym equipment) from WN Wellness Gym Equipment Nepal, Sukhanagar, Butwal. ${product.description}. Delivery and installation across Nepal. Call or WhatsApp 984-0967865 for the price.`,
     keywords: [
-      `${product.name} Nepal`,
-      `commercial gym equipment Kathmandu`,
-      `Shakti gym series`,
-      `industrial fitness gear`,
-      product.category,
+      `${product.name} price in Nepal`,
+      `${product.category.toLowerCase()} gym equipment Nepal`,
+      `gym equipment Butwal`,
+      `WN Wellness Gym Equipment Nepal`,
     ],
     openGraph: {
       title: product.name,
@@ -66,10 +65,10 @@ export default async function Page({
     name: product.name,
     image: product.image,
     description: product.description,
-    brand: {
-      "@type": "Brand",
-      name: "Shakti by Wellness Nepal",
-    },
+    category: product.category,
+    ...(product.series
+      ? { brand: { "@type": "Brand", name: product.series } }
+      : {}),
     ...(product.price
       ? {
           offers: {
@@ -79,6 +78,7 @@ export default async function Page({
             availability: "https://schema.org/InStock",
             areaServed: "Nepal",
             url: absoluteUrl(`/products/${product.id}`),
+            seller: { "@id": absoluteUrl("#organization") },
           },
         }
       : {}),

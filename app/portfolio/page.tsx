@@ -10,6 +10,8 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/portfolio",
   },
+  // TODO(portfolio): remove noindex once placeholder projects are replaced with real installs
+  robots: { index: false, follow: true },
   openGraph: {
     title: "Wellness Nepal Project Portfolio",
     description:

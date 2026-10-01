@@ -85,7 +85,7 @@ const Navbar: React.FC = () => {
                 <Dumbbell className="w-5 h-5 group-hover:rotate-45 transition-transform duration-500" />
                 <Sparkles className="w-3 h-3 absolute -top-1 -right-1 text-brand-red animate-pulse" />
               </div>
-              <span className="group-hover:text-brand-red">SHAKTI AI</span>
+              <span className="group-hover:text-brand-red">WN AI</span>
             </div>
             {/* Hover Glitch Effect Background */}
             <div className="absolute inset-0 bg-brand-red/10 translate-x-full group-hover:translate-x-0 transition-transform duration-300" />
@@ -174,7 +174,7 @@ const Navbar: React.FC = () => {
               >
                 <div className="skew-x-[6deg] flex items-center gap-3">
                   <Sparkles size={24} />
-                  <span>CONSULT SHAKTI AI</span>
+                  <span>ASK WN AI</span>
                 </div>
               </button>
 

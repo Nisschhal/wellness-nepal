@@ -3,15 +3,15 @@
 export const aboutData = {
   manifesto: {
     title: "OUR MANIFESTO",
-    subtitle: "FORGED IN KATHMANDU",
+    subtitle: "BASED IN BUTWAL",
     heading: "WE DON'T JUST SELL GEAR. WE BUILD DESTINATIONS.",
     description: [
-      "Founded in 2015, Wellness Nepal was born from a single realization: <span class='text-surface-text font-bold uppercase'>Nepal deserved better.</span> For too long, gym owners were forced to settle for sub-par imports that crumbled under high-volume commercial use.",
-      "We engineered a new path by merging global metallurgical standards with local <span class='text-brand-red font-bold italic tracking-widest uppercase'>SHAKTI</span> engineering.",
+      "WN Wellness Gym Equipment Nepal was started in Sukhanagar, Butwal from a single realization: <span class='text-surface-text font-bold uppercase'>Nepal deserved better.</span> For too long, gym owners were forced to settle for sub-par imports that crumbled under high-volume commercial use.",
+      "We engineered a new path by merging global metallurgical standards with local <span class='text-brand-red font-bold italic tracking-widest uppercase'>WN WELLNESS</span> engineering.",
     ],
     stats: [
-      { icon: "Target", label: "500+ EMPIRES BUILT" },
-      { icon: "Award", label: "SHAKTI CERTIFIED" },
+      { icon: "Target", label: "BUTWAL SHOWROOM" },
+      { icon: "Award", label: "DELIVERY ACROSS NEPAL" },
     ],
   },
   imageSection: {
@@ -21,7 +21,7 @@ export const aboutData = {
     badgeLabel: "Frame Warranty",
   },
   pillars: {
-    title: "THE SHAKTI STANDARD",
+    title: "THE WN STANDARD",
     subtitle: "CORE COMPETENCIES",
     items: [
       {

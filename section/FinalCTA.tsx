@@ -67,7 +67,7 @@ const FinalCTA = () => {
 
           <div className="flex flex-col md:flex-row items-center gap-4 text-surface-muted font-bebas tracking-widest text-sm md:text-xl italic opacity-40 mt-8">
             <span className="hidden md:block h-px w-12 bg-surface-muted"></span>
-            ESTABLISHED IN BUTWAL // POWERED BY SHAKTI // SINCE 2015
+            SUKHANAGAR, BUTWAL // DELIVERY ACROSS NEPAL
             <span className="hidden md:block h-px w-12 bg-surface-muted"></span>
           </div>
         </div>
