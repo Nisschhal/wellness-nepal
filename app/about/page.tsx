@@ -5,15 +5,15 @@ import { absoluteUrl, breadcrumbJsonLd, faqJsonLd } from "@/lib/seo"
 
 // This is great for SEO. Google will see this before the JavaScript even loads.
 export const metadata: Metadata = {
-  title: "About Wellness Nepal | Forged in Kathmandu",
+  title: "About Us | Gym Equipment Supplier in Butwal",
   description:
-    "Building gym empires since 2015. Wellness Nepal merges global standards with local Shakti engineering to provide unbreakable gym equipment.",
+    "WN Wellness Gym Equipment Nepal (Wellness Gym Equipment Nepal Pvt. Ltd.) is a gym equipment supplier in Sukhanagar, Butwal, supplying and installing commercial and home gym equipment across Nepal.",
   alternates: {
     canonical: "/about",
   },
   openGraph: {
-    title: "About Wellness Nepal",
-    description: "B2B Fitness Advisory and Industrial Grade Gym Equipment.",
+    title: "About WN Wellness Gym Equipment Nepal",
+    description: "Gym equipment supplier in Butwal, Nepal.",
     url: absoluteUrl("/about"),
     images: [
       "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=800&auto=format&fit=crop",
@@ -29,19 +29,19 @@ export default function AboutPage() {
 
   const faqs = faqJsonLd([
     {
-      question: "When was Wellness Nepal founded?",
+      question: "Where is WN Wellness Gym Equipment Nepal located?",
       answer:
-        "Wellness Nepal was founded in 2015 in Kathmandu with a mission to bring industrial-grade fitness equipment to Nepal.",
+        "Our showroom is in Sukhanagar, Butwal-8, Rupandehi. The company is registered as Wellness Gym Equipment Nepal Pvt. Ltd. (PAN/VAT 622379544) and delivers and installs gym equipment across Nepal.",
     },
     {
-      question: "Does Wellness Nepal offer gym planning and consulting?",
+      question: "Do you offer gym planning and consulting?",
       answer:
-        "Yes, Wellness Nepal provides B2B consulting including gym layout planning, equipment selection, membership strategy, and ROI advisory.",
+        "Yes, we provide B2B consulting including gym layout planning, equipment selection, membership strategy, and ROI advisory.",
     },
     {
-      question: "What is the Shakti series?",
+      question: "What are your opening hours?",
       answer:
-        "The Shakti series is Wellness Nepal's proprietary line of commercial-grade gym equipment engineered with global metallurgical standards for durability under high-volume use.",
+        "Our Sukhanagar, Butwal showroom is open every day from 10:00 to 17:00. Call or WhatsApp 984-0967865.",
     },
   ])
 

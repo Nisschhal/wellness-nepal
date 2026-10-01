@@ -1,6 +1,5 @@
 import type { MetadataRoute } from "next"
 import { PRODUCTS } from "@/assets/constants"
-import { PROJECTS_DATA } from "@/assets/data/projects"
 import { absoluteUrl } from "@/lib/seo"
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -28,12 +27,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
-      url: absoluteUrl("/portfolio"),
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
       url: absoluteUrl("/contact"),
       lastModified: now,
       changeFrequency: "monthly",
@@ -48,17 +41,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }))
 
-  const portfolioRoutes: MetadataRoute.Sitemap = PROJECTS_DATA.map(
-    (project) => ({
-      url: absoluteUrl(`/portfolio/${project.id}`),
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.75,
-    }),
-  )
+  // TODO(portfolio): add /portfolio and project routes back once projects are real installs.
 
   // TODO(local-seo-cities): append city routes such as /cities/kathmandu, /cities/butwal,
   // /cities/pokhara, /cities/birtamode after those pages are created.
 
-  return [...staticRoutes, ...productRoutes, ...portfolioRoutes]
+  return [...staticRoutes, ...productRoutes]
 }

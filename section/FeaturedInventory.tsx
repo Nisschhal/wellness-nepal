@@ -1,6 +1,6 @@
 "use client"
 
-import { PRODUCTS_DATA } from "@/assets/data/products"
+import { PRODUCTS } from "@/assets/constants"
 import SectionHeading from "@/components/SectionHeading"
 import { ArrowRight, MoveRight } from "lucide-react"
 import Link from "next/link"
@@ -10,7 +10,11 @@ import { Container } from "@/components/ui/container"
 import { Section } from "@/components/ui/section"
 
 const FeaturedInventory = () => {
-  const featuredProducts = PRODUCTS_DATA.slice(0, 3)
+  const featuredProducts = [
+    "syt-zf8400-treadmill",
+    "wn-2020a-multi-functional-smith-machine",
+    "pl-12-3-multi-station",
+  ].flatMap((id) => PRODUCTS.filter((p) => p.id === id))
 
   return (
     <Section className="py-24 md:py-40">

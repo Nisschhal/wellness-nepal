@@ -14,22 +14,21 @@ export async function generateMetadata({
   const type = params.type || "All"
   const title =
     type === "All"
-      ? "Full Catalog | Premium Commercial Gym Equipment | Wellness Nepal"
-      : `${type} Equipment | Commercial Shakti Range | Wellness Nepal`
+      ? "Gym Equipment Catalog & Price List in Nepal"
+      : `${type} Gym Equipment Price in Nepal`
 
   return {
     title,
-    description: `Browse the ${type} Shakti range of industrial-grade gym equipment. High-performance ${type.toLowerCase()} gear engineered for commercial gyms in Kathmandu and across Nepal.`,
+    description: `Browse ${type === "All" ? "" : type.toLowerCase() + " "}gym equipment from WN Wellness Gym Equipment Nepal, Sukhanagar, Butwal: commercial and home gym machines with delivery and installation across Nepal. Ask on WhatsApp for prices.`,
     keywords: [
-      `gym equipment Nepal`,
-      `commercial fitness gear`,
-      `Shakti series`,
-      `${type} gym machines`,
-      `Wellness Nepal inventory`,
+      `gym equipment price in Nepal`,
+      `${type} gym equipment Nepal`,
+      `gym equipment shop in Butwal`,
+      `WN Wellness Gym Equipment Nepal`,
     ],
     openGraph: {
       title,
-      description: `Premium ${type} commercial gym gear. Built for high-volume use.`,
+      description: `${type} gym equipment for commercial and home gyms in Nepal.`,
       url: absoluteUrl("/category"),
       images: [PRODUCTS[0].image],
     },
@@ -45,8 +44,8 @@ export default function Page() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Wellness Nepal Shakti Equipment Catalog",
-    description: "Industrial-grade commercial gym equipment inventory.",
+    name: "WN Wellness Gym Equipment Nepal catalog",
+    description: "Commercial and home gym equipment available in Nepal.",
     itemListElement: PRODUCTS.map((p, i) => ({
       "@type": "ListItem",
       position: i + 1,
@@ -65,19 +64,19 @@ export default function Page() {
 
   const faqs = faqJsonLd([
     {
-      question: "What types of gym equipment does Wellness Nepal sell?",
+      question: "What gym equipment does WN Wellness Gym Equipment Nepal sell?",
       answer:
-        "Wellness Nepal offers commercial-grade cardio machines, strength equipment, multi-station units, crossfit gear, free weights, and accessories from the Shakti series.",
+        "Treadmills, exercise and spin bikes, ellipticals, rowers, multi gym and cable machines, Smith machines, plate-loaded and pin-loaded strength machines, benches, racks, dumbbells and weight plates, for commercial and home gyms.",
     },
     {
-      question: "Does Wellness Nepal deliver gym equipment outside Kathmandu?",
+      question: "Do you deliver gym equipment outside Butwal?",
       answer:
-        "Yes, Wellness Nepal delivers and installs gym equipment nationwide across all 77 districts of Nepal.",
+        "Yes. We deliver gym equipment from our Butwal showroom to cities across Nepal, including Kathmandu, Pokhara, Bharatpur, Nepalgunj, Biratnagar and Dhangadhi, with installation on arrival.",
     },
     {
       question: "Can I get a bulk discount for commercial gym equipment?",
       answer:
-        "Yes, Wellness Nepal offers B2B pricing and custom quotes for commercial gym setups. Contact our team for volume pricing.",
+        "Yes. We quote commercial gym setups as a package. Call or WhatsApp 984-0967865 for a price list and quotation.",
     },
   ])
 

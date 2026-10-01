@@ -117,7 +117,7 @@ function CategoryContent() {
                   ? "FULL CATALOG"
                   : `${activeType.toUpperCase()} RANGE`
             }
-            subtitle="SHAKTI INVENTORY"
+            subtitle="FULL CATALOG"
           />
           <div className="relative max-w-md w-full">
             <label htmlFor="search-equipment" className="sr-only">
@@ -301,7 +301,7 @@ function CategoryContent() {
             {filteredProducts.length === 0 && (
               <div className="text-center py-20 border industrial-border bg-surface-darker/50">
                 <p className="font-bebas text-2xl text-surface-muted tracking-widest italic uppercase">
-                  No Shakti equipment matches your search
+                  No equipment matches your search
                 </p>
               </div>
             )}

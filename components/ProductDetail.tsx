@@ -52,7 +52,7 @@
 //                 />
 //               </AnimatePresence>
 //               <div className="absolute top-6 left-6 bg-brand-red text-white px-4 py-1 font-bebas text-sm -skew-x-12">
-//                 SHAKTI LINE // NEPAL
+//                 WN WELLNESS // NEPAL
 //               </div>
 //             </div>
 
@@ -327,7 +327,7 @@ export default function ProductClient({ product }: { product: any }) {
 
               {/* Industrial Tag */}
               <div className="absolute top-6 left-6 z-20 bg-brand-red text-white px-4 py-1 font-bebas text-sm -skew-x-12 shadow-xl">
-                SHAKTI LINE // NEPAL
+                WN WELLNESS // NEPAL
               </div>
             </div>
 

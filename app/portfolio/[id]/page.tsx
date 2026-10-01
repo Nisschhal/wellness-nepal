@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!project) return { title: "Project Not Found" }
 
   return {
-    title: `${project.title} | Shakti Case Study in ${project.location}`,
+    title: `${project.title} | Gym Setup in ${project.location}`,
     description: `Case study of the industrial setup at ${project.title}, ${project.geoDistrict}. High-performance gym equipment deployment across Nepal.`,
     keywords: [
       `gym installation ${project.location}`,
@@ -29,6 +29,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     alternates: {
       canonical: `/portfolio/${project.id}`,
     },
+    // TODO(portfolio): remove noindex once placeholder projects are replaced with real installs
+    robots: { index: false, follow: true },
     openGraph: {
       title: `${project.title} | Wellness Nepal Portfolio`,
       description: project.description,
@@ -162,7 +164,7 @@ export default async function ProjectDetailPage({ params }: Props) {
               </div>
               <div className="p-12 industrial-border bg-surface-darker shadow-xl border-l-4 border-l-brand-red">
                 <h4 className="font-bebas text-4xl text-brand-red mb-8 italic tracking-widest uppercase">
-                  SHAKTI SOLUTIONS
+                  OUR SOLUTION
                 </h4>
                 <ul className="space-y-6 text-surface-muted text-lg italic font-medium">
                   <li className="flex gap-4">
@@ -176,7 +178,7 @@ export default async function ProjectDetailPage({ params }: Props) {
                   </li>
                   <li className="flex gap-4">
                     <div className="w-2 h-2 bg-brand-red mt-3 shrink-0"></div>{" "}
-                    Ongoing Shakti 24/7 priority maintenance protocol for
+                    Ongoing priority maintenance for
                     zero-down-time operations.
                   </li>
                 </ul>
@@ -253,7 +255,7 @@ export default async function ProjectDetailPage({ params }: Props) {
                 BUILD THIS SETUP
               </h4>
               <p className="text-white/80 text-lg mb-12 italic font-medium leading-relaxed">
-                Consult with Shakti's B2B experts to adapt this industrial
+                Talk to our team to adapt this
                 blueprint for your specific goals.
               </p>
               <Link

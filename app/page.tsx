@@ -7,6 +7,9 @@ import { absoluteUrl } from "@/lib/seo"
 const WhyUs = dynamic(() => import("@/section/WhyUs"), {
   loading: () => <div className="min-h-[400px]" />,
 })
+const Services = dynamic(() => import("@/section/Services"), {
+  loading: () => <div className="min-h-[600px]" />,
+})
 const BluePrint = dynamic(() => import("@/section/BluePrint"), {
   loading: () => <div className="min-h-[400px]" />,
 })
@@ -22,17 +25,18 @@ const FinalCTA = dynamic(() => import("@/section/FinalCTA"), {
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Wellness Nepal Gym | Premium Fitness Equipment",
+    absolute:
+      "Gym Equipment in Nepal | Supplier in Butwal | WN Wellness Gym Equipment",
   },
   description:
-    "Shop professional-grade gym equipment at Wellness Nepal Gym. From home setups to full commercial gym installations, we offer delivery across Nepal, expert setup, and full warranty support.",
+    "Buy gym equipment in Nepal from WN Wellness Gym Equipment, Sukhanagar, Butwal. Treadmills, multi gym machines, racks, dumbbells and complete gym setups, with delivery, installation and service across Nepal.",
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "Wellness Nepal | Premium Fitness Equipment",
+    title: "Gym Equipment in Nepal | WN Wellness Gym Equipment, Butwal",
     description:
-      "Commercial and home fitness equipment with delivery, installation, and warranty support across Nepal.",
+      "Commercial and home gym equipment with delivery, installation and service across Nepal. Showroom in Sukhanagar, Butwal.",
     url: absoluteUrl("/"),
     images: ["/wellness-dark.svg"],
     type: "website",
@@ -44,6 +48,7 @@ export default function Home() {
       <Hero />
       <TrustedClients />
       <WhyUs />
+      <Services />
       <BluePrint />
       <FeaturedInventory />
       <Testimonials />

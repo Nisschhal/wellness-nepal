@@ -1,8 +1,7 @@
 import { COMPANY_DETAILS } from "@/assets/data/companyDetail"
 
-const FALLBACK_SITE_URL = "https://wellnessnepalgym.com"
-// TODO(catalog-migration): move this fallback to env-only once production domain is final.
-// Keep NEXT_PUBLIC_SITE_URL in sync with whichever provider hosts static content/CDN.
+const FALLBACK_SITE_URL = "https://www.wnwellnessequipment.com"
+// Production domain. NEXT_PUBLIC_SITE_URL overrides it (e.g. for preview deploys).
 
 export const SITE_URL = (
   process.env.NEXT_PUBLIC_SITE_URL || FALLBACK_SITE_URL
@@ -15,44 +14,79 @@ export function absoluteUrl(path = "/") {
 
 export const DEFAULT_KEYWORDS = [
   "gym equipment Nepal",
-  "fitness equipment Nepal",
-  "commercial gym equipment Kathmandu",
-  "home gym setup Nepal",
-  "treadmill price Nepal",
-  "strength machines Nepal",
-  "Wellness Nepal",
+  "gym equipment price in Nepal",
+  "gym equipment shop in Butwal",
+  "gym equipment suppliers Nepal",
+  "gym setup cost in Nepal",
+  "commercial gym setup Nepal",
+  "home gym equipment Nepal",
+  "treadmill price in Nepal",
+  "WN Wellness Gym Equipment Nepal",
   // TODO(local-seo-cities): expand this list using catalog + service area pages
-  // for high-intent city variants (Butwal, Kathmandu, Pokhara, Birtamode, etc.).
+  // for high-intent city variants (Kathmandu, Pokhara, Chitwan, Nepalgunj, etc.).
 ]
+
+const { brand, socials, serviceAreas, services } = COMPANY_DETAILS
 
 export const ORGANIZATION_JSON_LD = {
   "@context": "https://schema.org",
-  "@type": ["Organization", "SportsActivityLocation", "Store"],
+  "@type": "SportingGoodsStore",
   "@id": absoluteUrl("#organization"),
-  name: COMPANY_DETAILS.brand.name,
-  legalName: COMPANY_DETAILS.brand.fullName,
+  name: brand.name,
+  legalName: brand.fullName,
   url: SITE_URL,
   logo: absoluteUrl("/wellness-dark.svg"),
   image: absoluteUrl("/wellness-dark.svg"),
-  description:
-    "Wellness Nepal supplies commercial and home fitness equipment with planning, installation, and support across Nepal.",
-  telephone: COMPANY_DETAILS.brand.phone,
-  email: COMPANY_DETAILS.brand.email,
-  sameAs: [
-    COMPANY_DETAILS.socials.facebook,
-    COMPANY_DETAILS.socials.instagram,
-    COMPANY_DETAILS.socials.twitter,
-  ],
+  description: brand.description,
+  telephone: brand.phone,
+  contactPoint: [brand.phone, ...brand.otherPhones].map((telephone) => ({
+    "@type": "ContactPoint",
+    telephone,
+    contactType: "sales",
+    areaServed: "NP",
+  })),
+  ...(brand.email ? { email: brand.email } : {}),
+  taxID: brand.pan,
+  foundingDate: String(brand.founded),
+  sameAs: Object.values(socials),
   address: {
     "@type": "PostalAddress",
-    streetAddress: COMPANY_DETAILS.brand.address,
+    streetAddress: brand.streetAddress,
+    addressLocality: brand.locality,
+    addressRegion: brand.region,
+    postalCode: brand.postalCode,
     addressCountry: "NP",
   },
-  areaServed: {
-    "@type": "Country",
-    name: "Nepal",
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ],
+    opens: brand.hours.opens,
+    closes: brand.hours.closes,
   },
-  // TODO(geo): add explicit branch/service-area entities when city landing pages are added.
+  areaServed: [
+    ...serviceAreas.map((name) => ({
+      "@type": name.endsWith("Province") ? "AdministrativeArea" : "City",
+      name,
+    })),
+    { "@type": "Country", name: "Nepal" },
+  ],
+  makesOffer: services.map((service) => ({
+    "@type": "Offer",
+    itemOffered: {
+      "@type": "Service",
+      name: service.name,
+      description: service.desc,
+    },
+  })),
+  // TODO(geo): add `geo` coordinates copied from the Google Business Profile pin.
 }
 
 export const WEBSITE_JSON_LD = {
@@ -60,7 +94,7 @@ export const WEBSITE_JSON_LD = {
   "@type": "WebSite",
   "@id": absoluteUrl("#website"),
   url: SITE_URL,
-  name: "Wellness Nepal",
+  name: brand.name,
   inLanguage: "en-NP",
   publisher: {
     "@id": absoluteUrl("#organization"),

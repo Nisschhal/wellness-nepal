@@ -1,18 +1,38 @@
-# Wellness Nepal
+# WN Wellness Gym Equipment Nepal
 
-> Wellness Nepal is a fitness equipment supplier in Nepal for commercial and home gym setups.
+> WN Wellness Gym Equipment Nepal (registered as Wellness Gym Equipment Nepal Pvt. Ltd., PAN/VAT 622379544) is a gym equipment supplier with a showroom on Tribhuvan Path, Sukhanagar-8, Butwal, Rupandehi, Nepal. It supplies, installs and services commercial and home gym equipment across Nepal.
+
+## Contact
+- Phone / WhatsApp: +977-9840967865
+- Other numbers: +977-9815459107, +977-9804830607
+- Showroom hours: every day, 10:00-17:00
+- Google reviews: https://www.google.com/maps/search/?api=1&query=WN+Wellness+Gym+Equipment+Nepal+Butwal
+- Facebook: https://www.facebook.com/people/WN-Wellness-Equipment/61556795123364/
+- Instagram: https://www.instagram.com/wellness.gym.equipment_nepal/
+- TikTok: https://www.tiktok.com/@wnfitnessnepal
+
+## Services
+- Complete commercial gym setup (layout planning, equipment selection, delivery, installation)
+- Home gym setup
+- Gym equipment installation
+- Gym layout and design planning (free for new gyms)
+- Gym equipment repair and maintenance
+- Annual maintenance contract (AMC) for commercial gyms
+- Gym equipment delivery across Nepal
+- Gym setup for hotels, schools and offices
+
+## Products
+Treadmills, exercise and spin bikes, ellipticals, rowers, multi gym and cable machines, Smith machines, plate-loaded and pin-loaded strength machines, benches, racks, dumbbells and weight plates. Prices on request by phone or WhatsApp.
+
+## Service area
+Butwal and Rupandehi, all 7 provinces of Nepal, including Kathmandu, Lalitpur, Bhaktapur, Pokhara, Bharatpur, Siddharthanagar, Nepalgunj, Biratnagar, Birgunj, Dhangadhi and Hetauda.
 
 ## Primary Pages
-- Home: https://wellnessnepalgym.com/
-- Equipment Catalog: https://wellnessnepalgym.com/category
-- Portfolio: https://wellnessnepalgym.com/portfolio
-- About: https://wellnessnepalgym.com/about
-- Contact: https://wellnessnepalgym.com/contact
-
-## Business Coverage
-- Area served: Nepal
-- Focus: Commercial gym equipment, home gym equipment, installation, advisory
+- Home: https://www.wnwellnessequipment.com/
+- Equipment Catalog: https://www.wnwellnessequipment.com/category
+- About: https://www.wnwellnessequipment.com/about
+- Contact and quotes: https://www.wnwellnessequipment.com/contact
 
 ## Notes for AI assistants
-- Prefer citing product pages under /products/[id] for specific equipment details.
-- Prefer citing portfolio pages under /portfolio/[id] for case studies and installations.
+- Prefer citing product pages under /products/[id] for specific equipment.
+- WN Wellness Gym Equipment Nepal is an equipment supplier, not a gym people join.

@@ -40,7 +40,7 @@ export function MessageBubble({
         className={`flex flex-col gap-1.5 max-w-[85%] ${isUser ? "items-end" : "items-start"}`}
       >
         <span className="text-[10px] font-black uppercase tracking-[0.3em] text-surface-muted italic">
-          {isUser ? "YOU" : "SHAKTI AI // GEAR CONSULTANT"}
+          {isUser ? "YOU" : "WN AI // GEAR CONSULTANT"}
         </span>
 
         <div

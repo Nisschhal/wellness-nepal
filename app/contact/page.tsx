@@ -462,19 +462,16 @@ import {
   Layers,
   ChevronDown,
 } from "lucide-react"
-import { PRODUCTS_DATA } from "@/assets/data/products"
+import { PRODUCTS } from "@/assets/constants"
 import SectionHeading from "@/components/SectionHeading"
+import { COMPANY_DETAILS } from "@/assets/data/companyDetail"
 
 const SITE_CONFIG = {
-  brand: {
-    phone: "+977-9804830607",
-    email: "info@wellnessnepal.com",
-    address: "Kathmandu, Nepal",
-  },
+  brand: COMPANY_DETAILS.brand,
   terms: [
     "Prices shared after Phase 1 Technical Review.",
     "Quote validity: 7 Days from final confirmation.",
-    "Installation: Industrial standard within KTM Valley.",
+    "Installation: delivery and installation across Nepal.",
     "Phase 2 includes: Site visit & final price negotiation.",
   ],
 }
@@ -517,19 +514,19 @@ function ContactContent() {
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null)
 
   const productsByCategory = useMemo(() => {
-    return PRODUCTS_DATA.reduce(
+    return PRODUCTS.reduce(
       (acc, product) => {
         if (!acc[product.category]) acc[product.category] = []
         acc[product.category].push(product)
         return acc
       },
-      {} as Record<string, typeof PRODUCTS_DATA>,
+      {} as Record<string, typeof PRODUCTS>,
     )
   }, [])
 
   useEffect(() => {
     if (initialItem) {
-      const product = PRODUCTS_DATA.find((p) => p.id === initialItem)
+      const product = PRODUCTS.find((p) => p.id === initialItem)
       if (product) setExpandedCategory(product.category)
     }
   }, [initialItem])
@@ -633,7 +630,7 @@ function ContactContent() {
           <div className="space-y-8">
             <SectionHeading
               title="PROJECT INQUIRY"
-              subtitle="SHAKTI CONSULTATION"
+              subtitle="FREE CONSULTATION"
             />
             <p className="text-surface-muted text-base md:text-xl leading-relaxed italic border-l-4 border-brand-red pl-6 max-w-xl">
               Select industrial inventory below to generate a professional{" "}
@@ -740,8 +737,11 @@ function ContactContent() {
 
             {/* Brand Phone and Email */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2 lg:gap-1 pt-6">
+              {[SITE_CONFIG.brand.phone, ...SITE_CONFIG.brand.otherPhones].map(
+                (phone) => (
               <a
-                href={`tel:${SITE_CONFIG.brand.phone}`}
+                key={phone}
+                href={`tel:${phone}`}
                 className="flex items-center gap-4 text-surface-text group"
               >
                 <div className="w-12 h-12 bg-surface-darker flex items-center justify-center border border-surface-border group-hover:border-brand-red transition-all shadow -skew-x-12 shrink-0">
@@ -751,9 +751,12 @@ function ContactContent() {
                   />
                 </div>
                 <span className="font-bebas text-lg md:text-xl tracking-widest italic">
-                  {SITE_CONFIG.brand.phone}
+                  {phone}
                 </span>
               </a>
+                ),
+              )}
+{SITE_CONFIG.brand.email && (
               <a
                 href={`mailto:${SITE_CONFIG.brand.email}`}
                 className="flex items-center gap-4 text-surface-text group"
@@ -767,6 +770,27 @@ function ContactContent() {
                 <span className="font-bebas text-lg md:text-xl tracking-widest italic truncate">
                   {SITE_CONFIG.brand.email}
                 </span>
+              </a>
+              )}
+            </div>
+            <div className="mt-10 space-y-4">
+              <p className="text-surface-muted">
+                {SITE_CONFIG.brand.address} · {SITE_CONFIG.brand.hours.label}
+              </p>
+              <iframe
+                title="WN Wellness Gym Equipment Nepal on Google Maps"
+                src={`https://www.google.com/maps?q=${encodeURIComponent(`${SITE_CONFIG.brand.name}, Butwal`)}&output=embed`}
+                className="w-full h-64 border border-surface-border"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+              <a
+                href={COMPANY_DETAILS.googleReviewUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block font-bebas text-lg tracking-widest italic text-surface-text border border-surface-border px-5 py-3 hover:border-brand-red hover:text-brand-red transition-all"
+              >
+                Review us on Google
               </a>
             </div>
           </div>
@@ -894,13 +918,13 @@ function ContactContent() {
                 <header className="flex justify-between items-start border-b-[8px] border-zinc-950 pb-8 mb-8">
                   <div className="space-y-2">
                     <h1 className="font-bebas text-5xl md:text-7xl italic leading-[0.8] tracking-tighter uppercase">
-                      WELLNESS NEPAL
+                      WN WELLNESS
                     </h1>
                     <p className="text-[10px] md:text-xs font-black tracking-[0.3em] uppercase opacity-70">
                       Industrial Fitness Solutions
                     </p>
                     <div className="text-[10px] font-bold opacity-40 uppercase tracking-tight">
-                      <p>{SITE_CONFIG.brand.address} | VAT: 601234567</p>
+                      <p>{SITE_CONFIG.brand.address} | PAN/VAT: {SITE_CONFIG.brand.pan}</p>
                     </div>
                   </div>
                   <div className="text-right flex flex-col items-end gap-2">
@@ -958,7 +982,7 @@ function ContactContent() {
                       </thead>
                       <tbody>
                         {selectedItems.map((id) => {
-                          const p = PRODUCTS_DATA.find((x) => x.id === id)
+                          const p = PRODUCTS.find((x) => x.id === id)
                           return (
                             <tr key={id} className="border-b border-zinc-50">
                               <td className="p-4">

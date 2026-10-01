@@ -20,7 +20,7 @@ const BluePrint = () => {
       <div className="container mx-auto px-6">
         <div className="mb-16 md:mb-24 text-center max-w-4xl mx-auto">
           <SectionHeading
-            title="SHAKTI BLUEPRINT"
+            title="GYM SETUP PROCESS"
             subtitle="OUR OPERATIONAL PROCESS"
           />
           <p className="text-surface-muted text-lg md:text-2xl italic leading-relaxed font-light mt-8">

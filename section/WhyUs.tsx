@@ -32,8 +32,8 @@ const WhyUs = () => {
     {
       id: "03",
       icon: <Globe size={isMobile ? 40 : 52} />,
-      title: "SHAKTI STRATEGY",
-      nepali: "शक्ति",
+      title: "SETUP STRATEGY",
+      nepali: "योजना",
       desc: "Engineering Profitability. We consult on space optimization and ROI strategy to ensure your gym becomes a local landmark.",
     },
   ]

@@ -29,13 +29,13 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Wellness Nepal | Fitness Equipment Supplier in Nepal",
-    template: "%s | Wellness Nepal",
+    default: "Gym Equipment Supplier in Butwal, Nepal | WN Wellness Gym Equipment",
+    template: "%s | WN Wellness Gym Equipment Nepal",
   },
   description:
-    "Commercial and home gym equipment supplier in Nepal. Wellness Nepal offers planning, delivery, installation, and after-sales support nationwide.",
+    "WN Wellness Gym Equipment Nepal supplies commercial and home gym equipment from our Sukhanagar, Butwal showroom: treadmills, multi gym machines, racks and dumbbells, with delivery, installation and service across Nepal.",
   category: "Fitness Equipment Supplier",
-  applicationName: "Wellness Nepal",
+  applicationName: "WN Wellness Gym Equipment Nepal",
   alternates: {
     canonical: "/",
   },
@@ -60,17 +60,17 @@ export const metadata: Metadata = {
   keywords: DEFAULT_KEYWORDS,
 
   openGraph: {
-    title: "Wellness Nepal | Fitness Equipment Supplier in Nepal",
+    title: "Gym Equipment Supplier in Butwal, Nepal | WN Wellness Gym Equipment",
     description:
-      "Commercial and home gym equipment with installation and support across Nepal.",
+      "Commercial and home gym equipment with delivery, installation and service across Nepal. Showroom in Sukhanagar, Butwal.",
     url: SITE_URL,
-    siteName: "Wellness Nepal",
+    siteName: "WN Wellness Gym Equipment Nepal",
     images: [
       {
         url: "/wellness-dark.svg",
         width: 1200,
         height: 630,
-        alt: "Wellness Nepal fitness equipment",
+        alt: "WN Wellness Gym Equipment Nepal",
       },
     ],
     locale: "en_NP",
@@ -78,9 +78,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Wellness Nepal",
+    title: "WN Wellness Gym Equipment Nepal",
     description:
-      "Commercial and home fitness equipment supplier in Nepal with setup support.",
+      "Gym equipment supplier in Butwal, Nepal: commercial and home gym setups across Nepal.",
     images: ["/wellness-dark.svg"],
   },
 }
@@ -96,7 +96,7 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <head>
         <meta name="geo.region" content="NP" />
-        <meta name="geo.placename" content="Kathmandu" />
+        <meta name="geo.placename" content="Butwal" />
       </head>
       <body className={`${bebas.variable} ${montserrat.variable} antialiased`}>
         <ChatStoreProvider>
