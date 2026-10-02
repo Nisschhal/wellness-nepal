@@ -109,7 +109,7 @@ export default async function ProjectDetailPage({ params }: Props) {
       />
 
       {/* Hero: full-bleed photo that fades into the page */}
-      <header className="relative h-[60svh] min-h-[380px] max-h-[620px] w-full overflow-hidden">
+      <header className="relative h-[68svh] min-h-[440px] max-h-[720px] w-full overflow-hidden">
         <Image
           src={project.image}
           className="object-cover"
@@ -118,19 +118,20 @@ export default async function ProjectDetailPage({ params }: Props) {
           sizes="100vw"
           priority
         />
-        <div className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-surface/80 to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-surface/85 via-surface/50 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-surface via-surface/60 to-transparent" />
 
-        <div className="container relative mx-auto flex h-full flex-col px-6 pt-24 md:pt-28 pb-4 md:pb-6">
-          <div className="mt-auto dark:[text-shadow:0_1px_12px_rgb(0_0_0/0.85)]">
-            <nav className="mb-6 md:mb-8">
-              <Link
-                href="/portfolio"
-                className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-surface-text/85 hover:text-brand-red transition-colors"
-              >
-                <ArrowLeft size={14} /> BACK TO FULL PORTFOLIO
-              </Link>
-            </nav>
+        <div className="container relative mx-auto flex h-full flex-col px-6 pt-24 md:pt-28 pb-6 md:pb-8 dark:[text-shadow:0_1px_12px_rgb(0_0_0/0.85)]">
+          <nav>
+            <Link
+              href="/portfolio"
+              className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-surface-text/85 hover:text-brand-red transition-colors"
+            >
+              <ArrowLeft size={14} /> BACK TO FULL PORTFOLIO
+            </Link>
+          </nav>
+
+          <div className="mt-auto">
             <span className="mb-2 md:mb-3 inline-flex items-center gap-3 text-xs md:text-sm font-semibold uppercase tracking-[0.2em] text-brand-red">
               <span className="h-px w-6 bg-brand-red" aria-hidden />
               CASE STUDY
@@ -146,7 +147,7 @@ export default async function ProjectDetailPage({ params }: Props) {
         </div>
       </header>
 
-      <div className="absolute inset-x-0 top-[min(60svh,620px)] bottom-0 bg-pattern pointer-events-none z-0 [mask-image:linear-gradient(to_bottom,transparent,black_200px)]"></div>
+      <div className="absolute inset-x-0 top-[clamp(440px,68svh,720px)] bottom-0 bg-pattern pointer-events-none z-0 [mask-image:linear-gradient(to_bottom,transparent,black_200px)]"></div>
 
       <div className="container mx-auto px-6 relative z-10 pt-8 md:pt-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-12 items-start">
