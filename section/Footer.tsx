@@ -89,6 +89,11 @@ const Footer: React.FC = () => {
                 </Link>
               </li>
               <li>
+                <Link href="/blog" className={linkCls}>
+                  Blog
+                </Link>
+              </li>
+              <li>
                 <Link
                   href="/contact"
                   className="text-surface-text text-sm md:text-base font-semibold hover:text-brand-red transition-colors underline decoration-brand-red decoration-2 underline-offset-[6px]"
