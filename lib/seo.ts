@@ -35,7 +35,7 @@ export const ORGANIZATION_JSON_LD = {
   name: brand.name,
   legalName: brand.fullName,
   url: SITE_URL,
-  logo: absoluteUrl("/wellness-dark.svg"),
+  logo: absoluteUrl("/icon-512.png"),
   image: absoluteUrl("/wellness-dark.svg"),
   description: brand.description,
   telephone: brand.phone,

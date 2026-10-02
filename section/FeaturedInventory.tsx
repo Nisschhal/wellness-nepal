@@ -2,7 +2,7 @@
 
 import { PRODUCTS } from "@/assets/constants"
 import SectionHeading from "@/components/SectionHeading"
-import { ArrowRight, MoveRight } from "lucide-react"
+import { ArrowUpRight, MoveRight } from "lucide-react"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import Image from "next/image"
@@ -17,101 +17,69 @@ const FeaturedInventory = () => {
   ].flatMap((id) => PRODUCTS.filter((p) => p.id === id))
 
   return (
-    <Section className="py-24 md:py-40">
+    <Section>
       <div className="absolute inset-0 bg-pattern pointer-events-none z-0"></div>
 
-      <Container>
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-20 gap-6">
-          <SectionHeading title="IRON ARSENAL" subtitle="SELECT YOUR WEAPONS" />
+      <Container className="relative">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+          <SectionHeading
+            title="FEATURED EQUIPMENT"
+            subtitle="POPULAR PICKS FOR NEPALI GYMS"
+          />
           <Link
             href="/category"
-            className="text-brand-red font-bebas text-xl md:text-2xl tracking-widest flex items-center gap-4 group italic"
+            className="group inline-flex shrink-0 items-center gap-3 border-b-2 border-brand-red pb-1 font-bebas text-xl tracking-widest text-surface-text hover:text-brand-red transition-colors"
           >
             EXPLORE FULL RANGE{" "}
-            <MoveRight className="group-hover:translate-x-4 transition-transform" />
+            <MoveRight
+              size={20}
+              className="text-brand-red group-hover:translate-x-1.5 transition-transform"
+            />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mt-10 md:mt-14">
           {featuredProducts.map((p, i) => (
             <motion.div
               key={p.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1, duration: 0.6 }}
+              transition={{ delay: i * 0.08, duration: 0.5 }}
               viewport={{ once: true }}
-              className="
-                group bg-surface-darker industrial-border overflow-hidden
-                hover:border-brand-red transition-all duration-300
-                shadow-lg md:shadow-2xl flex flex-col
-                min-h-[480px] sm:min-h-[520px] lg:min-h-[560px]
-              "
+              className="group flex h-full flex-col overflow-hidden bg-surface-darker industrial-border transition-all duration-300 hover:border-brand-red hover:shadow-xl hover:shadow-brand-red/10"
             >
-              {/* Image - fixed aspect */}
-              <div className="aspect-square bg-zinc-800 overflow-hidden relative shrink-0">
+              <Link
+                href={`/products/${p.id}`}
+                tabIndex={-1}
+                aria-hidden
+                className="relative block aspect-square shrink-0 overflow-hidden bg-surface"
+              >
                 <Image
                   src={p.image}
                   alt={p.name}
-                  className="
-                    w-full h-full object-cover
-                    [@media(hover:hover)]:grayscale
-                    group-hover:grayscale-0 group-hover:scale-110
-                    transition-all duration-700 ease-out
-                  "
+                  className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                   fill
                   sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                 />
-                <div
-                  className="
-                  absolute top-4 right-4 md:top-6 md:right-6
-                  bg-brand-red text-white p-2 md:p-3 shadow-xl -skew-x-12
-                  opacity-0 group-hover:opacity-100 transition-opacity duration-400
-                "
-                >
-                  <ArrowRight className="skew-x-12" size={20} />
-                </div>
-              </div>
+                <span className="absolute top-3 right-3 flex size-9 items-center justify-center bg-brand-red text-white opacity-0 shadow-lg transition-opacity group-hover:opacity-100">
+                  <ArrowUpRight size={18} />
+                </span>
+              </Link>
 
-              {/* Content area - grows to push button down */}
-              <div className="flex flex-col flex-1 p-6 md:p-10">
-                <span
-                  className="
-                  text-brand-red font-bebas tracking-widest
-                  text-xs md:text-sm mb-2 block uppercase
-                "
-                >
+              <div className="flex flex-1 flex-col p-5 md:p-6">
+                <span className="mb-2 block truncate text-xs font-semibold uppercase tracking-[0.2em] text-brand-red">
                   {p.category}
                 </span>
 
-                <h3
-                  className="
-                  text-surface-text font-bebas
-                  text-3xl md:text-4xl mb-6 md:mb-8
-                  tracking-wide italic leading-tight uppercase
-                  group-hover:text-brand-red transition-colors
-                  line-clamp-3
-                "
-                >
+                <h3 className="min-h-[2lh] line-clamp-2 font-bebas text-2xl md:text-3xl leading-[1.05] tracking-wide uppercase text-surface-text transition-colors group-hover:text-brand-red">
                   {p.name}
                 </h3>
 
-                {/* This empty div grows and pushes the button to the bottom */}
-                <div className="flex-1" />
-
-                {/* Button always at bottom */}
                 <Link
                   href={`/products/${p.id}`}
-                  className="
-                    w-full bg-surface text-surface-text
-                    border border-surface-border
-                    font-bebas py-4 md:py-5
-                    tracking-widest text-base md:text-lg
-                    group-hover:bg-brand-red group-hover:text-white
-                    group-hover:border-brand-red
-                    transition-all duration-300 uppercase italic font-bold
-                  "
+                  className="mt-6 flex h-12 w-full items-center justify-center gap-2 border border-surface-border bg-surface font-bebas text-lg tracking-widest uppercase text-surface-text transition-all duration-300 group-hover:border-brand-red group-hover:bg-brand-red group-hover:text-white"
                 >
-                  DEPLOY TO FACILITY
+                  VIEW DETAILS
                 </Link>
               </div>
             </motion.div>

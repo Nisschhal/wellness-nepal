@@ -1,5 +1,5 @@
 "use client"
-import { Dumbbell } from "lucide-react"
+import { Dumbbell, MapPin } from "lucide-react"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { useEffect, useState } from "react"
@@ -26,49 +26,54 @@ const FinalCTA = () => {
   if (!hasMounted) return null
 
   return (
-    <section className="py-24 md:py-40 bg-surface relative z-10 text-center">
-      <div className="container mx-auto px-6 max-w-6xl">
-        <div className="w-20 md:w-32 h-0.5 bg-brand-red mx-auto mb-12 md:mb-16 opacity-60 shadow-[0_0_15px_#E61E2A]"></div>
-
+    <section className="py-20 md:py-28 bg-surface relative z-10 text-center overflow-hidden">
+      <div
+        className="pointer-events-none absolute left-1/2 top-1/2 -z-0 size-[36rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-red/10 blur-3xl"
+        aria-hidden
+      />
+      <div className="container relative mx-auto px-6 max-w-5xl">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          className="text-surface-muted text-lg md:text-4xl font-light italic mb-12 md:mb-20 max-w-4xl mx-auto leading-relaxed"
+          viewport={{ once: true }}
+          className="text-surface-muted text-lg md:text-2xl font-light italic mb-10 md:mb-14 max-w-3xl mx-auto leading-relaxed"
         >
           "The iron never lies to you. You can walk outside and listen to all
           kinds of talk... but the iron is the ultimate reference point."
-          <span className="block text-brand-red font-bebas text-xl md:text-2xl mt-6 md:mt-8 tracking-widest uppercase">
+          <span className="block text-brand-red font-bebas not-italic text-lg md:text-xl mt-4 tracking-widest uppercase">
             — Henry Rollins
           </span>
         </motion.p>
 
         <motion.h2
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={{ opacity: 0, scale: 0.97 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          className="font-bebas text-6xl sm:text-8xl md:text-[10rem] lg:text-[14rem] text-surface-text italic mb-12 md:mb-16 leading-[0.8] tracking-tighter uppercase"
+          viewport={{ once: true }}
+          className="font-bebas text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-surface-text italic mb-10 md:mb-12 leading-[0.85] tracking-tight uppercase"
         >
           START YOUR <br />
           <span className="text-brand-red">LEGACY</span>
         </motion.h2>
 
-        <div className="flex flex-col items-center gap-8 md:gap-12">
+        <div className="flex flex-col items-center gap-8">
           <Link
             href="/contact"
-            className="skew-button inline-block bg-brand-red px-12 md:px-28 py-6 md:py-12 text-white font-bold hover:bg-surface-text hover:text-surface transition-all text-2xl md:text-5xl shadow-2xl shadow-brand-red/50 uppercase tracking-widest group"
+            className="group skew-button h-14 md:h-16 bg-brand-red px-10 md:px-14 text-white font-bold hover:bg-surface-text hover:text-surface transition-all text-base md:text-xl shadow-xl shadow-brand-red/40 uppercase tracking-widest"
           >
-            <span className="flex items-center gap-4 md:gap-6">
-              GET B2B BLUEPRINT{" "}
+            <span className="flex items-center gap-3">
+              GET A FREE QUOTE{" "}
               <Dumbbell
                 className="group-hover:rotate-45 transition-transform"
-                size={isMobile ? 28 : 40}
+                size={isMobile ? 20 : 24}
               />
             </span>
           </Link>
 
-          <div className="flex flex-col md:flex-row items-center gap-4 text-surface-muted font-bebas tracking-widest text-sm md:text-xl italic opacity-40 mt-8">
-            <span className="hidden md:block h-px w-12 bg-surface-muted"></span>
+          <div className="flex items-center gap-3 text-surface-muted font-bebas tracking-widest text-base md:text-lg">
+            <span className="hidden md:block h-px w-10 bg-surface-border"></span>
+            <MapPin size={16} className="text-brand-red" aria-hidden />
             SUKHANAGAR, BUTWAL // DELIVERY ACROSS NEPAL
-            <span className="hidden md:block h-px w-12 bg-surface-muted"></span>
+            <span className="hidden md:block h-px w-10 bg-surface-border"></span>
           </div>
         </div>
       </div>

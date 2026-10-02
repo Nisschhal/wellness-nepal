@@ -1,89 +1,71 @@
 "use client"
 import SectionHeading from "@/components/SectionHeading"
+import { IconTile } from "@/components/ui/icon-tile"
 import { Globe, ShieldCheck, Zap } from "lucide-react"
-import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 
+const features = [
+  {
+    id: "01",
+    icon: ShieldCheck,
+    title: "BUILT TO LAST",
+    nepali: "अटल",
+    desc: "Forged for the Himalayas. 12-gauge industrial steel frames engineered to survive the most aggressive commercial environments in Nepal.",
+  },
+  {
+    id: "02",
+    icon: Zap,
+    title: "RELIABLE SERVICE",
+    nepali: "भरपर्दो",
+    desc: "Zero-Downtime Commitment. Nationwide technical deployment from Kathmandu to Pokhara. We protect your investment 24/7.",
+  },
+  {
+    id: "03",
+    icon: Globe,
+    title: "SETUP PLANNING",
+    nepali: "योजना",
+    desc: "Engineering Profitability. We consult on space optimization and ROI strategy to ensure your gym becomes a local landmark.",
+  },
+]
+
 const WhyUs = () => {
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    setIsMobile(window.innerWidth < 768)
-    const handleResize = () => setIsMobile(window.innerWidth < 768)
-    window.addEventListener("resize", handleResize)
-    return () => window.removeEventListener("resize", handleResize)
-  }, [])
-
-  const features = [
-    {
-      id: "01",
-      icon: <ShieldCheck size={isMobile ? 40 : 52} />,
-      title: "ATAL IRON",
-      nepali: "अटल",
-      desc: "Forged for the Himalayas. 12-gauge industrial steel frames engineered to survive the most aggressive commercial environments in Nepal.",
-    },
-    {
-      id: "02",
-      icon: <Zap size={isMobile ? 40 : 52} />,
-      title: "BHARPARDO SERVICE",
-      nepali: "भरपर्दो",
-      desc: "Zero-Downtime Commitment. Nationwide technical deployment from Kathmandu to Pokhara. We protect your investment 24/7.",
-    },
-    {
-      id: "03",
-      icon: <Globe size={isMobile ? 40 : 52} />,
-      title: "SETUP STRATEGY",
-      nepali: "योजना",
-      desc: "Engineering Profitability. We consult on space optimization and ROI strategy to ensure your gym becomes a local landmark.",
-    },
-  ]
-
   return (
-    <section className="py-20 md:py-32 bg-surface relative z-10 border-b border-surface-border overflow-hidden">
+    <section className="py-16 md:py-24 bg-surface relative z-10 border-b border-surface-border overflow-hidden">
       <div className="absolute inset-0 bg-pattern pointer-events-none z-0"></div>
 
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-6 relative">
         <SectionHeading
           title="THE NEPALESE STANDARD"
           subtitle="WHY INDUSTRY LEADERS CHOOSE US"
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10 mt-12 md:mt-20">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mt-10 md:mt-14">
           {features.map((p, i) => (
             <motion.div
-              key={i}
+              key={p.id}
               whileInView={{ opacity: 1, y: 0 }}
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 24 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.6 }}
-              className="p-8 md:p-14 bg-surface-darker industrial-border group hover:border-brand-red transition-all shadow-xl hover:shadow-brand-red/20 relative overflow-hidden flex flex-col"
+              transition={{ delay: i * 0.08, duration: 0.5 }}
+              className="group relative flex h-full flex-col bg-surface-darker industrial-border p-6 md:p-8 transition-all hover:border-brand-red hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-red/10"
             >
-              {/* Card Index */}
-              <span className="absolute top-4 right-6 font-bebas text-4xl md:text-6xl text-surface-text/5 group-hover:text-brand-red/10 transition-colors pointer-events-none">
-                {p.id}
-              </span>
-
-              {/* Icon Container - Fixed Height to keep start of text aligned */}
-              <div className="text-brand-red mb-6 md:mb-8 h-12 md:h-16 flex items-center group-hover:scale-110 transition-transform origin-left">
-                {p.icon}
+              <div className="flex items-start justify-between">
+                <IconTile icon={p.icon} size="lg" />
+                <span className="font-bebas text-3xl leading-none text-surface-text/10 transition-colors group-hover:text-brand-red/30">
+                  {p.id}
+                </span>
               </div>
 
-              {/* HEADING CONTAINER: This ensures descriptions are uniform */}
-              <div className="relative min-h-[70px] md:min-h-[110px] flex items-start mb-6 md:mb-8">
-                <div className="relative inline-block">
-                  {/* Nepali Annotation */}
-                  <span className="absolute -top-4 -right-1 md:-top-6 md:-right-2 text-brand-red font-bold text-[10px] md:text-xs tracking-tighter opacity-70 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                    [{p.nepali}]
-                  </span>
-
-                  <h3 className="font-bebas text-3xl md:text-5xl text-surface-text tracking-widest italic uppercase leading-[0.9] md:leading-none">
-                    {p.title}
-                  </h3>
-                </div>
+              <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1">
+                <h3 className="font-bebas text-2xl md:text-3xl leading-none tracking-wide text-surface-text uppercase">
+                  {p.title}
+                </h3>
+                <span className=" border border-brand-red/30 px-1.5 py-0.5 text-[11px] font-semibold leading-none text-brand-red">
+                  {p.nepali}
+                </span>
               </div>
 
-              {/* Description - Now perfectly aligned across the row */}
-              <p className="text-surface-muted leading-relaxed italic font-medium text-base md:text-lg border-l-2 border-surface-border pl-4 group-hover:border-brand-red transition-colors">
+              <p className="mt-4 text-sm md:text-base leading-relaxed text-surface-muted">
                 {p.desc}
               </p>
             </motion.div>

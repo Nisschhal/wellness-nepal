@@ -52,10 +52,11 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/wellness-dark.svg" },
-      { url: "/wellness-dark.svg", type: "image/svg+xml" },
+      { url: "/favicon-48.png", sizes: "48x48", type: "image/png" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
     ],
-    apple: [{ url: "/wellness-dark.svg" }],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
   },
   keywords: DEFAULT_KEYWORDS,
 

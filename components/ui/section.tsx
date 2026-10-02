@@ -6,9 +6,9 @@ const sectionVariants = cva("relative z-10", {
   variants: {
     spacing: {
       none: "",
-      default: "py-20 md:py-32",
-      compact: "py-14 md:py-20",
-      hero: "pt-24 pb-20 md:pt-32 md:pb-32",
+      default: "py-16 md:py-24",
+      compact: "py-12 md:py-16",
+      hero: "pt-28 pb-16 md:pt-36 md:pb-24",
     },
     surface: {
       base: "bg-surface",

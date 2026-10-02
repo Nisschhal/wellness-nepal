@@ -37,7 +37,7 @@ export const BLUEPRINT_STEPS: BlueprintStep[] = [
     title: "NATIONWIDE DEPLOYMENT",
     nepaliTitle: "जडान",
     icon: Truck,
-    desc: "Safe delivery and expert assembly. Our Kathmandu team installs gear from Mechi to Mahakali with industrial precision.",
+    desc: "Safe delivery and expert assembly. Our team installs gear from Mechi to Mahakali with industrial precision.",
   },
   {
     id: "05",

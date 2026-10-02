@@ -1,42 +1,74 @@
 "use client"
 import React from "react"
 import { motion } from "framer-motion"
+import { cn } from "@/lib/utils"
 
 interface Props {
   title: string
   subtitle?: string
+  description?: React.ReactNode
+  align?: "left" | "center"
+  className?: string
   light?: boolean
 }
 
-const SectionHeading: React.FC<Props> = ({ title, subtitle }) => {
+const SectionHeading: React.FC<Props> = ({
+  title,
+  subtitle,
+  description,
+  align = "left",
+  className,
+}) => {
+  const words = title.split(" ")
+  const centered = align === "center"
+
   return (
-    <div className="mb-8 md:mb-12 relative">
+    <div
+      className={cn(
+        "relative max-w-3xl",
+        centered && "mx-auto text-center",
+        className,
+      )}
+    >
       {subtitle && (
         <motion.span
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          className="text-brand-red font-bebas tracking-[0.2em] md:tracking-[0.4em] text-xs md:text-sm block mb-2 uppercase font-bold"
+          initial={{ opacity: 0, y: 8 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className={cn(
+            "mb-3 inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-brand-red md:text-sm",
+            centered && "justify-center",
+          )}
         >
+          <span className="h-px w-6 bg-brand-red" aria-hidden />
           {subtitle}
         </motion.span>
       )}
       <motion.h2
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
-        className="font-bebas text-4xl sm:text-5xl md:text-7xl lg:text-8xl italic leading md:leading tracking-tighter text-surface-text"
+        viewport={{ once: true }}
+        className="font-bebas text-4xl uppercase italic leading-[0.95] tracking-tight text-surface-text sm:text-5xl md:text-6xl"
       >
-        {title.split(" ").map((word, i) => (
+        {words.map((word, i) => (
           <span
             key={i}
-            className={
-              i === title.split(" ").length - 1 ? "text-brand-red" : ""
-            }
+            className={i === words.length - 1 ? "text-brand-red" : ""}
           >
-            {word}{" "}
+            {word}
+            {i < words.length - 1 ? " " : ""}
           </span>
         ))}
       </motion.h2>
-      <div className="w-16 md:w-24 h-1.5 md:h-2 bg-brand-red mt-4 md:mt-6"></div>
+      <div
+        className={cn("mt-4 h-1 w-14 bg-brand-red", centered && "mx-auto")}
+        aria-hidden
+      />
+      {description && (
+        <p className="mt-5 text-base leading-relaxed text-surface-muted md:text-lg">
+          {description}
+        </p>
+      )}
     </div>
   )
 }
