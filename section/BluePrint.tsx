@@ -1,6 +1,6 @@
 "use client"
 import SectionHeading from "@/components/SectionHeading"
-import { ArrowDown, ArrowRight } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
@@ -16,86 +16,73 @@ const BluePrint = () => {
   if (!hasMounted) return null
 
   return (
-    <section className="py-24 md:py-40 bg-surface-darker relative z-10 border-b border-surface-border overflow-hidden">
+    <section className="py-16 md:py-24 bg-surface-darker relative z-10 border-b border-surface-border overflow-hidden">
       <div className="container mx-auto px-6">
-        <div className="mb-16 md:mb-24 text-center max-w-4xl mx-auto">
-          <SectionHeading
-            title="GYM SETUP PROCESS"
-            subtitle="OUR OPERATIONAL PROCESS"
+        <SectionHeading
+          align="center"
+          title="GYM SETUP PROCESS"
+          subtitle="OUR OPERATIONAL PROCESS"
+          description="From small studios to mid-size commercial centers, we guide your investment through a strictly engineered 5-step deployment plan."
+        />
+
+        <ol className="relative mt-12 md:mt-16 grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-5 list-none">
+          {/* Connector: vertical on mobile, horizontal on desktop */}
+          <div
+            className="absolute left-6 top-6 bottom-6 w-px bg-linear-to-b from-brand-red/60 via-surface-border to-surface-border lg:hidden"
+            aria-hidden
           />
-          <p className="text-surface-muted text-lg md:text-2xl italic leading-relaxed font-light mt-8">
-            From small studios to mid-size commercial centers, we guide your
-            investment through a strictly engineered 5-step deployment plan.
-          </p>
-        </div>
+          <div
+            className="hidden lg:block absolute top-6 left-[10%] right-[10%] h-px bg-linear-to-r from-brand-red/60 via-surface-border to-brand-red/60"
+            aria-hidden
+          />
 
-        <div className="relative">
-          {/* Connective Line */}
-          <div className="hidden lg:block absolute top-[140px] left-0 w-full h-[1px] bg-brand-red z-0 opacity-20"></div>
+          {BLUEPRINT_STEPS.map((step, i) => {
+            const Icon = step.icon
 
-          <ol className="grid grid-cols-1 lg:grid-cols-5 gap-6 md:gap-4 relative z-10 list-none">
-            {BLUEPRINT_STEPS.map((step, i) => {
-              const Icon = step.icon // Assign the icon component
+            return (
+              <motion.li
+                key={step.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08 }}
+                className="group relative flex gap-5 lg:flex-col lg:items-center lg:gap-6"
+              >
+                {/* Step marker */}
+                <span className="relative z-10 flex size-12 shrink-0 items-center justify-center rounded-full border-2 border-brand-red bg-surface-darker font-bebas text-xl leading-none text-surface-text transition-colors group-hover:bg-brand-red group-hover:text-white">
+                  {step.id}
+                </span>
 
-              return (
-                <motion.li
-                  key={step.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="group flex flex-col items-center lg:items-start relative h-full"
-                >
-                  <div className="w-full bg-surface p-8 md:p-10 industrial-border group-hover:border-brand-red transition-all duration-300 shadow-xl relative overflow-hidden flex flex-col h-full min-h-[300px] md:min-h-[360px]">
-                    {/* Index Number Overlay */}
-                    <span className="absolute -top-6 -left-4 font-bebas text-8xl md:text-[10rem] text-surface-text opacity-5 group-hover:opacity-15 transition-opacity duration-500 pointer-events-none italic">
-                      {step.id}
+                <div className="flex h-full w-full flex-col bg-surface industrial-border p-5 md:p-6 transition-all group-hover:border-brand-red group-hover:shadow-xl group-hover:shadow-brand-red/10">
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="flex size-10 items-center justify-center bg-brand-red/10 text-brand-red">
+                      <Icon size={20} strokeWidth={1.75} />
                     </span>
-
-                    <div className="relative z-10 flex flex-col h-full">
-                      <div className="text-brand-red mb-6 h-10 flex items-center">
-                        <Icon size={28} />
-                      </div>
-
-                      <div className="min-h-[60px] md:min-h-[90px] flex items-start relative">
-                        {/* Nepali Annotation */}
-                        <span className="absolute -top-4 right-0 text-brand-red font-bold text-[10px] opacity-60">
-                          [{step.nepaliTitle}]
-                        </span>
-                        <h4 className="font-bebas text-2xl md:text-3xl text-surface-text tracking-widest italic leading-[1.1] uppercase">
-                          {step.title}
-                        </h4>
-                      </div>
-
-                      <p className="text-surface-muted text-sm md:text-base italic leading-relaxed font-medium flex-grow border-t border-surface-border/30 pt-4">
-                        {step.desc}
-                      </p>
-                    </div>
+                    <span className=" border border-brand-red/30 px-1.5 py-0.5 text-[11px] font-semibold leading-none text-brand-red">
+                      {step.nepaliTitle}
+                    </span>
                   </div>
+                  <h4 className="mt-4 lg:min-h-[2lh] font-bebas text-xl md:text-2xl leading-[1.05] tracking-wide text-surface-text uppercase">
+                    {step.title}
+                  </h4>
+                  <p className="mt-2 text-sm leading-relaxed text-surface-muted">
+                    {step.desc}
+                  </p>
+                </div>
+              </motion.li>
+            )
+          })}
+        </ol>
 
-                  {/* Arrow Logic */}
-                  {i < BLUEPRINT_STEPS.length - 1 && (
-                    <div className="flex items-center justify-center py-8 lg:py-0 lg:absolute lg:top-[140px] lg:-right-2 lg:-translate-y-1/2 lg:translate-x-1/2 z-20">
-                      <div className="text-surface-border group-hover:text-brand-red transition-colors duration-500 bg-surface-darker p-2">
-                        <ArrowDown className="block lg:hidden" size={32} />
-                        <ArrowRight className="hidden lg:block" size={32} />
-                      </div>
-                    </div>
-                  )}
-                </motion.li>
-              )
-            })}
-          </ol>
-        </div>
-        <div className="mt-20 text-center">
+        <div className="mt-12 md:mt-16 text-center">
           <Link
             href="/contact"
-            className="shadow-brand-red/50  skew-button bg-brand-red px-10 md:px-20 py-5 md:py-8 font-bebas text-xl md:text-3xl text-white hover:bg-surface-text transition-all italic tracking-widest group shadow-2xl"
+            className="group skew-button h-14 md:h-16 bg-brand-red px-10 md:px-14 font-bebas text-xl md:text-2xl text-white hover:bg-surface-text hover:text-surface tracking-widest shadow-xl shadow-brand-red/30"
           >
             <span>GET PROJECT QUOTE</span>
             <ArrowRight
-              className="ml-4 transition-transform group-hover:translate-x-2"
-              size={24}
+              className="ml-3 transition-transform group-hover:translate-x-1.5"
+              size={20}
             />
           </Link>
         </div>

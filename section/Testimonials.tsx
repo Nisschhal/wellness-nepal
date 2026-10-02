@@ -3,7 +3,14 @@ import { TESTIMONIALS_DATA } from "@/assets/data/testimonials"
 import { COMPANY_DETAILS } from "@/assets/data/companyDetail"
 import SectionHeading from "@/components/SectionHeading"
 import { motion, AnimatePresence } from "framer-motion"
-import { ChevronLeft, ChevronRight, Quote, Star } from "lucide-react"
+import {
+  ChevronLeft,
+  ChevronRight,
+  ExternalLink,
+  PenLine,
+  Quote,
+  Star,
+} from "lucide-react"
 import { useEffect, useState } from "react"
 
 const Testimonials = () => {
@@ -32,106 +39,112 @@ const Testimonials = () => {
   const prevTestimonial = () =>
     setTestIndex((prev) => (prev - 1 + maxPages) % maxPages)
 
+  const navBtn =
+    "flex size-11 md:size-12 items-center justify-center border border-surface-border text-surface-text transition-all hover:border-brand-red hover:bg-brand-red hover:text-white group"
+
   return (
-    <section className="py-24 md:py-40 bg-surface-darker relative z-10 overflow-hidden border-y border-surface-border">
+    <section className="py-16 md:py-24 bg-surface-darker relative z-10 overflow-hidden border-y border-surface-border">
       <div className="container mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between items-center mb-16 md:mb-24 text-center md:text-left gap-8">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
           <SectionHeading
             title="WHAT CUSTOMERS SAY"
             subtitle="REAL GOOGLE REVIEWS"
           />
-          <div className="flex gap-4 md:gap-6">
-            <button
-              onClick={prevTestimonial}
-              className="w-12 h-12 md:w-16 md:h-16 border border-surface-border flex items-center justify-center text-surface-text hover:bg-brand-red hover:text-white transition-all shadow-lg group"
-            >
-              <ChevronLeft className="group-hover:-translate-x-1 transition-transform" />
+          <div className="flex gap-3">
+            <button onClick={prevTestimonial} aria-label="Previous reviews" className={navBtn}>
+              <ChevronLeft size={20} className="group-hover:-translate-x-0.5 transition-transform" />
             </button>
-            <button
-              onClick={nextTestimonial}
-              className="w-12 h-12 md:w-16 md:h-16 border border-surface-border flex items-center justify-center text-surface-text hover:bg-brand-red hover:text-white transition-all shadow-lg group"
-            >
-              <ChevronRight className="group-hover:translate-x-1 transition-transform" />
+            <button onClick={nextTestimonial} aria-label="Next reviews" className={navBtn}>
+              <ChevronRight size={20} className="group-hover:translate-x-0.5 transition-transform" />
             </button>
           </div>
         </div>
 
-        <div className="relative min-h-[450px] md:min-h-[500px]">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={testIndex}
-              initial={{ opacity: 0, x: isMobile ? 50 : 100 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: isMobile ? -50 : -100 }}
-              transition={{ duration: 0.5, ease: "circOut" }}
-              className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12"
-            >
-              {TESTIMONIALS_DATA.slice(
-                testIndex * itemsPerView,
-                testIndex * itemsPerView + itemsPerView,
-              ).map((t) => (
-                <div
-                  key={t.id}
-                  className="bg-surface p-8 md:p-12 industrial-border relative shadow-xl hover:border-brand-red transition-all group overflow-hidden"
-                >
-                  <Quote
-                    className="absolute top-6 right-8 text-brand-red/10 group-hover:text-brand-red/20 transition-colors"
-                    size={48}
-                  />
+        <div className="relative mt-10 md:mt-14">
+          <div className="min-h-[300px] md:min-h-[270px]">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={testIndex}
+                initial={{ opacity: 0, x: isMobile ? 40 : 60 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: isMobile ? -40 : -60 }}
+                transition={{ duration: 0.4, ease: "circOut" }}
+                className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6"
+              >
+                {TESTIMONIALS_DATA.slice(
+                  testIndex * itemsPerView,
+                  testIndex * itemsPerView + itemsPerView,
+                ).map((t) => (
+                  <div
+                    key={t.id}
+                    className="group relative flex h-full flex-col overflow-hidden bg-surface p-6 md:p-8 industrial-border transition-all hover:border-brand-red"
+                  >
+                    <Quote
+                      className="absolute top-6 right-6 text-brand-red/15 group-hover:text-brand-red/30 transition-colors"
+                      size={40}
+                      aria-hidden
+                    />
 
-                  <div className="flex gap-6 md:gap-8 items-center mb-8 md:mb-10 relative z-10">
-                    <div className="w-16 h-16 md:w-24 md:h-24 rounded-full border-2 border-brand-red flex items-center justify-center font-bebas text-3xl md:text-5xl text-surface-text shadow-lg shrink-0">
-                      {t.name.charAt(0)}
-                    </div>
-                    <div>
-                      <h4 className="font-bebas text-2xl md:text-4xl text-surface-text tracking-wide uppercase italic leading-none">
-                        {t.name}
-                      </h4>
-                      <div className="flex gap-1 text-brand-red mt-2">
-                        {Array.from({ length: 5 }).map((_, i) => (
-                          <Star key={i} size={14} fill="currentColor" />
-                        ))}
+                    <div className="flex items-center gap-4 pr-12">
+                      <div className="flex size-12 md:size-14 shrink-0 items-center justify-center rounded-full border-2 border-brand-red bg-brand-red/10 font-bebas text-2xl md:text-3xl leading-none text-surface-text">
+                        {t.name.charAt(0)}
                       </div>
-                      <p className="text-surface-muted font-bold text-[10px] md:text-xs tracking-[0.2em] uppercase mt-2">
-                        {t.role}
-                      </p>
+                      <div className="min-w-0">
+                        <h4 className="truncate font-bebas text-xl md:text-2xl leading-none tracking-wide uppercase text-surface-text">
+                          {t.name}
+                        </h4>
+                        <div className="mt-1.5 flex items-center gap-2">
+                          <div className="flex gap-0.5 text-brand-red">
+                            {Array.from({ length: 5 }).map((_, i) => (
+                              <Star key={i} size={13} fill="currentColor" />
+                            ))}
+                          </div>
+                          <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-surface-muted">
+                            {t.role}
+                          </p>
+                        </div>
+                      </div>
                     </div>
+                    <p className="mt-6 flex-1 border-l-2 border-brand-red/30 pl-5 text-base md:text-lg leading-relaxed text-surface-text/85">
+                      &ldquo;{t.quote}&rdquo;
+                    </p>
                   </div>
-                  <p className="text-surface-muted text-lg md:text-2xl italic leading-relaxed font-medium relative z-10 border-l-4 border-brand-red/20 pl-6 md:pl-8">
-                    &ldquo;{t.quote}&rdquo;
-                  </p>
-                </div>
-              ))}
-            </motion.div>
-          </AnimatePresence>
+                ))}
+              </motion.div>
+            </AnimatePresence>
+          </div>
 
-          <div className="flex flex-col sm:flex-row justify-center gap-4 mt-12">
+          <div className="flex justify-center gap-2 mt-8">
+            {Array.from({ length: maxPages }).map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setTestIndex(i)}
+                aria-label={`Show reviews page ${i + 1}`}
+                aria-current={testIndex === i}
+                className={`h-2 rounded-full transition-all duration-500 ${testIndex === i ? "w-10 bg-brand-red" : "w-2 bg-surface-border hover:bg-brand-red/40"}`}
+              />
+            ))}
+          </div>
+
+          <div className="flex flex-col sm:flex-row justify-center gap-3 mt-8">
             <a
               href={COMPANY_DETAILS.googleMapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-center font-bebas text-lg tracking-widest italic text-surface-text border border-surface-border px-5 py-3 hover:border-brand-red hover:text-brand-red transition-all"
+              className="inline-flex h-12 items-center justify-center gap-2 border border-surface-border px-6 font-bebas text-lg tracking-widest text-surface-text transition-all hover:border-brand-red hover:text-brand-red"
             >
+              <ExternalLink size={16} aria-hidden />
               Read all reviews on Google
             </a>
             <a
               href={COMPANY_DETAILS.googleReviewUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-center font-bebas text-lg tracking-widest italic text-white bg-brand-red px-5 py-3 hover:bg-surface-text hover:text-surface transition-all"
+              className="inline-flex h-12 items-center justify-center gap-2 bg-brand-red px-6 font-bebas text-lg tracking-widest text-white transition-all hover:bg-surface-text hover:text-surface"
             >
+              <PenLine size={16} aria-hidden />
               Write a review
             </a>
-          </div>
-
-          <div className="flex justify-center gap-3 md:gap-4 mt-16 md:mt-20">
-            {Array.from({ length: maxPages }).map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setTestIndex(i)}
-                className={`h-2.5 md:h-3 transition-all duration-700 rounded-full ${testIndex === i ? "w-10 md:w-16 bg-brand-red shadow-[0_0_10px_#E61E2A]" : "w-3 md:w-4 bg-surface-border hover:bg-brand-red/30"}`}
-              />
-            ))}
           </div>
         </div>
       </div>

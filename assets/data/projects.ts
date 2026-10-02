@@ -26,7 +26,7 @@ export const PROJECTS_DATA: Project[] = [
     description:
       "A 5,000 sq. ft. high-performance commercial gym setup focusing on high-volume strength training.",
     equipmentUsed: [
-      "Shakti Multi-Station X100",
+      "WN Multi-Station X100",
       "Cardio Pro Treadmill T90",
       "Plate Loaded Leg Press",
     ],
@@ -49,12 +49,12 @@ export const PROJECTS_DATA: Project[] = [
     equipmentUsed: [
       "Cardio Pro T90",
       "Polyurethane Dumbbell Set",
-      "Shakti Elite Barbell",
+      "WN Elite Barbell",
     ],
     challenge:
       "Logistics for heavy iron transport through narrow mountain access routes.",
     solution:
-      "Dedicated Shakti Logistics fleet and precision on-site assembly team.",
+      "Dedicated WN Wellness logistics fleet and precision on-site assembly team.",
     year: "2023",
   },
 ]

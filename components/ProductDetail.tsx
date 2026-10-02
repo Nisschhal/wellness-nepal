@@ -1,221 +1,10 @@
-// "use client"
-
-// import React, { useState } from "react"
-// import Link from "next/link"
-// import { useRouter } from "next/navigation"
-// import { motion, AnimatePresence } from "framer-motion"
-// import {
-//   Shield,
-//   Truck,
-//   Package,
-//   Check,
-//   ArrowLeft,
-//   MessageSquare,
-//   Plus,
-// } from "lucide-react"
-
-// export default function ProductDetail({ product }: { product: any }) {
-//   const router = useRouter()
-//   const [activeTab, setActiveTab] = useState("specs")
-//   const [selectedImage, setSelectedImage] = useState(0)
-
-//   const images = product.images || [product.image]
-//   const handleEnquiry = () => router.push(`/contact?item=${product.id}`)
-
-//   return (
-//     <main className="bg-surface min-h-screen pt-32 pb-24 transition-colors relative">
-//       <div className="fixed inset-0 bg-pattern pointer-events-none z-0"></div>
-
-//       <div className="container mx-auto px-6 relative z-10">
-//         <nav className="mb-12">
-//           <Link
-//             href="/category"
-//             className="flex items-center gap-2 text-surface-muted hover:text-surface-text transition-colors font-bebas tracking-widest text-sm"
-//           >
-//             <ArrowLeft size={16} /> BACK TO FULL CATALOG
-//           </Link>
-//         </nav>
-
-//         <article className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-//           {/* LEFT: IMAGES */}
-//           <div className="space-y-6">
-//             <div className="bg-surface-darker industrial-border relative group overflow-hidden">
-//               <AnimatePresence mode="wait">
-//                 <motion.img
-//                   key={selectedImage}
-//                   initial={{ opacity: 0 }}
-//                   animate={{ opacity: 1 }}
-//                   exit={{ opacity: 0 }}
-//                   src={images[selectedImage]}
-//                   alt={product.name}
-//                   className="w-full aspect-square object-cover [@media(hover:hover)]:grayscale group-hover:grayscale-0 transition-all duration-700"
-//                 />
-//               </AnimatePresence>
-//               <div className="absolute top-6 left-6 bg-brand-red text-white px-4 py-1 font-bebas text-sm -skew-x-12">
-//                 WN WELLNESS // NEPAL
-//               </div>
-//             </div>
-
-//             {images.length > 1 && (
-//               <div className="grid grid-cols-4 gap-4">
-//                 {images.map((img: string, idx: number) => (
-//                   <button
-//                     key={idx}
-//                     onClick={() => setSelectedImage(idx)}
-//                     className={`aspect-square border-2 transition-all overflow-hidden ${selectedImage === idx ? "border-brand-red opacity-100" : "border-surface-border opacity-40 hover:opacity-100"}`}
-//                   >
-//                     <img
-//                       src={img}
-//                       className="w-full h-full object-cover"
-//                       alt={`${product.name} view ${idx + 1}`}
-//                     />
-//                   </button>
-//                 ))}
-//               </div>
-//             )}
-
-//             <div className="grid grid-cols-2 gap-4">
-//               <div className="p-6 industrial-border bg-surface-darker flex items-center gap-4">
-//                 <Shield className="text-brand-red shrink-0" size={24} />
-//                 <span className="text-surface-text font-bebas tracking-widest text-sm">
-//                   ELITE WARRANTY
-//                 </span>
-//               </div>
-//               <div className="p-6 industrial-border bg-surface-darker flex items-center gap-4">
-//                 <Truck className="text-brand-red shrink-0" size={24} />
-//                 <span className="text-surface-text font-bebas tracking-widest text-sm">
-//                   NEPAL-WIDE INSTALL
-//                 </span>
-//               </div>
-//             </div>
-//           </div>
-
-//           {/* RIGHT: CONTENT */}
-//           <div className="space-y-12">
-//             <header>
-//               <span className="text-brand-red font-bebas tracking-[0.4em] text-xs block mb-4 uppercase">
-//                 SHAKTI SERIES // {product.category}
-//               </span>
-//               <h1 className="text-surface-text font-bebas text-7xl md:text-9xl italic leading-none tracking-tighter mb-8 uppercase">
-//                 {product.name}
-//               </h1>
-//               <p className="text-surface-muted text-xl leading-relaxed font-light mb-10 italic">
-//                 {product.description}
-//               </p>
-
-//               <div className="p-8 bg-surface-darker border-l-4 border-brand-red mb-10 flex justify-between items-center">
-//                 <div>
-//                   <p className="text-surface-text font-bebas text-3xl tracking-widest uppercase">
-//                     {product.price
-//                       ? `NPR ${product.price.toLocaleString()}`
-//                       : "Price on Enquiry"}
-//                   </p>
-//                 </div>
-//                 <div className="text-surface-text opacity-20 hidden md:block">
-//                   <Package size={40} />
-//                 </div>
-//               </div>
-
-//               <button
-//                 onClick={handleEnquiry}
-//                 className="skew-button bg-brand-red w-full py-6 text-white font-bold hover:bg-surface-text hover:text-surface transition-all text-2xl shadow-xl shadow-brand-red/20 flex items-center justify-center gap-4 group"
-//               >
-//                 <MessageSquare
-//                   size={24}
-//                   className="group-hover:scale-110 transition-transform"
-//                 />
-//                 <span>REQUEST B2B QUOTE</span>
-//               </button>
-//             </header>
-
-//             {/* TABS SECTION */}
-//             <section className="border-t border-surface-border pt-12">
-//               <div className="flex gap-10 mb-10 overflow-x-auto no-scrollbar pb-2">
-//                 {["specs", "warranty", "delivery"].map((tab) => (
-//                   <button
-//                     key={tab}
-//                     onClick={() => setActiveTab(tab)}
-//                     className={`font-bebas tracking-widest text-xl transition-all relative whitespace-nowrap ${
-//                       activeTab === tab
-//                         ? "text-brand-red border-b-2 border-brand-red pb-2"
-//                         : "text-surface-muted hover:text-surface-text"
-//                     }`}
-//                   >
-//                     {tab.toUpperCase()}
-//                   </button>
-//                 ))}
-//               </div>
-
-//               <div className="min-h-[250px]">
-//                 {activeTab === "specs" && (
-//                   <div className="grid grid-cols-1 gap-2">
-//                     {Object.entries(product.specs).map(
-//                       ([key, value]: [string, any]) => (
-//                         <div
-//                           key={key}
-//                           className="flex justify-between items-center py-4 border-b border-surface-border"
-//                         >
-//                           <span className="text-surface-muted font-bold tracking-[0.2em] text-[10px] uppercase italic">
-//                             {key}
-//                           </span>
-//                           <span className="text-surface-text font-bebas text-xl">
-//                             {value}
-//                           </span>
-//                         </div>
-//                       ),
-//                     )}
-//                   </div>
-//                 )}
-//                 {activeTab === "warranty" && (
-//                   <ul className="space-y-4">
-//                     {(
-//                       product.warranty || [
-//                         "Lifetime Structural Frame Warranty",
-//                         "1 Year on wear parts",
-//                       ]
-//                     ).map((w: string, i: number) => (
-//                       <li
-//                         key={i}
-//                         className="flex items-center gap-4 text-surface-muted italic"
-//                       >
-//                         <Check size={18} className="text-brand-red shrink-0" />
-//                         <span>{w}</span>
-//                       </li>
-//                     ))}
-//                   </ul>
-//                 )}
-//                 {activeTab === "delivery" && (
-//                   <ul className="space-y-4">
-//                     {(
-//                       product.shipping || [
-//                         "Free installation in Kathmandu",
-//                         "Nationwide site assessment available",
-//                       ]
-//                     ).map((s: string, i: number) => (
-//                       <li
-//                         key={i}
-//                         className="flex items-center gap-4 text-surface-muted italic"
-//                       >
-//                         <Plus size={18} className="text-brand-red shrink-0" />
-//                         <span>{s}</span>
-//                       </li>
-//                     ))}
-//                   </ul>
-//                 )}
-//               </div>
-//             </section>
-//           </div>
-//         </article>
-//       </div>
-//     </main>
-//   )
-// }
 "use client"
 
 import React, { useState, useEffect, useCallback } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
+import { IconTile } from "@/components/ui/icon-tile"
 import { motion, AnimatePresence } from "framer-motion"
 import {
   Shield,
@@ -261,27 +50,27 @@ export default function ProductClient({ product }: { product: any }) {
     exit: { opacity: 0 },
   }
 
+  const tabs = ["specs", "warranty", "delivery"]
+
   return (
-    <main className="bg-surface min-h-screen pt-32 pb-24 transition-colors relative overflow-hidden">
+    <main className="bg-surface min-h-screen pt-24 md:pt-28 pb-16 md:pb-20 transition-colors relative overflow-x-clip">
       {/* Background Grid Pattern */}
       <div className="fixed inset-0 bg-pattern pointer-events-none z-0"></div>
 
       <div className="container mx-auto px-6 relative z-10">
-        <nav className="mb-12">
+        <nav className="mb-6">
           <Link
             href="/category"
-            className="flex items-center gap-2 text-surface-muted hover:text-surface-text transition-colors font-bebas tracking-widest text-sm uppercase"
+            className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-surface-muted hover:text-brand-red transition-colors"
           >
-            <ArrowLeft size={16} /> BACK TO FULL CATALOG
+            <ArrowLeft size={14} /> BACK TO FULL CATALOG
           </Link>
         </nav>
 
-        <article className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-          {/* LEFT COLUMN: THE PREMIUM CROSS-FADE CAROUSEL */}
-          <div className="space-y-6">
+        <article className="grid grid-cols-1 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] gap-8 lg:gap-12 items-start">
+          {/* LEFT COLUMN: GALLERY */}
+          <div className="space-y-3 lg:sticky lg:top-28">
             <div className="bg-surface-darker industrial-border relative aspect-square overflow-hidden group">
-              {/* mode="wait" ensures one image fades out completely before next fades in, 
-                  or remove it for a smoother overlapping cross-fade */}
               <AnimatePresence mode="wait">
                 <motion.div
                   key={selectedImage}
@@ -289,137 +78,155 @@ export default function ProductClient({ product }: { product: any }) {
                   initial="initial"
                   animate="enter"
                   exit="exit"
-                  transition={{ duration: 0.8, ease: "easeInOut" }}
-                  className="absolute inset-0"
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                  className="absolute inset-0 touch-pan-y"
+                  {...(images.length > 1 && {
+                    drag: "x" as const,
+                    dragConstraints: { left: 0, right: 0 },
+                    dragElastic: 0.2,
+                    onDragEnd: (_: unknown, info: { offset: { x: number } }) => {
+                      if (info.offset.x < -50) nextImage()
+                      else if (info.offset.x > 50) prevImage()
+                    },
+                  })}
                 >
                   <Image
                     src={images[selectedImage]}
                     alt={`${product.name} - Commercial Gym Equipment Nepal`}
                     fill
-                    sizes="(min-width: 1024px) 50vw, 100vw"
-                    className="object-cover [@media(hover:hover)]:grayscale group-hover:grayscale-0 transition-all duration-1000"
+                    sizes="(min-width: 1024px) 45vw, 100vw"
+                    className="object-contain"
                     priority={selectedImage === 0}
                   />
                 </motion.div>
               </AnimatePresence>
 
-              {/* Navigation Arrows */}
-              <div className="absolute inset-0 flex items-center justify-between px-4 z-20 pointer-events-none">
-                <button
-                  onClick={(e) => {
-                    e.preventDefault()
-                    prevImage()
-                  }}
-                  className="pointer-events-auto bg-black/40 backdrop-blur-sm p-3 text-white hover:bg-brand-red transition-all -skew-x-12"
-                >
-                  <ChevronLeft className="skew-x-12" size={24} />
-                </button>
-                <button
-                  onClick={(e) => {
-                    e.preventDefault()
-                    nextImage()
-                  }}
-                  className="pointer-events-auto bg-black/40 backdrop-blur-sm p-3 text-white hover:bg-brand-red transition-all -skew-x-12"
-                >
-                  <ChevronRight className="skew-x-12" size={24} />
-                </button>
-              </div>
+              {images.length > 1 && (
+                <div className="absolute inset-x-3 top-1/2 -translate-y-1/2 flex items-center justify-between z-20 pointer-events-none">
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault()
+                      prevImage()
+                    }}
+                    aria-label="Previous image"
+                    className="pointer-events-auto flex size-10 items-center justify-center bg-black/50 text-white backdrop-blur-sm transition-colors hover:bg-brand-red"
+                  >
+                    <ChevronLeft size={20} />
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault()
+                      nextImage()
+                    }}
+                    aria-label="Next image"
+                    className="pointer-events-auto flex size-10 items-center justify-center bg-black/50 text-white backdrop-blur-sm transition-colors hover:bg-brand-red"
+                  >
+                    <ChevronRight size={20} />
+                  </button>
+                </div>
+              )}
 
-              {/* Industrial Tag */}
-              <div className="absolute top-6 left-6 z-20 bg-brand-red text-white px-4 py-1 font-bebas text-sm -skew-x-12 shadow-xl">
-                WN WELLNESS // NEPAL
-              </div>
             </div>
 
-            {/* Thumbnail Selection - Horizontal Scroll */}
+            {/* Thumbnails */}
             {images.length > 1 && (
-              <div className="flex gap-4 overflow-x-auto pb-2 no-scrollbar scroll-smooth">
+              <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar scroll-smooth">
                 {images.map((img: string, idx: number) => (
                   <button
                     key={idx}
                     onClick={() => setSelectedImage(idx)}
-                    className={`flex-shrink-0 w-24 h-24 border-2 transition-all overflow-hidden relative ${
+                    aria-label={`Show image ${idx + 1}`}
+                    className={`relative size-16 md:size-20 shrink-0 overflow-hidden border-2 transition-all ${
                       selectedImage === idx
                         ? "border-brand-red opacity-100"
-                        : "border-surface-border opacity-40 hover:opacity-100"
+                        : "border-surface-border opacity-50 hover:opacity-100"
                     }`}
                   >
                     <Image
                       src={img}
-                      className="object-cover"
+                      className="object-contain"
                       alt={`${product.name} view ${idx + 1}`}
                       fill
-                      sizes="96px"
+                      sizes="80px"
                     />
                   </button>
                 ))}
               </div>
             )}
-
-            <div className="grid grid-cols-2 gap-4">
-              <div className="p-6 industrial-border bg-surface-darker flex items-center gap-4">
-                <Shield className="text-brand-red shrink-0" size={24} />
-                <span className="text-surface-text font-bebas tracking-widest text-sm uppercase">
-                  Elite Warranty
-                </span>
-              </div>
-              <div className="p-6 industrial-border bg-surface-darker flex items-center gap-4">
-                <Truck className="text-brand-red shrink-0" size={24} />
-                <span className="text-surface-text font-bebas tracking-widest text-sm uppercase">
-                  Nationwide Install
-                </span>
-              </div>
-            </div>
           </div>
 
           {/* RIGHT COLUMN: PRODUCT INFO */}
-          <div className="space-y-12">
+          <div className="space-y-8">
             <header>
-              <span className="text-brand-red font-bebas tracking-[0.4em] text-xs block mb-4 uppercase">
+              <span className="text-brand-red text-xs font-semibold tracking-[0.2em] block mb-3 uppercase">
                 {product.series || product.category} // {product.category}
               </span>
-              <h1 className="text-surface-text font-bebas text-7xl md:text-9xl italic leading-none tracking-tighter mb-8 uppercase">
+              <h1 className="text-surface-text font-bebas text-4xl sm:text-5xl xl:text-6xl italic leading-[0.95] tracking-tight mb-4 uppercase">
                 {product.name}
               </h1>
-              <p className="text-surface-muted text-xl leading-relaxed font-light mb-10 italic">
+              <p className="text-surface-muted text-sm md:text-base leading-relaxed mb-6">
                 {product.description}
               </p>
 
-              <div className="p-8 bg-surface-darker border-l-4 border-brand-red mb-10 flex justify-between items-center relative overflow-hidden">
-                <p className="text-surface-text font-bebas text-3xl md:text-4xl tracking-widest uppercase">
-                  {product.price
-                    ? `NPR ${product.price.toLocaleString()}`
-                    : "Price on Enquiry"}
-                </p>
-                <Package
-                  size={80}
-                  className="absolute right-4 text-surface-text opacity-5 -rotate-12"
-                />
-              </div>
+              <div className="industrial-border bg-surface-darker p-4 md:p-5">
+                <div className="flex items-center justify-between gap-4">
+                  <div>
+                    <p className="text-[11px] font-semibold uppercase tracking-wider text-surface-muted">
+                      Price
+                    </p>
+                    <p className="mt-1 text-surface-text font-bebas text-2xl md:text-3xl tracking-wider uppercase leading-none">
+                      {product.price
+                        ? `NPR ${product.price.toLocaleString()}`
+                        : "Price on Enquiry"}
+                    </p>
+                  </div>
+                  <IconTile icon={Package} tone="outline" />
+                </div>
 
-              <button
-                onClick={() => router.push(`/contact?item=${product.id}`)}
-                className="skew-button bg-brand-red w-full py-6 text-white font-bold hover:bg-surface-text hover:text-surface transition-all text-2xl shadow-xl shadow-brand-red/20 flex items-center justify-center gap-4 group"
-              >
-                <MessageSquare
-                  size={24}
-                  className="group-hover:scale-110 transition-transform"
-                />
-                <span>REQUEST B2B QUOTE</span>
-              </button>
+                <button
+                  onClick={() => router.push(`/contact?item=${product.id}`)}
+                  className="mt-4 flex h-12 md:h-14 w-full items-center justify-center gap-3 bg-brand-red font-bold uppercase tracking-wider text-sm md:text-base text-white shadow-lg shadow-brand-red/20 transition-colors hover:bg-surface-text hover:text-surface group"
+                >
+                  <MessageSquare
+                    size={18}
+                    className="group-hover:scale-110 transition-transform"
+                  />
+                  <span>REQUEST A QUOTE</span>
+                </button>
+
+                <div className="mt-4 grid grid-cols-2 gap-3">
+                  <div className="flex items-center gap-3">
+                    <IconTile icon={Shield} size="sm" />
+                    <span className="text-surface-text text-xs font-semibold uppercase tracking-wider">
+                      Elite Warranty
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <IconTile icon={Truck} size="sm" />
+                    <span className="text-surface-text text-xs font-semibold uppercase tracking-wider">
+                      Nationwide Install
+                    </span>
+                  </div>
+                </div>
+              </div>
             </header>
 
             {/* INFO TABS */}
-            <section className="border-t border-surface-border pt-12">
-              <div className="flex gap-10 mb-10 overflow-x-auto no-scrollbar pb-2">
-                {["specs", "warranty", "delivery"].map((tab) => (
+            <section>
+              <div
+                className="flex gap-6 border-b border-surface-border overflow-x-auto no-scrollbar"
+                role="tablist"
+              >
+                {tabs.map((tab) => (
                   <button
                     key={tab}
+                    role="tab"
+                    aria-selected={activeTab === tab}
                     onClick={() => setActiveTab(tab)}
-                    className={`font-bebas tracking-widest text-xl transition-all relative whitespace-nowrap ${
+                    className={`-mb-px border-b-2 pb-3 font-bebas tracking-widest text-lg transition-colors whitespace-nowrap ${
                       activeTab === tab
-                        ? "text-brand-red border-b-2 border-brand-red pb-2"
-                        : "text-surface-muted hover:text-surface-text"
+                        ? "text-brand-red border-brand-red"
+                        : "text-surface-muted border-transparent hover:text-surface-text"
                     }`}
                   >
                     {tab.toUpperCase()}
@@ -427,47 +234,44 @@ export default function ProductClient({ product }: { product: any }) {
                 ))}
               </div>
 
-              <div className="min-h-[300px]">
+              <div className="min-h-[200px] pt-4">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeTab}
-                    initial={{ opacity: 0, y: 10 }}
+                    initial={{ opacity: 0, y: 6 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.3 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    transition={{ duration: 0.2 }}
                   >
                     {activeTab === "specs" && (
-                      <div className="space-y-2">
+                      <div>
                         {/* Key-Value Specs */}
                         {Object.keys(product.specs || {}).length > 0 && (
-                          <div className="grid grid-cols-1 gap-2">
+                          <dl className="divide-y divide-surface-border">
                             {Object.entries(product.specs).map(
                               ([key, value]: [string, any]) => (
                                 <div
                                   key={key}
-                                  className="flex justify-between items-center py-4 border-b border-surface-border"
+                                  className="grid grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-4 py-3"
                                 >
-                                  <span className="text-surface-muted font-bold tracking-[0.2em] text-[10px] uppercase italic">
+                                  <dt className="text-surface-muted text-xs font-semibold tracking-wider uppercase">
                                     {key}
-                                  </span>
-                                  <span className="text-surface-text font-bebas text-xl">
+                                  </dt>
+                                  <dd className="text-surface-text text-sm font-medium text-right">
                                     {value}
-                                  </span>
+                                  </dd>
                                 </div>
                               ),
                             )}
-                          </div>
+                          </dl>
                         )}
                         {/* Bullet Features */}
                         {product.features?.length > 0 && (
-                          <ul className="space-y-4 mt-4">
+                          <ul className="mt-2 divide-y divide-surface-border">
                             {product.features.map((f: string, i: number) => (
-                              <li
-                                key={i}
-                                className="flex items-start gap-4 py-2 border-b border-surface-border"
-                              >
-                                <Check size={16} className="text-brand-red shrink-0 mt-1" />
-                                <span className="text-surface-muted italic">
+                              <li key={i} className="flex items-start gap-3 py-3">
+                                <Check size={16} className="text-brand-red shrink-0 mt-0.5" />
+                                <span className="text-surface-text/85 text-sm leading-relaxed">
                                   {f}
                                 </span>
                               </li>
@@ -476,14 +280,14 @@ export default function ProductClient({ product }: { product: any }) {
                         )}
                         {/* Empty state */}
                         {Object.keys(product.specs || {}).length === 0 && (!product.features || product.features.length === 0) && (
-                          <p className="text-surface-muted italic py-8">
+                          <p className="text-surface-muted text-sm py-8">
                             Contact us for detailed specifications.
                           </p>
                         )}
                       </div>
                     )}
                     {activeTab === "warranty" && (
-                      <ul className="space-y-6">
+                      <ul className="divide-y divide-surface-border">
                         {(
                           product.warranty || [
                             "Lifetime Structural Frame",
@@ -492,19 +296,16 @@ export default function ProductClient({ product }: { product: any }) {
                         ).map((w: string, i: number) => (
                           <li
                             key={i}
-                            className="flex items-center gap-4 text-surface-muted italic text-lg"
+                            className="flex items-start gap-3 py-3 text-sm text-surface-text/85"
                           >
-                            <Check
-                              size={20}
-                              className="text-brand-red shrink-0"
-                            />
+                            <Check size={16} className="text-brand-red shrink-0 mt-0.5" />
                             <span>{w}</span>
                           </li>
                         ))}
                       </ul>
                     )}
                     {activeTab === "delivery" && (
-                      <ul className="space-y-6">
+                      <ul className="divide-y divide-surface-border">
                         {(
                           product.shipping || [
                             "Standard Kathmandu Install",
@@ -513,12 +314,9 @@ export default function ProductClient({ product }: { product: any }) {
                         ).map((s: string, i: number) => (
                           <li
                             key={i}
-                            className="flex items-center gap-4 text-surface-muted italic text-lg"
+                            className="flex items-start gap-3 py-3 text-sm text-surface-text/85"
                           >
-                            <Plus
-                              size={20}
-                              className="text-brand-red shrink-0"
-                            />
+                            <Plus size={16} className="text-brand-red shrink-0 mt-0.5" />
                             <span>{s}</span>
                           </li>
                         ))}

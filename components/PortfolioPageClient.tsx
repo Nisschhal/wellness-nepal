@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
 import Image from "next/image"
 import { PROJECTS_DATA, ProjectCategory } from "@/assets/data/projects"
-import { ArrowUpRight } from "lucide-react"
+import { ArrowUpRight, Clock, MapPin } from "lucide-react"
 import SectionHeading from "@/components/SectionHeading"
 
 const filters: (ProjectCategory | "All")[] = [
@@ -25,64 +25,65 @@ export default function PortfolioPageClient() {
   )
 
   return (
-    <div className="bg-surface min-h-screen pt-32 pb-24 transition-colors duration-300 relative">
+    <div className="bg-surface min-h-screen pt-24 md:pt-28 pb-16 md:pb-20 transition-colors duration-300 relative">
       <div className="absolute inset-0 bg-pattern pointer-events-none z-0"></div>
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
+      <div className="container mx-auto px-6 relative">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8 md:mb-12">
           <SectionHeading
             title="OUR PORTFOLIO"
-            subtitle="NEPAL'S FINEST IRON DESTINATIONS"
+            subtitle="GYMS WE HAVE SET UP IN NEPAL"
           />
-          <div className="flex flex-wrap justify-center gap-4 mt-8">
+          <div className="-mx-6 px-6 lg:mx-0 lg:px-0 flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none]">
             {filters.map((f) => (
               <button
                 key={f}
                 onClick={() => setActiveFilter(f)}
-                className={`px-8 py-3 font-bebas tracking-widest text-lg skew-x-[-12deg] transition-all border ${
+                aria-pressed={activeFilter === f}
+                className={`shrink-0 h-10 px-4 border text-xs font-semibold uppercase tracking-wider transition-colors ${
                   activeFilter === f
-                    ? "bg-brand-red border-brand-red text-white shadow-xl shadow-brand-red/20"
-                    : "bg-surface-darker text-surface-muted hover:text-surface-text border-surface-border hover:border-brand-red"
+                    ? "bg-brand-red border-brand-red text-white"
+                    : "bg-surface-darker text-surface-muted hover:text-surface-text border-surface-border hover:border-surface-text/40"
                 }`}
               >
-                <span className="skew-x-[12deg] block">{f.toUpperCase()}</span>
+                {f}
               </button>
             ))}
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((proj, i) => (
               <motion.div
                 layout
                 key={proj.id}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ delay: i * 0.1 }}
-                className="relative group overflow-hidden border border-surface-border bg-surface-darker"
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ delay: i * 0.06 }}
+                className="group h-full overflow-hidden border border-surface-border bg-surface-darker transition-colors hover:border-brand-red"
               >
-                <Link href={`/portfolio/${proj.id}`} className="block">
-                  <div className="aspect-[4/3] overflow-hidden relative">
+                <Link href={`/portfolio/${proj.id}`} className="flex h-full flex-col">
+                  <div className="aspect-[4/3] shrink-0 overflow-hidden relative">
                     <Image
                       src={proj.image}
                       alt={`${proj.title} - Gym Setup in ${proj.location}`}
                       fill
-                      sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                      className="object-cover [@media(hover:hover)]:grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
+                      sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-700"
                     />
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/10 to-transparent opacity-80 group-hover:opacity-100 transition-opacity"></div>
-                  <div className="p-8 relative">
-                    <span className="text-brand-red font-bebas text-sm tracking-widest">
-                      {proj.location.toUpperCase()}
+                    <span className="absolute top-3 right-3 flex size-10 items-center justify-center bg-brand-red text-white opacity-0 shadow-lg transition-opacity group-hover:opacity-100">
+                      <ArrowUpRight size={18} />
                     </span>
-                    <h3 className="text-surface-text font-bebas text-3xl italic tracking-wide group-hover:text-brand-red transition-colors">
+                  </div>
+                  <div className="flex flex-1 flex-col p-5 md:p-6">
+                    <span className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-brand-red">
+                      <MapPin size={12} aria-hidden />
+                      {proj.location}
+                    </span>
+                    <h3 className="mt-2 min-h-[2lh] line-clamp-2 text-surface-text font-bebas text-2xl md:text-3xl leading-[1.05] tracking-wide group-hover:text-brand-red transition-colors">
                       {proj.title}
                     </h3>
-                    <div className="absolute top-1/2 -translate-y-1/2 right-8 w-12 h-12 bg-surface industrial-border flex items-center justify-center text-brand-red group-hover:bg-brand-red group-hover:text-white transition-all -skew-x-12 opacity-0 group-hover:opacity-100">
-                      <ArrowUpRight size={24} className="skew-x-12" />
-                    </div>
                   </div>
                 </Link>
               </motion.div>
@@ -92,21 +93,25 @@ export default function PortfolioPageClient() {
               <motion.div
                 layout
                 key={`extra-${i}`}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="relative group overflow-hidden border border-surface-border bg-surface-darker [@media(hover:hover)]:grayscale hover:grayscale-0 transition-all opacity-40 hover:opacity-100"
+                className="flex h-full flex-col overflow-hidden border border-dashed border-surface-border bg-surface-darker/60"
               >
-                <div className="aspect-[4/3] overflow-hidden relative">
+                <div className="aspect-[4/3] shrink-0 overflow-hidden relative opacity-40">
                   <Image
                     src={`https://picsum.photos/seed/gall-${i}/800/600`}
                     alt="Upcoming gym project"
                     fill
-                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                    className="object-cover"
+                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    className="object-cover grayscale"
                   />
                 </div>
-                <div className="p-8">
-                  <h4 className="text-surface-muted font-bebas text-xl tracking-widest italic">
+                <div className="flex flex-1 flex-col p-5 md:p-6">
+                  <span className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-surface-muted">
+                    <Clock size={12} aria-hidden />
+                    Coming soon
+                  </span>
+                  <h4 className="mt-2 min-h-[2lh] text-surface-muted font-bebas text-2xl md:text-3xl leading-[1.05] tracking-wide">
                     FUTURE PROJECT // 2025
                   </h4>
                 </div>

@@ -26,36 +26,32 @@ const TrustedClients: React.FC = () => {
   if (!hasMounted) return null
 
   return (
-    <section className="py-16 md:py-24 bg-surface-darker border-y border-surface-border relative z-10 overflow-hidden shadow-inner">
-      <div className="container mx-auto px-6 mb-8 md:mb-12 flex flex-col items-center">
-        <span className="text-brand-red font-bebas tracking-[0.4em] md:tracking-[0.6em] text-xs md:text-sm block mb-4 uppercase font-bold">
+    <section className="py-12 md:py-16 bg-surface-darker border-y border-surface-border relative z-10 overflow-hidden">
+      <div className="container mx-auto px-6 mb-8 md:mb-10 flex flex-col items-center text-center">
+        <span className="mb-3 text-xs md:text-sm font-semibold uppercase tracking-[0.25em] text-brand-red">
           POWERING THE NATION'S BEST
         </span>
-        <h2 className="font-bebas text-4xl md:text-7xl text-surface-text italic text-center tracking-tighter uppercase">
+        <h2 className="font-bebas text-3xl md:text-5xl text-surface-text italic tracking-tight uppercase">
           OUR <span className="text-brand-red">ALLIANCE</span> NETWORK
         </h2>
       </div>
 
-      <div className="flex items-center">
+      <div className="flex items-center [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">
         <motion.div
-          className="flex gap-20 md:gap-32 whitespace-nowrap px-10 items-center"
-          animate={{ x: [0, "-50%"] }} // Optimized for infinite loop
+          className="flex gap-10 md:gap-16 whitespace-nowrap items-center"
+          animate={{ x: [0, "-50%"] }}
           transition={{
-            duration: isMobile ? 60 : 100, // Faster duration feels smoother for B2B
+            duration: isMobile ? 40 : 60,
             repeat: Infinity,
             ease: "linear",
           }}
         >
-          {/* We only need to duplicate once for a seamless loop if using -50% animate */}
           {[...CLIENT_LOGOS, ...CLIENT_LOGOS].map((brand, i) => (
-            <div key={i} className="flex items-center gap-8 md:gap-12 group">
-              <span className="font-bebas text-2xl md:text-4xl text-surface-text/10 tracking-widest italic uppercase">
-                TRUSTED BY
-              </span>
-              <span className="font-bebas text-4xl md:text-6xl text-brand-red hover:text-surface-text transition-all duration-500 italic tracking-widest md:tracking-[0.2em] uppercase cursor-default px-8 md:px-12 border-x border-surface-border/50">
+            <div key={i} className="flex items-center gap-10 md:gap-16">
+              <span className="font-bebas text-3xl md:text-5xl text-surface-text/40 hover:text-brand-red transition-colors duration-300 tracking-[0.12em] uppercase cursor-default">
                 {brand}
               </span>
-              <div className="w-12 md:w-20 h-[1.5px] bg-brand-red opacity-30 shadow-[0_0_8px_#E61E2A]"></div>
+              <span className="size-1.5 rotate-45 bg-brand-red/60" aria-hidden />
             </div>
           ))}
         </motion.div>
