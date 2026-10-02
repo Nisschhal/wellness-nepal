@@ -123,7 +123,7 @@ export default async function ProjectDetailPage({ params }: Props) {
 
         <div className="container relative mx-auto flex h-full flex-col px-6 pt-24 md:pt-28 pb-4 md:pb-6">
           <div className="mt-auto dark:[text-shadow:0_1px_12px_rgb(0_0_0/0.85)]">
-            <nav className="mb-10 md:mb-14">
+            <nav className="mb-6 md:mb-8">
               <Link
                 href="/portfolio"
                 className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-surface-text/85 hover:text-brand-red transition-colors"
