@@ -77,13 +77,13 @@ export default function PortfolioPageClient() {
                     </span>
                   </div>
                   <div className="flex flex-1 flex-col p-5 md:p-6">
-                    <span className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-brand-red">
-                      <MapPin size={12} aria-hidden />
-                      {proj.location}
-                    </span>
-                    <h3 className="mt-2 min-h-[2lh] line-clamp-2 text-surface-text font-bebas text-2xl md:text-3xl leading-[1.05] tracking-wide group-hover:text-brand-red transition-colors">
+                    <h3 className="line-clamp-2 text-surface-text font-bebas text-2xl md:text-3xl leading-[1.05] tracking-wide group-hover:text-brand-red transition-colors">
                       {proj.title}
                     </h3>
+                    <span className="mt-2 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-brand-red">
+                      <MapPin size={12} className="shrink-0" aria-hidden />
+                      {proj.location}
+                    </span>
                   </div>
                 </Link>
               </motion.div>
@@ -107,13 +107,13 @@ export default function PortfolioPageClient() {
                   />
                 </div>
                 <div className="flex flex-1 flex-col p-5 md:p-6">
-                  <span className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-surface-muted">
-                    <Clock size={12} aria-hidden />
-                    Coming soon
-                  </span>
-                  <h4 className="mt-2 min-h-[2lh] text-surface-muted font-bebas text-2xl md:text-3xl leading-[1.05] tracking-wide">
+                  <h4 className="text-surface-muted font-bebas text-2xl md:text-3xl leading-[1.05] tracking-wide">
                     FUTURE PROJECT // 2025
                   </h4>
+                  <span className="mt-2 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-surface-muted">
+                    <Clock size={12} className="shrink-0" aria-hidden />
+                    Coming soon
+                  </span>
                 </div>
               </motion.div>
             ))}

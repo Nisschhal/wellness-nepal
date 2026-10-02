@@ -122,22 +122,26 @@ export default async function ProjectDetailPage({ params }: Props) {
         <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-surface via-surface/60 to-transparent" />
 
         <div className="container relative mx-auto flex h-full flex-col px-6 pt-24 md:pt-28 pb-8 md:pb-12">
-          <div className="mt-auto">
+          <div className="mt-auto dark:[text-shadow:0_1px_12px_rgb(0_0_0/0.85)]">
             <nav className="mb-4 md:mb-6">
               <Link
                 href="/portfolio"
-                className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-surface-muted hover:text-brand-red transition-colors"
+                className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-surface-text/85 hover:text-brand-red transition-colors"
               >
                 <ArrowLeft size={14} /> BACK TO FULL PORTFOLIO
               </Link>
             </nav>
-            <span className="mb-2 md:mb-3 inline-flex items-center gap-2 text-xs md:text-sm font-semibold uppercase tracking-[0.2em] text-brand-red">
-              <MapPin size={14} aria-hidden />
-              CASE STUDY // {project.location}
+            <span className="mb-2 md:mb-3 inline-flex items-center gap-3 text-xs md:text-sm font-semibold uppercase tracking-[0.2em] text-brand-red">
+              <span className="h-px w-6 bg-brand-red" aria-hidden />
+              CASE STUDY
             </span>
             <h1 className="max-w-4xl text-surface-text font-bebas text-4xl sm:text-5xl lg:text-7xl italic leading-[0.95] tracking-tight uppercase">
               {project.title}
             </h1>
+            <p className="mt-3 md:mt-4 inline-flex items-center gap-2 text-xs md:text-sm font-semibold uppercase tracking-[0.2em] text-brand-red">
+              <MapPin size={14} className="shrink-0" aria-hidden />
+              {project.location}
+            </p>
           </div>
         </div>
       </header>
