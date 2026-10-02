@@ -121,9 +121,9 @@ export default async function ProjectDetailPage({ params }: Props) {
         <div className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-surface/80 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-surface via-surface/60 to-transparent" />
 
-        <div className="container relative mx-auto flex h-full flex-col px-6 pt-24 md:pt-28 pb-8 md:pb-12">
+        <div className="container relative mx-auto flex h-full flex-col px-6 pt-24 md:pt-28 pb-4 md:pb-6">
           <div className="mt-auto dark:[text-shadow:0_1px_12px_rgb(0_0_0/0.85)]">
-            <nav className="mb-4 md:mb-6">
+            <nav className="mb-10 md:mb-14">
               <Link
                 href="/portfolio"
                 className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-surface-text/85 hover:text-brand-red transition-colors"
