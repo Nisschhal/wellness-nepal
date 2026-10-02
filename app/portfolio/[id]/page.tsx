@@ -5,7 +5,9 @@ import {
   Activity,
   AlertTriangle,
   ArrowLeft,
-  CheckCircle,
+  ArrowRight,
+  Building2,
+  CalendarCheck,
   Dumbbell,
   ImageIcon,
   Lightbulb,
@@ -98,8 +100,17 @@ export default async function ProjectDetailPage({ params }: Props) {
       </div>
     )
 
-  const bullet = (strong: boolean) =>
-    `mt-2 size-1.5 shrink-0 rounded-full ${strong ? "bg-brand-red" : "bg-brand-red/40"}`
+  const pairs: [string, string][] = [
+    [project.challenge, project.solution],
+    [
+      "Navigating strict commercial floor-loading requirements in Kathmandu's central hubs.",
+      "Precision-mapped 3D floor plans designed for elite member flow and safety.",
+    ],
+    [
+      "Ensuring zero-delay deployment to meet international hospitality opening deadlines.",
+      "Ongoing priority maintenance for zero-down-time operations.",
+    ],
+  ]
 
   return (
     <div className="bg-surface min-h-screen pb-16 md:pb-20 relative">
@@ -155,66 +166,103 @@ export default async function ProjectDetailPage({ params }: Props) {
           <div className="lg:col-span-2 space-y-10 md:space-y-14 min-w-0">
             <div>
               <SectionHeading title="TRANSFORMATION" subtitle="THE BRIEF" />
-              <p className="mt-6 text-surface-text/85 text-base md:text-lg leading-relaxed border-l-4 border-brand-red pl-5 md:pl-6">
+              <p className="mt-6 text-surface-text/85 text-lg md:text-xl leading-relaxed border-l-4 border-brand-red pl-5 md:pl-6">
                 {project.description}
               </p>
+
+              <dl className="mt-8 grid grid-cols-2 gap-px bg-surface-border industrial-border">
+                {[
+                  { icon: Building2, label: "Project type", value: project.category },
+                  { icon: MapPin, label: "Region", value: project.geoDistrict },
+                  { icon: CalendarCheck, label: "Completed", value: project.year },
+                  {
+                    icon: Dumbbell,
+                    label: "Equipment",
+                    value: `${project.equipmentUsed.length} key items`,
+                  },
+                ].map(({ icon, label, value }) => (
+                  <div key={label} className="flex items-center gap-3 bg-surface-darker p-4">
+                    <IconTile icon={icon} size="sm" />
+                    <div className="min-w-0">
+                      <dt className="text-[11px] font-semibold uppercase tracking-wider text-surface-muted">
+                        {label}
+                      </dt>
+                      <dd className="text-sm font-semibold leading-snug text-surface-text">
+                        {value}
+                      </dd>
+                    </div>
+                  </div>
+                ))}
+              </dl>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
-              <div className="flex h-full flex-col p-6 md:p-7 industrial-border bg-surface-darker">
-                <div className="mb-5 flex items-center gap-3">
-                  <IconTile icon={AlertTriangle} />
-                  <h4 className="font-bebas text-2xl md:text-3xl text-surface-text tracking-wider uppercase leading-none">
+            {/* Challenge -> solution, read row by row */}
+            <div className="industrial-border bg-surface-darker overflow-hidden">
+              <div className="hidden md:grid md:grid-cols-2 border-b border-surface-border">
+                <div className="flex items-center gap-4 p-6">
+                  <IconTile icon={AlertTriangle} size="lg" />
+                  <h4 className="font-bebas text-3xl text-surface-text tracking-wider uppercase leading-none">
                     THE CHALLENGES
                   </h4>
                 </div>
-                <ul className="space-y-3 text-surface-muted text-sm md:text-base leading-relaxed">
-                  <li className="flex gap-3">
-                    <span className={bullet(false)} aria-hidden />
-                    {project.challenge}
-                  </li>
-                  <li className="flex gap-3">
-                    <span className={bullet(false)} aria-hidden />
-                    Navigating strict commercial floor-loading requirements in
-                    Kathmandu's central hubs.
-                  </li>
-                  <li className="flex gap-3">
-                    <span className={bullet(false)} aria-hidden />
-                    Ensuring zero-delay deployment to meet international
-                    hospitality opening deadlines.
-                  </li>
-                </ul>
-              </div>
-              <div className="flex h-full flex-col p-6 md:p-7 industrial-border bg-surface-darker border-l-4 border-l-brand-red">
-                <div className="mb-5 flex items-center gap-3">
-                  <IconTile icon={Lightbulb} tone="solid" />
-                  <h4 className="font-bebas text-2xl md:text-3xl text-surface-text tracking-wider uppercase leading-none">
+                <div className="flex items-center gap-4 p-6 border-l border-surface-border bg-brand-red/5">
+                  <IconTile icon={Lightbulb} size="lg" tone="solid" />
+                  <h4 className="font-bebas text-3xl text-surface-text tracking-wider uppercase leading-none">
                     OUR SOLUTION
                   </h4>
                 </div>
-                <ul className="space-y-3 text-surface-muted text-sm md:text-base leading-relaxed">
-                  <li className="flex gap-3">
-                    <span className={bullet(true)} aria-hidden />
-                    {project.solution}
-                  </li>
-                  <li className="flex gap-3">
-                    <span className={bullet(true)} aria-hidden />
-                    Precision-mapped 3D floor plans designed for elite member
-                    flow and safety.
-                  </li>
-                  <li className="flex gap-3">
-                    <span className={bullet(true)} aria-hidden />
-                    Ongoing priority maintenance for zero-down-time operations.
-                  </li>
-                </ul>
               </div>
+
+              <ol className="divide-y divide-surface-border">
+                {pairs.map(([challenge, solution], i) => (
+                  <li key={i} className="grid grid-cols-1 md:grid-cols-2">
+                    <div className="flex gap-4 p-5 md:p-6">
+                      <span className="font-bebas text-2xl leading-none text-surface-text/25">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <div>
+                        <span className="mb-1 flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-surface-muted md:hidden">
+                          <AlertTriangle size={12} aria-hidden /> Challenge
+                        </span>
+                        <p className="text-sm md:text-base leading-relaxed text-surface-muted">
+                          {challenge}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="relative flex gap-4 p-5 md:p-6 pt-0 md:pt-6 md:border-l border-surface-border bg-brand-red/5">
+                      <span
+                        className="absolute -left-3.5 top-6 hidden md:flex size-7 items-center justify-center border border-surface-border bg-surface-darker text-brand-red"
+                        aria-hidden
+                      >
+                        <ArrowRight size={14} />
+                      </span>
+                      <span className="font-bebas text-2xl leading-none text-brand-red invisible md:visible">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <div className="border-l-2 border-brand-red pl-3 md:border-0 md:pl-0">
+                        <span className="mb-1 flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-brand-red md:hidden">
+                          <Lightbulb size={12} aria-hidden /> Solution
+                        </span>
+                        <p className="text-sm md:text-base leading-relaxed text-surface-text/85">
+                          {solution}
+                        </p>
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ol>
             </div>
 
             <div>
-              <h4 className="flex items-center gap-3 font-bebas text-3xl md:text-4xl text-surface-text mb-6 tracking-wider uppercase border-b border-surface-border pb-4">
-                <ImageIcon size={22} className="text-brand-red" aria-hidden />
-                SITE REVEAL
-              </h4>
+              <div className="mb-6 flex items-center justify-between gap-4 border-b border-surface-border pb-4">
+                <h4 className="flex items-center gap-4 font-bebas text-3xl md:text-4xl text-surface-text tracking-wider uppercase leading-none">
+                  <IconTile icon={ImageIcon} size="lg" />
+                  SITE REVEAL
+                </h4>
+                <span className="text-xs font-semibold uppercase tracking-wider text-surface-muted">
+                  6 photos
+                </span>
+              </div>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
                 {[1, 2, 3, 4, 5, 6].map((i) => (
                   <div
@@ -237,7 +285,8 @@ export default async function ProjectDetailPage({ params }: Props) {
           {/* Sidebar */}
           <div className="space-y-5 lg:sticky lg:top-28">
             <div className="p-6 md:p-7 industrial-border bg-surface-darker shadow-xl">
-              <h4 className="font-bebas text-2xl text-surface-text mb-5 tracking-[0.15em] border-b-2 border-brand-red pb-3 uppercase">
+              <h4 className="flex items-center gap-3 font-bebas text-2xl text-surface-text mb-2 tracking-[0.15em] border-b-2 border-brand-red pb-3 uppercase">
+                <IconTile icon={Dumbbell} size="sm" />
                 EQUIPMENT LIST
               </h4>
               <ul className="divide-y divide-surface-border">
@@ -246,7 +295,9 @@ export default async function ProjectDetailPage({ params }: Props) {
                   return (
                     <li key={idx} className="group flex items-center justify-between gap-3 py-3">
                       <div className="flex min-w-0 items-center gap-3">
-                        <CheckCircle size={18} className="shrink-0 text-brand-red" />
+                        <span className="w-6 shrink-0 font-bebas text-lg leading-none text-brand-red">
+                          {String(idx + 1).padStart(2, "0")}
+                        </span>
                         <span className="text-surface-text text-sm md:text-base font-medium group-hover:text-brand-red transition-colors">
                           {item}
                         </span>
